@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="X-XSS-Protection" content="1; mode=block">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+<meta name="description" content="Krowdli — Come Be Social. The platform that remembers what social media was supposed to be.">
+<title>Krowdli — Come Be Social</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --o:#FF6A00;--o2:#ff3d00;--og:rgba(255,106,0,0.15);--ob:rgba(255,106,0,0.2);
+  --ow:rgba(255,106,0,0.07);--p:#7B2FBE;--g:#F0B429;--r:#E63946;
+  --bg:#08080d;--s1:#0f0f16;--s2:#141420;--s3:#1a1a28;
+  --brd:rgba(255,106,0,0.1);--brd2:rgba(255,106,0,0.25);
+  --t:#ffffff;--m:rgba(255,255,255,0.6);--d:rgba(255,255,255,0.3);
+  --bb:'Bebas Neue',Impact,sans-serif;
+  --cd:'Cinzel Decorative',serif;--ci:'Cinzel',serif;
+  --dm:'DM Sans',system-ui,sans-serif;
+  --r8:8px;--r12:12px;--r16:16px;--r20:20px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--t);font-family:var(--dm);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:rgba(255,106,0,0.4);border-radius:2px}
+
+/* ─── CURSOR ─── */
+#cd{position:fixed;width:10px;height:10px;background:var(--o);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .08s,width .2s,height .2s}
+#cr{position:fixed;width:38px;height:38px;border:1.5px solid rgba(255,106,0,0.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .18s,height .18s,border-color .18s}
+body.hovering #cd{width:6px;height:6px;background:#fff}
+body.hovering #cr{width:52px;height:52px;border-color:rgba(255,106,0,0.8)}
+
+/* ─── PARTICLES ─── */
+.pts{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.pts span{position:absolute;border-radius:50%;animation:fpt 20s ease-in-out infinite}
+.pts span:nth-child(1){width:2px;height:2px;background:#ff6a00;left:8%;top:15%;animation-duration:18s}
+.pts span:nth-child(2){width:3px;height:3px;background:#ff3d00;left:22%;top:45%;animation-duration:22s;animation-delay:-4s}
+.pts span:nth-child(3){width:1px;height:1px;background:#ff8c33;left:35%;top:72%;animation-duration:19s;animation-delay:-8s}
+.pts span:nth-child(4){width:2px;height:2px;background:#ffb366;left:50%;top:20%;animation-duration:24s;animation-delay:-2s}
+.pts span:nth-child(5){width:3px;height:3px;background:#E63946;left:65%;top:55%;animation-duration:17s;animation-delay:-6s}
+.pts span:nth-child(6){width:2px;height:2px;background:#ff6a00;left:78%;top:80%;animation-duration:21s;animation-delay:-10s}
+.pts span:nth-child(7){width:1px;height:1px;background:#7B2FBE;left:90%;top:30%;animation-duration:20s;animation-delay:-3s}
+.pts span:nth-child(8){width:2px;height:2px;background:#ff8c33;left:15%;top:88%;animation-duration:23s;animation-delay:-7s}
+.pts span:nth-child(9){width:3px;height:3px;background:#44DDFF;left:42%;top:10%;animation-duration:16s;animation-delay:-5s}
+.pts span:nth-child(10){width:2px;height:2px;background:#E63946;left:55%;top:65%;animation-duration:25s;animation-delay:-12s}
+.pts span:nth-child(11){width:2px;height:2px;background:#ff6a00;left:3%;top:50%;animation-duration:19s;animation-delay:-9s}
+.pts span:nth-child(12){width:2px;height:2px;background:#7B2FBE;left:72%;top:5%;animation-duration:22s;animation-delay:-1s}
+.pts span:nth-child(13){width:1px;height:1px;background:#F0B429;left:28%;top:33%;animation-duration:21s;animation-delay:-14s}
+.pts span:nth-child(14){width:2px;height:2px;background:#44DDFF;left:85%;top:68%;animation-duration:18s;animation-delay:-7s}
+.pts span:nth-child(15){width:1px;height:1px;background:#ff8c33;left:60%;top:90%;animation-duration:23s;animation-delay:-11s}
+@keyframes fpt{0%,100%{transform:translate(0,0) scale(1);opacity:.1}25%{transform:translate(28px,-38px) scale(1.6);opacity:.22}50%{transform:translate(-18px,-75px) scale(1);opacity:.07}75%{transform:translate(38px,-28px) scale(1.3);opacity:.18}}
+
+/* ─── NAV ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(8,8,13,0.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,106,0,0.07)}
+.ni{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+.nl{font-family:var(--cd);font-size:20px;font-weight:900;color:var(--o);display:flex;align-items:center;gap:10px}
+.nl img{height:34px;width:34px;border-radius:8px;object-fit:cover;border:1px solid var(--ob);box-shadow:0 0 12px rgba(255,106,0,0.2)}
+.nls{display:flex;gap:2px;align-items:center}
+.nla{color:var(--m);padding:8px 14px;border-radius:8px;font-size:13px;font-weight:500;letter-spacing:.03em;transition:all .2s;border:1px solid transparent;position:relative}
+.nla::after{content:'';position:absolute;bottom:3px;left:50%;width:0;height:1.5px;background:var(--o);border-radius:1px;transition:all .3s;transform:translateX(-50%)}
+.nla:hover{color:var(--t);background:var(--og)}
+.nla:hover::after{width:55%}
+.ncta{background:linear-gradient(135deg,var(--o),var(--o2));color:#fff;border:none;padding:9px 22px;border-radius:10px;font-family:var(--dm);font-weight:700;font-size:12px;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;transition:all .2s;box-shadow:0 4px 18px rgba(255,106,0,0.3);display:inline-block}
+.ncta:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(255,106,0,0.5)}
+#mt{display:none}.mb{display:none;background:none;border:none;color:var(--o);font-size:22px;cursor:pointer;padding:8px}
+.mm{display:none;flex-direction:column;gap:4px;padding:8px clamp(16px,4vw,48px) 16px}
+.mm a{display:block;padding:11px 16px;font-size:15px;font-weight:500;color:var(--m);border-radius:8px;transition:all .2s}
+.mm a:hover{background:var(--og);color:#ff8c33}
+#mt:checked ~ .mm{display:flex}
+#mt:checked ~ .ni .mb .mo{display:none}
+#mt:checked ~ .ni .mb .mc{display:inline}
+.mb .mc{display:none}
+
+/* ─── HERO ─── */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:center;padding:100px clamp(24px,5vw,80px) 60px;max-width:1300px;margin:0 auto;position:relative;z-index:1}
+.hero-glow{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 50% 60% at 30% 50%,rgba(255,106,0,0.06) 0%,transparent 65%),radial-gradient(ellipse 30% 40% at 80% 30%,rgba(123,47,190,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.hero-grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px);background-size:52px 52px;mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,black 0%,transparent 80%);pointer-events:none;z-index:0}
+.hero-left{position:relative;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--o);margin-bottom:1.5rem;opacity:0;animation:fup .6s .1s forwards}
+.edot{width:5px;height:5px;background:var(--o);border-radius:50%;animation:ep 2s infinite}
+@keyframes ep{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(2)}}
+.hero-slogan{font-family:var(--cd);font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:900;color:var(--o);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.2rem;opacity:0;animation:fup .6s .22s forwards;line-height:1}
+.hero-title{font-family:var(--bb);font-size:clamp(4rem,8.5vw,7.5rem);line-height:.88;letter-spacing:.02em;color:var(--t);opacity:0;animation:fup .7s .35s forwards;margin-bottom:1.6rem}
+.hero-title .hl{color:var(--o);display:block}
+.hero-title .hl2{color:rgba(255,255,255,0.85);display:block}
+.hero-sub{font-size:clamp(.9rem,1.6vw,1.05rem);font-weight:300;color:var(--m);line-height:1.8;max-width:460px;margin-bottom:2.2rem;opacity:0;animation:fup .7s .5s forwards}
+.hero-sub strong{color:var(--t);font-weight:500}
+.hero-btns{display:flex;gap:.9rem;flex-wrap:wrap;opacity:0;animation:fup .6s .65s forwards;margin-bottom:2.8rem}
+.btn-p{display:inline-block;background:linear-gradient(135deg,var(--o),var(--o2));color:#fff;border:none;padding:14px 34px;border-radius:12px;font-family:var(--dm);font-weight:700;font-size:.9rem;letter-spacing:.05em;cursor:pointer;box-shadow:0 4px 22px rgba(255,106,0,0.35);transition:all .22s;text-transform:uppercase}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(255,106,0,0.55)}
+.btn-g{display:inline-block;background:rgba(255,255,255,0.04);color:#ff8c33;border:1px solid rgba(255,106,0,0.25);padding:14px 34px;border-radius:12px;font-family:var(--dm);font-weight:600;font-size:.9rem;letter-spacing:.05em;cursor:pointer;transition:all .22s;text-transform:uppercase}
+.btn-g:hover{background:var(--og);border-color:var(--ob)}
+.hero-stats{display:flex;align-items:center;gap:2rem;opacity:0;animation:fup .6s .8s forwards;flex-wrap:wrap}
+.hs{text-align:left}
+.hsv{font-family:var(--bb);font-size:1.9rem;color:var(--o);letter-spacing:.04em;line-height:1}
+.hsl{font-size:.62rem;color:var(--d);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem}
+.hsd{width:1px;height:32px;background:rgba(255,255,255,0.08)}
+
+/* ─── PHONE MOCKUP ─── */
+.hero-right{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;opacity:0;animation:fup .8s .4s forwards}
+.phone-wrap{position:relative;width:260px}
+.phone-glow{position:absolute;inset:-50px;background:radial-gradient(ellipse 65% 70% at 50% 50%,rgba(255,106,0,0.13),transparent 70%);pointer-events:none;border-radius:50%}
+.phone-frame{width:260px;background:#000;border:1.5px solid rgba(255,106,0,0.22);border-radius:34px;overflow:hidden;box-shadow:0 28px 90px rgba(0,0,0,0.75),0 0 0 1px rgba(255,255,255,0.03),inset 0 1px 0 rgba(255,255,255,0.05);position:relative}
+.phone-notch{height:24px;background:#000;display:flex;align-items:center;justify-content:center}
+.phone-notch-bar{width:72px;height:4px;background:rgba(255,255,255,0.1);border-radius:2px}
+.phone-screen{background:#000;padding:0}
+
+/* status bar */
+.pstatus{display:flex;justify-content:space-between;align-items:center;padding:3px 14px 2px;font-size:8.5px;color:rgba(255,255,255,0.55)}
+.pstatus-r{display:flex;gap:5px;align-items:center;font-size:8px}
+
+/* real app top bar: avatar left, Krowdli center, bell right */
+.pappbar{display:flex;align-items:flex-start;justify-content:space-between;padding:6px 10px 0;background:#000;position:relative}
+.pappbar-avatar{position:relative;flex-shrink:0}
+.pav-circle{width:28px;height:28px;border-radius:50%;background:var(--o);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#000}
+.pav-badge{position:absolute;bottom:-1px;right:-2px;width:11px;height:11px;border-radius:50%;background:#1a1a1a;border:1.5px solid var(--o);display:flex;align-items:center;justify-content:center;font-size:6px;font-weight:700;color:var(--o)}
+.php-bar{display:flex;align-items:center;gap:3px;margin-top:2px}
+.php-label{font-size:6.5px;color:rgba(255,255,255,0.35)}
+.php-track{width:28px;height:3px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden}
+.php-fill{height:100%;width:60%;background:#4ade80;border-radius:2px}
+.php-val{font-size:6px;color:rgba(255,255,255,0.35)}
+.pappbar-title{position:absolute;left:50%;transform:translateX(-50%);top:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:var(--o);letter-spacing:.01em}
+.pappbar-bell{width:22px;height:22px;display:flex;align-items:center;justify-content:center;position:relative;font-size:14px;color:rgba(255,255,255,0.7);margin-top:3px}
+.pbell-dot{position:absolute;top:2px;right:2px;width:5px;height:5px;background:var(--o);border-radius:50%;border:1px solid #000}
+
+/* LIVE ticker row */
+.plive-row{display:flex;align-items:center;gap:5px;padding:5px 10px;overflow:hidden;background:#000;border-bottom:1px solid rgba(255,255,255,0.04)}
+.plive-dot{width:6px;height:6px;border-radius:50%;background:#E63946;animation:livepulse 1.4s ease-in-out infinite;flex-shrink:0}
+@keyframes livepulse{0%,100%{opacity:1}50%{opacity:.3}}
+.plive-label{font-size:7.5px;font-weight:700;color:#E63946;letter-spacing:.06em;flex-shrink:0}
+.plive-ticker{overflow:hidden;flex:1;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent)}
+.plive-ticker-inner{display:inline-flex;gap:0;animation:lscroll 14s linear infinite}
+.plive-item{display:inline-flex;align-items:center;gap:4px;margin-right:14px}
+.plive-pill{font-size:7px;font-weight:700;padding:1.5px 5px;border-radius:4px;background:rgba(255,106,0,0.2);color:var(--o);letter-spacing:.04em;flex-shrink:0}
+.plive-tag{font-size:7.5px;font-weight:700;color:var(--o)}
+.plive-text{font-size:7.5px;color:rgba(255,255,255,0.5)}
+@keyframes lscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* feed — no card borders, true black, separated by spacing */
+.pfeed{padding:0;background:#000}
+.ppost{background:#000;padding:10px 10px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.pno-reposts{display:flex;align-items:center;gap:4px;padding:0 10px 5px;font-size:7px;color:rgba(255,255,255,0.28)}
+.pno-reposts-icon{font-size:8px;opacity:.5}
+.ppost-head{display:flex;align-items:flex-start;gap:7px}
+.pavatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;position:relative}
+.pav-num{position:absolute;bottom:-1px;right:-2px;width:12px;height:12px;border-radius:50%;background:#1a1a1a;border:1.5px solid var(--o);display:flex;align-items:center;justify-content:center;font-size:6.5px;font-weight:700;color:var(--o)}
+.ppost-meta{flex:1;min-width:0}
+.ppost-name{font-size:9.5px;font-weight:700;color:#fff;line-height:1.2;display:flex;align-items:center;flex-wrap:wrap;gap:3px}
+.ppost-handle{font-size:7.5px;color:rgba(255,255,255,0.38);margin-top:1px}
+.ppost-3dot{font-size:11px;color:rgba(255,255,255,0.3);flex-shrink:0;margin-top:1px}
+.ppost-body{font-size:8.5px;color:rgba(255,255,255,0.75);line-height:1.5;padding:5px 0 0 37px;margin-bottom:4px}
+/* reply bar */
+.preply-bar{display:flex;align-items:center;gap:5px;padding:5px 0 5px 37px}
+.preply-av{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.1);flex-shrink:0}
+.preply-input{flex:1;background:rgba(255,255,255,0.07);border:none;border-radius:12px;padding:4px 9px;font-size:7.5px;color:rgba(255,255,255,0.35)}
+/* action bar — matches real app: heart, repost-icon, comment, bolt, emoji, bookmark */
+.pactions{display:flex;align-items:center;padding:5px 0 7px 37px;gap:0}
+.pact{display:flex;align-items:center;gap:2px;font-size:7px;color:rgba(255,255,255,0.38);flex:1;cursor:pointer;transition:color .2s}
+.pact:hover{color:var(--o)}
+.pact-icon{font-size:12px;line-height:1}
+.pact-count{font-size:7px}
+.pxp-pill{font-size:6.5px;background:rgba(255,106,0,0.15);color:var(--o);padding:2px 5px;border-radius:6px;font-weight:700;margin-left:auto;margin-right:0;flex-shrink:0}
+/* tier pill inline */
+.ptier-pill{display:inline-block;font-size:6.5px;font-weight:700;padding:1px 5px;border-radius:5px;margin-left:4px;vertical-align:middle}
+/* boost stamp */
+.pboost-stamp{display:inline-flex;align-items:center;gap:3px;font-size:6.5px;font-weight:700;color:var(--g);background:rgba(240,180,41,0.12);border:1px solid rgba(240,180,41,0.25);padding:2px 6px;border-radius:5px;margin-left:auto;flex-shrink:0}
+/* party banner above post */
+.pparty-tag{display:flex;align-items:center;gap:3px;font-size:7px;font-weight:600;color:#a78bfa;padding:4px 10px 2px;background:linear-gradient(90deg,rgba(123,47,190,0.1),transparent)}
+
+/* bottom nav — matches real: Home Search People Person Mail, true black bar */
+.pbnav{display:flex;background:#000;border-top:1px solid rgba(255,255,255,0.07);padding:7px 0 11px}
+.pbni{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:6px;color:rgba(255,255,255,0.32);cursor:pointer;letter-spacing:.03em}
+.pbni.act{color:var(--o)}
+.pbni-icon{font-size:15px;line-height:1}
+/* FAB */
+.pfab{position:absolute;bottom:48px;right:10px;width:30px;height:30px;border-radius:50%;background:var(--o);display:flex;align-items:center;justify-content:center;font-size:16px;color:#000;font-weight:300;box-shadow:0 4px 12px rgba(255,106,0,0.4);line-height:1}
+
+@keyframes fup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── TICKER ─── */
+.ticker{background:var(--o);padding:.48rem 0;overflow:hidden;white-space:nowrap;position:relative;z-index:1}
+.ttrack{display:inline-flex;gap:2.2rem;animation:ttick 28s linear infinite}
+.ttrack span{font-family:var(--bb);font-size:.9rem;letter-spacing:.12em;color:#000;display:inline-flex;align-items:center;gap:.45rem}
+.td{width:4px;height:4px;background:#000;border-radius:50%;flex-shrink:0;opacity:.5}
+@keyframes ttick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─── COMMON SECTION ─── */
+.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+section{padding:96px 0;position:relative;z-index:1}
+.stag{font-size:.65rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--o);margin-bottom:.85rem;display:block}
+.sbb{font-family:var(--bb);font-size:clamp(2.8rem,6.5vw,5rem);line-height:.9;letter-spacing:.02em;color:var(--t);margin-bottom:1.1rem}
+.sbb .hl{color:var(--o)}
+.sci{font-family:var(--cd);font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:900;color:var(--t);line-height:1.2;margin-bottom:.85rem}
+.sb{font-size:.95rem;color:var(--m);line-height:1.82;max-width:540px}
+
+/* ─── REVEAL ─── */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .75s ease,transform .75s ease}
+.rv.on{opacity:1;transform:translateY(0)}
+.rv2{opacity:0;transform:translateY(30px);transition:opacity .75s .15s ease,transform .75s .15s ease}
+.rv2.on{opacity:1;transform:translateY(0)}
+.rv3{opacity:0;transform:translateY(30px);transition:opacity .75s .3s ease,transform .75s .3s ease}
+.rv3.on{opacity:1;transform:translateY(0)}
+
+/* ─── WHY ─── */
+.why-section{background:var(--s1);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-top:3.5rem}
+.why-manifesto{position:relative;padding-left:2rem}
+.why-manifesto::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,var(--o),transparent)}
+.why-q{padding-left:1.5rem;border-left:2px solid var(--o);margin:1.8rem 0}
+.why-q p{font-size:1.1rem;font-style:italic;font-weight:300;color:var(--t);line-height:1.7}
+.why-q cite{display:block;font-size:.68rem;color:var(--d);letter-spacing:.12em;text-transform:uppercase;margin-top:.55rem;font-style:normal}
+.why-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wc{background:rgba(255,106,0,0.03);border:1px solid var(--brd);border-radius:var(--r16);padding:1.4rem;transition:all .3s;position:relative;overflow:hidden}
+.wc::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,var(--o),transparent);opacity:0;transition:opacity .3s}
+.wc:hover{border-color:var(--brd2);transform:translateY(-3px);background:rgba(255,106,0,0.05)}
+.wc:hover::before{opacity:1}
+.wci{font-size:1.6rem;margin-bottom:.65rem}
+.wc h3{font-family:var(--ci);font-size:.95rem;color:var(--t);margin-bottom:.4rem;font-weight:600}
+.wc p{font-size:.82rem;color:var(--m);line-height:1.65}
+
+
+/* ─── BOSS ─── */
+.boss-section{background:var(--s1);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd)}
+.boss-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:3.5rem}
+.boss-display{position:relative;display:flex;align-items:center;justify-content:center;padding:3rem}
+.boss-bg-ring{position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(255,106,0,0.06),transparent 70%)}
+.boss-ring1{position:absolute;inset:10px;border:1px solid rgba(255,106,0,0.06);border-radius:50%}
+.boss-ring2{position:absolute;inset:30px;border:1px solid rgba(255,106,0,0.04);border-radius:50%}
+.boss-svg-wrap{position:relative;z-index:1}
+.boss-svg-wrap svg{width:200px;height:255px;filter:drop-shadow(0 0 28px rgba(255,106,0,0.2)) drop-shadow(0 0 60px rgba(34,180,34,0.15))}
+.boss-hp{margin-top:1.5rem;position:relative;z-index:1;width:100%;max-width:220px}
+.boss-hp-label{display:flex;justify-content:space-between;font-size:.7rem;color:var(--m);margin-bottom:.4rem}
+.boss-hp-bar{height:8px;background:rgba(255,255,255,0.07);border-radius:4px;overflow:hidden}
+.boss-hp-fill{height:100%;width:67%;background:linear-gradient(90deg,#E63946,#ff6a00);border-radius:4px;animation:hpdrain 4s ease-in-out infinite alternate}
+@keyframes hpdrain{from{width:72%}to{width:55%}}
+.boss-challenges{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1.5rem}
+.bc{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:var(--r12);padding:1rem;transition:all .25s;cursor:default}
+.bc:hover{border-color:var(--ob);background:var(--og);transform:translateY(-2px)}
+.bc-icon{font-size:1.3rem;margin-bottom:.4rem}
+.bc h4{font-size:.82rem;color:var(--t);font-weight:600;font-family:var(--ci);margin-bottom:.25rem}
+.bc p{font-size:.75rem;color:var(--m);line-height:1.5}
+.boss-mechanic-note{background:rgba(255,106,0,0.06);border:1px solid var(--brd2);border-radius:var(--r12);padding:1.1rem;margin-top:1.5rem;font-size:.85rem;color:var(--m);line-height:1.7}
+.boss-mechanic-note strong{color:var(--t)}
+
+/* ─── FEATURES NARRATIVE ─── */
+.feat-intro{max-width:680px;margin:0 auto;text-align:center;margin-bottom:4rem}
+.feat-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;margin-bottom:1.2rem}
+.feat-row.duo{grid-template-columns:1.6fr 1fr}
+.feat-row.duo2{grid-template-columns:1fr 1.6fr}
+.fc{background:rgba(255,106,0,0.03);border:1px solid var(--brd);border-radius:var(--r16);padding:1.6rem;transition:all .3s;position:relative;overflow:hidden;cursor:default}
+.fc::after{content:'';position:absolute;inset:0;border-radius:var(--r16);background:radial-gradient(ellipse 55% 40% at 50% 0%,rgba(255,106,0,0.05),transparent);opacity:0;transition:opacity .3s}
+.fc:hover{border-color:var(--brd2);transform:translateY(-3px)}
+.fc:hover::after{opacity:1}
+.fc-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1rem;background:var(--og);border:1px solid var(--ob)}
+.fc-tag{font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--o);margin-bottom:.35rem;display:block}
+.fc h3{font-family:var(--ci);font-size:.95rem;color:var(--t);margin-bottom:.45rem;font-weight:600}
+.fc p{font-size:.82rem;color:var(--m);line-height:1.65}
+
+/* ─── TIERS ─── */
+.tiers-section{background:var(--s1);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd)}
+.tiers-row{display:flex;margin-top:3rem;border:1px solid var(--brd);border-radius:var(--r16);overflow:hidden}
+.tier{flex:1;padding:1.6rem 1.2rem;text-align:center;border-right:1px solid var(--brd);position:relative;transition:background .25s;cursor:default}
+.tier:last-child{border-right:none}
+.tier:hover{background:rgba(255,255,255,0.02)}
+.tier-gem{font-size:1.6rem;margin-bottom:.5rem}
+.tier-name{font-family:var(--bb);font-size:1.3rem;letter-spacing:.06em;margin-bottom:.3rem}
+.tier-xp{font-size:.65rem;color:var(--d);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+.tier-desc{font-size:.73rem;color:var(--m);line-height:1.55}
+.tier.common .tier-name{color:#888}
+.tier.uncommon .tier-name{color:#4ade80}
+.tier.rare .tier-name{color:#60a5fa}
+.tier.epic .tier-name{color:#c084fc}
+.tier.legendary{background:linear-gradient(180deg,rgba(240,180,41,0.07) 0%,transparent 55%);position:relative}
+.tier.legendary .tier-name{color:var(--g)}
+.tier.legendary::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g),transparent)}
+
+/* ─── EMOTIONAL CLOSE ─── */
+.close-section{padding:100px 0;text-align:center;position:relative;z-index:1;overflow:hidden}
+.close-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 65% at 50% 50%,rgba(255,106,0,0.07) 0%,transparent 70%)}
+.close-noise{position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,.03) 2px,rgba(255,255,255,.03) 4px),repeating-linear-gradient(90deg,transparent,transparent 3px,rgba(255,255,255,.02) 3px,rgba(255,255,255,.02) 6px);pointer-events:none}
+.close-rule{display:flex;align-items:center;gap:1rem;justify-content:center;margin-bottom:2rem}
+.close-rule-line{flex:1;max-width:120px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,106,0,0.4))}
+.close-rule-line.r{background:linear-gradient(90deg,rgba(255,106,0,0.4),transparent)}
+.close-rule-icon{font-size:1.2rem;opacity:.8}
+.close-inner{max-width:700px;margin:0 auto;position:relative;z-index:1}
+.close-section .sci{font-size:clamp(1.6rem,4.5vw,3rem);margin-bottom:1rem}
+.close-manifesto{font-size:clamp(.95rem,2vw,1.1rem);font-weight:300;color:var(--m);line-height:1.95;margin-bottom:2.5rem}
+.close-manifesto strong{color:var(--t);font-weight:500}
+.waitlist-form{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
+.wi{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:var(--t);padding:14px 20px;border-radius:10px;font-family:var(--dm);font-size:.9rem;outline:none;width:270px;max-width:100%;transition:border-color .2s}
+.wi:focus{border-color:rgba(255,106,0,0.5)}
+.wi::placeholder{color:var(--d)}
+#wm{font-size:.82rem;color:var(--o);min-height:1.2em}
+.founding-perks{display:inline-flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin:1.5rem 0}
+.fp{font-size:.72rem;background:rgba(255,106,0,0.08);border:1px solid var(--ob);color:#ff8c33;padding:.3rem .8rem;border-radius:8px;font-weight:600}
+.close-fine{font-size:.68rem;color:var(--d);margin-top:.75rem}
+
+/* ─── FOOTER ─── */
+footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48px);max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.fi{display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px}
+.flogo{font-family:var(--cd);font-size:1.25rem;font-weight:900;color:var(--o);margin-bottom:.5rem}
+.ftag{font-size:.78rem;color:var(--d);line-height:1.6;max-width:210px}
+.fcols{display:flex;gap:3rem;flex-wrap:wrap}
+.fcol h4{font-size:.65rem;color:var(--d);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.75rem}
+.fcol a{display:block;font-size:.82rem;color:var(--m);margin-bottom:.45rem;transition:color .2s}
+.fcol a:hover{color:#ff8c33}
+.fb{border-top:1px solid rgba(255,255,255,0.04);margin-top:2.5rem;padding-top:1.5rem;text-align:center;font-size:.68rem;color:var(--d)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;padding-top:110px;text-align:center;gap:3rem}
+  .hero-left{display:flex;flex-direction:column;align-items:center}
+  .hero-sub{text-align:center}
+  .hero-btns{justify-content:center}
+  .hero-stats{justify-content:center}
+  .why-grid{grid-template-columns:1fr;gap:2.5rem}
+  .boss-grid{grid-template-columns:1fr}
+  .feat-row,.feat-row.duo,.feat-row.duo2{grid-template-columns:1fr 1fr}
+  .feat-row.duo2 .fc:last-child{grid-column:span 2}
+  .nls,.ncta{display:none}.mb{display:block}
+  .phone-wrap{max-width:280px;margin:0 auto}
+}
+@media(max-width:600px){
+  .feat-row,.feat-row.duo,.feat-row.duo2{grid-template-columns:1fr}
+  .why-cards{grid-template-columns:1fr}
+  .tiers-row{flex-wrap:wrap}
+  .tier{flex:1 1 45%;border-right:1px solid var(--brd)}
+  .boss-challenges{grid-template-columns:1fr 1fr}
+  .phone-wrap,.phone-frame{width:100%;max-width:260px}
+  .hero-right{width:100%}
+}
+@media(min-width:961px){.mm{display:none!important}}
+</style>
+</head>
+<body>
+
+<div id="cd"></div>
+<div id="cr"></div>
+<div class="pts"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<div class="hero-glow"></div>
+<div class="hero-grid-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <input type="checkbox" id="mt">
+  <div class="ni">
+    <a href="#" class="nl"><img src="logo.png" alt="Krowdli">KROWDLI</a>
+    <div class="nls">
+      <a href="#why" class="nla">Why</a>
+      <a href="#features" class="nla">Features</a>
+      <a href="#bosses" class="nla">Bosses</a>
+      <a href="#tiers" class="nla">Tiers</a>
+    </div>
+    <a href="#close" class="ncta">Get Early Access</a>
+    <label for="mt" class="mb"><span class="mo">☰</span><span class="mc">✕</span></label>
+  </div>
+  <div class="mm">
+    <a href="#why">Why</a><a href="#features">Features</a>
+    <a href="#bosses">Bosses</a><a href="#tiers">Tiers</a>
+    <a href="#close">Get Early Access</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span class="edot"></span>Social Media, Reforged</div>
+    <p class="hero-slogan">Come Be Social</p>
+    <h1 class="hero-title">
+      <span class="hl">FEEL SOMETHING.</span>
+      <span class="hl2">FOR ONCE.</span>
+    </h1>
+    <p class="hero-sub">Social media forgot why it existed. <strong>Krowdli remembers.</strong> Every post earns XP. Every friendship has stakes. Every raid means something. This is what showing up was always supposed to feel like.</p>
+    <div class="hero-btns">
+      <a href="#close" class="btn-p">Join the Waitlist</a>
+      <a href="#why" class="btn-g">Why We Built This</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hs"><div class="hsv">XP</div><div class="hsl">Every interaction</div></div>
+      <div class="hsd"></div>
+      <div class="hs"><div class="hsv">5</div><div class="hsl">Tiers to earn</div></div>
+      <div class="hsd"></div>
+      <div class="hs"><div class="hsv">RAIDS</div><div class="hsl">Boss challenges</div></div>
+      <div class="hsd"></div>
+      <div class="hs"><div class="hsv">PARTIES</div><div class="hsl">Your inner circle</div></div>
+    </div>
+  </div>
+
+  <!-- PHONE MOCKUP — matches real Krowdli app -->
+  <div class="hero-right">
+    <div class="phone-wrap">
+      <div class="phone-glow"></div>
+      <div class="phone-frame" style="position:relative">
+        <div class="phone-notch"><div class="phone-notch-bar"></div></div>
+        <div class="phone-screen">
+
+          <!-- status bar -->
+          <div class="pstatus">
+            <span>9:41</span>
+            <div class="pstatus-r"><span>▮▮▮</span><span>WiFi</span></div>
+          </div>
+
+          <!-- real app bar: avatar+HP left | Krowdli center | bell right -->
+          <div class="pappbar">
+            <div class="pappbar-avatar">
+              <div class="pav-circle">T<div class="pav-badge">1</div></div>
+              <div class="php-bar">
+                <span class="php-label">HP</span>
+                <div class="php-track"><div class="php-fill"></div></div>
+                <span class="php-val">100</span>
+              </div>
+            </div>
+            <div class="pappbar-title">Krowdli</div>
+            <div class="pappbar-bell">
+              🔔<div class="pbell-dot"></div>
+            </div>
+          </div>
+
+          <!-- LIVE scrolling news ticker -->
+          <div class="plive-row">
+            <div class="plive-dot"></div>
+            <span class="plive-label">LIVE</span>
+            <div class="plive-ticker">
+              <div class="plive-ticker-inner">
+                <div class="plive-item"><span class="plive-pill">NEWS</span><span style="font-size:8px">📣</span><span class="plive-tag">test</span><span class="plive-text">· thus is a test</span></div>
+                <div class="plive-item"><span class="plive-pill">NEWS</span><span style="font-size:8px">📣</span><span class="plive-tag">raid</span><span class="plive-text">· murkbell at 67% hp</span></div>
+                <div class="plive-item"><span class="plive-pill">NEWS</span><span style="font-size:8px">📣</span><span class="plive-tag">test</span><span class="plive-text">· thus is a test</span></div>
+                <div class="plive-item"><span class="plive-pill">NEWS</span><span style="font-size:8px">📣</span><span class="plive-tag">raid</span><span class="plive-text">· murkbell at 67% hp</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- feed — true black, no card borders, separated by dividers -->
+          <div class="pfeed">
+
+            <!-- post 1: party post -->
+            <div class="ppost">
+              <div class="pparty-tag">🛡️ Party Post — The Wardens</div>
+              <div class="pno-reposts"><span class="pno-reposts-icon">👤</span> No perspective reposts yet</div>
+              <div class="ppost-head">
+                <div class="pavatar" style="background:var(--o);color:#000">
+                  T<div class="pav-num">1</div>
+                </div>
+                <div class="ppost-meta">
+                  <div class="ppost-name">
+                    jester_dev
+                    <span class="ptier-pill" style="background:rgba(167,139,250,0.18);color:#a78bfa">EPIC</span>
+                  </div>
+                  <div class="ppost-handle">@jester_dev · Narrator · 2m ago</div>
+                </div>
+                <div class="ppost-3dot">···</div>
+              </div>
+              <div class="ppost-body">the feed is alive today 🔥 who else grinding that Murkbell raid rn? our party hit 67% hp last night</div>
+              <div class="preply-bar">
+                <div class="preply-av"></div>
+                <div class="preply-input">Post your reply</div>
+              </div>
+              <div class="pactions">
+                <div class="pact"><span class="pact-icon">🤍</span><span class="pact-count">14</span></div>
+                <div class="pact"><span class="pact-icon" style="font-size:10px;opacity:.6">⇄</span><span class="pact-count">7</span></div>
+                <div class="pact"><span class="pact-icon">💬</span><span class="pact-count">5</span></div>
+                <div class="pact"><span class="pact-icon">⚡</span><span class="pact-count">38</span></div>
+                <div class="pact"><span class="pact-icon">🙂</span></div>
+                <div class="pact"><span class="pact-icon">🔖</span></div>
+                <div class="pxp-pill">+12 XP</div>
+              </div>
+            </div>
+
+            <!-- post 2: boosted legendary -->
+            <div class="ppost">
+              <div class="pno-reposts"><span class="pno-reposts-icon">👤</span> No perspective reposts yet</div>
+              <div class="ppost-head">
+                <div class="pavatar" style="background:var(--o);color:#000">
+                  K<div class="pav-num" style="background:var(--g);color:#000">L</div>
+                </div>
+                <div class="ppost-meta">
+                  <div class="ppost-name">
+                    krowd_kai
+                    <span class="ptier-pill" style="background:rgba(240,180,41,0.15);color:var(--g)">LEGENDARY</span>
+                    <span class="pboost-stamp">🚀 BOOSTED</span>
+                  </div>
+                  <div class="ppost-handle">@krowd_kai · Liberty Bringer · 8m ago</div>
+                </div>
+                <div class="ppost-3dot">···</div>
+              </div>
+              <div class="ppost-body">built different. two weeks to Legendary from Epic. don't stop posting.</div>
+              <div class="preply-bar">
+                <div class="preply-av"></div>
+                <div class="preply-input">Post your reply</div>
+              </div>
+              <div class="pactions">
+                <div class="pact"><span class="pact-icon">🤍</span><span class="pact-count">31</span></div>
+                <div class="pact"><span class="pact-icon" style="font-size:10px;opacity:.6">⇄</span><span class="pact-count">22</span></div>
+                <div class="pact"><span class="pact-icon">💬</span><span class="pact-count">12</span></div>
+                <div class="pact"><span class="pact-icon">⚡</span><span class="pact-count">120</span></div>
+                <div class="pact"><span class="pact-icon">🙂</span></div>
+                <div class="pact"><span class="pact-icon">🔖</span></div>
+                <div class="pxp-pill">+18 XP</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- FAB + bottom nav -->
+          <div style="position:relative">
+            <div class="pfab">+</div>
+            <div class="pbnav">
+              <div class="pbni act"><div class="pbni-icon">🏠</div><div>Home</div></div>
+              <div class="pbni"><div class="pbni-icon">🔍</div><div>Search</div></div>
+              <div class="pbni"><div class="pbni-icon">👥</div><div>People</div></div>
+              <div class="pbni"><div class="pbni-icon">👤</div><div>Profile</div></div>
+              <div class="pbni"><div class="pbni-icon">✉️</div><div>Mail</div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- phone feature callouts — clean strip below phone -->
+      <div style="display:flex;gap:0;margin-top:16px;border:1px solid rgba(255,106,0,0.12);border-radius:12px;overflow:hidden;background:rgba(255,106,0,0.03)">
+        <div style="flex:1;padding:10px 10px;text-align:center;border-right:1px solid rgba(255,106,0,0.1)">
+          <div style="font-size:13px;margin-bottom:3px">❤️‍🔥</div>
+          <div style="font-family:'Cinzel',serif;font-size:7.5px;font-weight:700;color:#fff;margin-bottom:1px">HP Bar</div>
+          <div style="font-size:6.5px;color:rgba(255,255,255,0.4)">Live in nav</div>
+        </div>
+        <div style="flex:1;padding:10px 10px;text-align:center;border-right:1px solid rgba(255,106,0,0.1)">
+          <div style="font-size:13px;margin-bottom:3px">🎖️</div>
+          <div style="font-family:'Cinzel',serif;font-size:7.5px;font-weight:700;color:#fff;margin-bottom:1px">Titles</div>
+          <div style="font-size:6.5px;color:rgba(255,255,255,0.4)">Community given</div>
+        </div>
+        <div style="flex:1;padding:10px 10px;text-align:center;border-right:1px solid rgba(255,106,0,0.1)">
+          <div style="font-size:13px;margin-bottom:3px">🛡️</div>
+          <div style="font-family:'Cinzel',serif;font-size:7.5px;font-weight:700;color:#fff;margin-bottom:1px">Parties</div>
+          <div style="font-size:6.5px;color:rgba(255,255,255,0.4)">In every post</div>
+        </div>
+        <div style="flex:1;padding:10px 10px;text-align:center">
+          <div style="font-size:13px;margin-bottom:3px">⚡</div>
+          <div style="font-family:'Cinzel',serif;font-size:7.5px;font-weight:700;color:var(--o);margin-bottom:1px">+XP</div>
+          <div style="font-size:6.5px;color:rgba(255,255,255,0.4)">Every action</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ttrack">
+    <span><span class="td"></span>COME BE SOCIAL</span>
+    <span><span class="td"></span>EARN XP</span>
+    <span><span class="td"></span>DEFEAT THE BOSS</span>
+    <span><span class="td"></span>CLAIM YOUR TITLE</span>
+    <span><span class="td"></span>BUILD YOUR KROWD</span>
+    <span><span class="td"></span>RAID WITH YOUR PARTY</span>
+    <span><span class="td"></span>UNLOCK LOOT</span>
+    <span><span class="td"></span>CLIMB THE TIERS</span>
+    <span><span class="td"></span>REAL COMMUNITY</span>
+    <span><span class="td"></span>COME BE SOCIAL</span>
+    <span><span class="td"></span>EARN XP</span>
+    <span><span class="td"></span>DEFEAT THE BOSS</span>
+    <span><span class="td"></span>CLAIM YOUR TITLE</span>
+    <span><span class="td"></span>BUILD YOUR KROWD</span>
+    <span><span class="td"></span>RAID WITH YOUR PARTY</span>
+    <span><span class="td"></span>UNLOCK LOOT</span>
+    <span><span class="td"></span>CLIMB THE TIERS</span>
+    <span><span class="td"></span>REAL COMMUNITY</span>
+  </div>
+</div>
+
+<!-- WHY -->
+<section class="why-section" id="why">
+  <div class="wrap">
+    <div class="why-grid">
+      <div class="rv why-manifesto">
+        <span class="stag">The Problem</span>
+        <h2 class="sbb">SOCIAL MEDIA<br>LOST ITS <span class="hl">SOUL.</span></h2>
+        <div class="why-q">
+          <p>"It became echo chambers. Misinformation. Confusing for new users. No incentive to actually be social. The platform is about the media — about payouts and watch time — not about how stories get shared or how connections are formed."</p>
+          <cite>— The reason Krowdli exists</cite>
+        </div>
+        <p class="sb">You scroll for an hour and feel nothing. You post and it disappears. The people you follow don't actually know you. The community exists in name only — there's no shared mission, no reason to show up, no sense that your presence matters.</p>
+        <p class="sb" style="margin-top:1rem">We built Krowdli because social media stopped being social. <strong style="color:var(--t)">We're fixing that.</strong></p>
+      </div>
+      <div class="why-cards rv2">
+        <div class="wc">
+          <div class="wci">🫥</div>
+          <h3>Echo Chambers</h3>
+          <p>Algorithms trap you in loops, feeding you what confirms what you already think. Real community needs variety and friction — not a mirror.</p>
+        </div>
+        <div class="wc">
+          <div class="wci">🤑</div>
+          <h3>Media Over Social</h3>
+          <p>Platforms optimized for watch time and ad revenue. Creators chasing payouts. The human part became background noise to someone else's business model.</p>
+        </div>
+        <div class="wc">
+          <div class="wci">😵</div>
+          <h3>Confusing for New Users</h3>
+          <p>No onboarding teaches you how to build real presence. You join and you're just… there. No guidance. No momentum. No reason to stay.</p>
+        </div>
+        <div class="wc">
+          <div class="wci">🎯</div>
+          <h3>No Reason to Show Up</h3>
+          <p>What do you get for posting every day? Maybe a few likes. Krowdli gives you XP, titles, loot, and a community that actually grows with you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOSS SECTION -->
+<section id="bosses">
+  <div class="wrap">
+    <div class="boss-grid">
+      <div class="rv">
+        <span class="stag">Community Events</span>
+        <h2 class="sbb">THE BOSS<br>CHOOSES THE <span class="hl">GAME.</span></h2>
+        <p class="sb" style="margin-bottom:1.5rem">Bosses aren't defeated by who posts the most — that's just another engagement farm. Each Boss runs its own challenge. Your community plays together, beats it together, and shares the loot.</p>
+        <div class="boss-challenges">
+          <div class="bc"><div class="bc-icon">🧠</div><h4>Trivia Raid</h4><p>Boss drops rapid-fire questions. First party to hit the score threshold wins.</p></div>
+          <div class="bc"><div class="bc-icon">🎨</div><h4>Creative Challenge</h4><p>Boss sets a prompt. Community votes. Best submission wins loot for the whole party.</p></div>
+          <div class="bc"><div class="bc-icon">🎵</div><h4>Rhythm Battle</h4><p>Hit the beats, rack up combos, outlast other parties in a synchronized showdown.</p></div>
+          <div class="bc"><div class="bc-icon">🗳️</div><h4>Vote Wars</h4><p>Boss pits two sides against each other. Your party picks a lane and fights for it.</p></div>
+        </div>
+        <div class="boss-mechanic-note">
+          <strong>Every boss has its own personality, ruleset, and rewards.</strong> What defeated one won't work on the next. Showing up to raids matters — but knowing how to play the game matters more.
+        </div>
+      </div>
+      <div class="boss-display rv2">
+        <div class="boss-bg-ring"></div>
+        <div class="boss-ring1"></div>
+        <div class="boss-ring2"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;position:relative;z-index:1">
+          <div class="boss-svg-wrap">
+            <!-- MURKBELL THE WARDEN — translated from murkbell_warden.dart -->
+            <!-- Internal coord space: 220×280, scaled via viewBox -->
+            <svg viewBox="0 0 220 280" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+              <defs>
+                <!-- bark radial gradients -->
+                <radialGradient id="mbark" cx="35%" cy="30%" r="80%">
+                  <stop offset="0%" stop-color="#6B4A2A"/>
+                  <stop offset="55%" stop-color="#3E2810"/>
+                  <stop offset="100%" stop-color="#1E1208"/>
+                </radialGradient>
+                <radialGradient id="mhead" cx="30%" cy="28%" r="75%">
+                  <stop offset="0%" stop-color="#7A5A38"/>
+                  <stop offset="55%" stop-color="#4A2E14"/>
+                  <stop offset="100%" stop-color="#22120A"/>
+                </radialGradient>
+                <radialGradient id="mbelly" cx="30%" cy="28%" r="70%">
+                  <stop offset="0%" stop-color="#8A7A60"/>
+                  <stop offset="55%" stop-color="#5A4A30"/>
+                  <stop offset="100%" stop-color="#2E2418"/>
+                </radialGradient>
+                <radialGradient id="mcore" cx="30%" cy="25%" r="70%">
+                  <stop offset="0%" stop-color="#FFEE88"/>
+                  <stop offset="50%" stop-color="#FFAA00"/>
+                  <stop offset="100%" stop-color="#882200"/>
+                </radialGradient>
+                <radialGradient id="meye" cx="35%" cy="30%" r="65%">
+                  <stop offset="0%" stop-color="#AAFFAA"/>
+                  <stop offset="50%" stop-color="#44FF44"/>
+                  <stop offset="100%" stop-color="#0A6A0A"/>
+                </radialGradient>
+                <!-- glow filters -->
+                <filter id="eyeglow" x="-60%" y="-60%" width="220%" height="220%">
+                  <feGaussianBlur stdDeviation="3" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <filter id="coreglow" x="-80%" y="-80%" width="260%" height="260%">
+                  <feGaussianBlur stdDeviation="5" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <filter id="shadow" x="-20%" y="-10%" width="140%" height="130%">
+                  <feGaussianBlur stdDeviation="4" in="SourceAlpha" result="blur"/>
+                  <feFlood flood-color="#000" flood-opacity=".4" result="col"/>
+                  <feComposite in="col" in2="blur" operator="in" result="shadow"/>
+                  <feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+
+              <style>
+                /* Body sway — whole character pivots at feet */
+                .mb-body { transform-origin: 110px 268px; animation: mb-sway 4.5s ease-in-out infinite alternate; }
+                /* Head nod — pivots at neck base */
+                .mb-head { transform-origin: 110px 122px; animation: mb-nod 5s ease-in-out infinite alternate; animation-delay: -0.8s; }
+                /* Arms */
+                .mb-armL { transform-origin: 74px 142px; animation: mb-armL 4s ease-in-out infinite alternate; }
+                .mb-armR { transform-origin: 146px 142px; animation: mb-armR 4s ease-in-out infinite alternate; animation-delay: -0.5s; }
+                /* Branch antlers */
+                .mb-branchL { transform-origin: 88px 78px; animation: mb-branchL 3.5s ease-in-out infinite alternate; }
+                .mb-branchR { transform-origin: 134px 72px; animation: mb-branchR 3.2s ease-in-out infinite alternate; animation-delay: -0.6s; }
+                /* Hanging vines */
+                .mb-vine1 { transform-origin: 84px 202px; animation: mb-vine1 3.2s ease-in-out infinite alternate; }
+                .mb-vine2 { transform-origin: 110px 206px; animation: mb-vine2 2.8s ease-in-out infinite alternate; animation-delay: -0.4s; }
+                .mb-vine3 { transform-origin: 134px 202px; animation: mb-vine3 3.8s ease-in-out infinite alternate; animation-delay: -0.7s; }
+                /* Leaf bob on arms and branches */
+                .mb-leaf { animation: mb-leafbob 3s ease-in-out infinite alternate; }
+                /* Eye glow pulse */
+                .mb-eye-glow { animation: mb-eyepulse 2.4s ease-in-out infinite alternate; }
+                .mb-eye-iris  { animation: mb-eyepulse 2.4s ease-in-out infinite alternate; }
+                /* Core glow */
+                .mb-core { animation: mb-corepulse 2.8s ease-in-out infinite alternate; animation-delay: -0.5s; }
+
+                @keyframes mb-sway   { from { transform: rotate(-1.8deg); } to { transform: rotate(2deg); } }
+                @keyframes mb-nod    { from { transform: rotate(-1.5deg); } to { transform: rotate(1.5deg); } }
+                @keyframes mb-armL   { from { transform: rotate(-3deg); }  to { transform: rotate(3deg); } }
+                @keyframes mb-armR   { from { transform: rotate(3deg); }   to { transform: rotate(-3deg); } }
+                @keyframes mb-branchL{ from { transform: rotate(-5deg); }  to { transform: rotate(5deg); } }
+                @keyframes mb-branchR{ from { transform: rotate(4deg); }   to { transform: rotate(-4deg); } }
+                @keyframes mb-vine1  { from { transform: rotate(-8deg); }  to { transform: rotate(8deg); } }
+                @keyframes mb-vine2  { from { transform: rotate(6deg); }   to { transform: rotate(-10deg); } }
+                @keyframes mb-vine3  { from { transform: rotate(-7deg); }  to { transform: rotate(7deg); } }
+                @keyframes mb-leafbob{ from { transform: translateY(0); }  to { transform: translateY(-5px); } }
+                @keyframes mb-eyepulse { from { opacity: .5; } to { opacity: 1; } }
+                @keyframes mb-corepulse{ from { opacity: .45; } to { opacity: 1; } }
+              </style>
+
+              <!-- Ground shadow -->
+              <ellipse cx="110" cy="268" rx="52" ry="8" fill="#000" opacity=".35" style="filter:blur(4px)"/>
+
+              <!-- ══ WHOLE BODY SWAYING GROUP ══ -->
+              <g class="mb-body">
+
+                <!-- ── LEGS ── -->
+                <!-- Left leg -->
+                <path d="M78 185 Q62 205 58 228 Q54 248 60 258 Q72 266 88 262 Q100 258 98 242 Q96 222 100 198 Z" fill="#1E1208"/>
+                <path d="M78 185 Q62 205 58 228 Q54 248 60 258 Q72 266 88 262 Q100 258 98 242 Q96 222 100 198 Z" fill="url(#mbark)"/>
+                <!-- Left foot -->
+                <path d="M56 234 Q48 248 52 258 Q62 266 78 264 Q90 262 94 254 Q96 246 90 240 Z" fill="#3E2810"/>
+                <!-- Left foot claws -->
+                <path d="M54 244 Q50 248 46 252" stroke="#1E1208" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <path d="M60 250 Q57 254 54 258" stroke="#1E1208" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <path d="M68 254 Q66 258 64 262" stroke="#1E1208" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <!-- Left leg moss -->
+                <path d="M64 200 Q72 193 79 196 Q83 200 76 203 Q70 205 64 200Z" fill="#4A8A1A" opacity=".9"/>
+                <path d="M62 215 Q70 208 77 212 Q81 216 74 219 Q68 221 62 215Z" fill="#3A7012" opacity=".85"/>
+
+                <!-- Right leg -->
+                <path d="M142 185 Q158 205 162 228 Q166 248 160 258 Q148 266 132 262 Q120 258 122 242 Q124 222 120 198 Z" fill="#1E1208"/>
+                <path d="M142 185 Q158 205 162 228 Q166 248 160 258 Q148 266 132 262 Q120 258 122 242 Q124 222 120 198 Z" fill="url(#mbark)"/>
+                <path d="M164 234 Q172 248 168 258 Q158 266 142 264 Q130 262 126 254 Q124 246 130 240 Z" fill="#3E2810"/>
+                <path d="M166 244 Q170 248 174 252" stroke="#1E1208" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <path d="M160 250 Q163 254 166 258" stroke="#1E1208" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <path d="M152 254 Q154 258 156 262" stroke="#1E1208" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <path d="M154 200 Q162 193 169 196 Q173 200 166 203 Q160 205 154 200Z" fill="#4A8A1A" opacity=".9"/>
+                <path d="M156 215 Q164 208 171 212 Q175 216 168 219 Q162 221 156 215Z" fill="#3A7012" opacity=".85"/>
+
+                <!-- ── LEFT ARM ── -->
+                <g class="mb-armL">
+                  <path d="M74 142 Q46 154 32 176 Q18 198 22 216 Q26 228 38 230 Q50 230 56 218 Q62 206 60 188 Q64 168 78 152 Z" fill="#1E1208"/>
+                  <path d="M74 142 Q46 154 32 176 Q18 198 22 216 Q26 228 38 230 Q50 230 56 218 Q62 206 60 188 Q64 168 78 152 Z" fill="url(#mbark)"/>
+                  <!-- Bark lines -->
+                  <path d="M42 162 Q38 176 34 190" stroke="#1E120888" stroke-width="1" stroke-linecap="round" fill="none"/>
+                  <path d="M54 158 Q51 170 48 182" stroke="#1E120888" stroke-width="1" stroke-linecap="round" fill="none"/>
+                  <!-- Moss patches -->
+                  <path d="M36 166 Q47 159 55 162 Q59 167 52 170 Q45 173 36 166Z" fill="#4A8A1A" opacity=".9"/>
+                  <path d="M30 185 Q41 178 49 181 Q53 186 46 189 Q39 192 30 185Z" fill="#3A7012" opacity=".85"/>
+                  <path d="M28 205 Q38 198 45 201 Q49 206 43 209 Q36 212 28 205Z" fill="#4A8A1A" opacity=".8"/>
+                  <!-- Root fingers -->
+                  <path d="M24 214 Q18 220 12 226 Q11 231 12 236" stroke="#3E2810" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                  <path d="M24 214 Q18 220 12 226 Q11 231 12 236" stroke="#6B4A2A" stroke-width="2" stroke-linecap="round" fill="none"/>
+                  <path d="M32 220 Q28 226 26 232 Q25 237 26 242" stroke="#3E2810" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                  <path d="M32 220 Q28 226 26 232 Q25 237 26 242" stroke="#6B4A2A" stroke-width="2" stroke-linecap="round" fill="none"/>
+                  <path d="M42 224 Q40 230 40 236 Q40 241 42 246" stroke="#3E2810" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                  <path d="M42 224 Q40 230 40 236 Q40 241 42 246" stroke="#6B4A2A" stroke-width="2" stroke-linecap="round" fill="none"/>
+                  <!-- Leaf cluster at left hand -->
+                  <g class="mb-leaf">
+                    <path d="M22 224 Q28 216 38 220 Q30 228 22 224Z" fill="#88CC44"/>
+                    <path d="M14 228 Q22 218 30 224 Q22 232 14 228Z" fill="#3A7A14"/>
+                    <path d="M18 218 Q26 210 34 216 Q26 224 18 218Z" fill="#4A9A20"/>
+                    <path d="M10 220 Q18 212 26 218 Q20 228 10 220Z" fill="#88CC44"/>
+                  </g>
+                </g>
+
+                <!-- ── RIGHT ARM ── -->
+                <g class="mb-armR">
+                  <path d="M146 142 Q174 154 188 176 Q202 198 198 216 Q194 228 182 230 Q170 230 164 218 Q158 206 160 188 Q156 168 142 152 Z" fill="#1E1208"/>
+                  <path d="M146 142 Q174 154 188 176 Q202 198 198 216 Q194 228 182 230 Q170 230 164 218 Q158 206 160 188 Q156 168 142 152 Z" fill="url(#mbark)"/>
+                  <path d="M178 162 Q182 176 186 190" stroke="#1E120888" stroke-width="1" stroke-linecap="round" fill="none"/>
+                  <path d="M166 158 Q169 170 172 182" stroke="#1E120888" stroke-width="1" stroke-linecap="round" fill="none"/>
+                  <path d="M182 166 Q193 159 200 162 Q204 167 197 170 Q190 173 182 166Z" fill="#4A8A1A" opacity=".9"/>
+                  <path d="M188 185 Q199 178 206 181 Q210 186 203 189 Q196 192 188 185Z" fill="#3A7012" opacity=".85"/>
+                  <path d="M190 205 Q200 198 207 201 Q211 206 204 209 Q197 212 190 205Z" fill="#4A8A1A" opacity=".8"/>
+                  <!-- Root fingers right -->
+                  <path d="M196 214 Q202 220 208 226 Q209 231 208 236" stroke="#3E2810" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                  <path d="M196 214 Q202 220 208 226 Q209 231 208 236" stroke="#6B4A2A" stroke-width="2" stroke-linecap="round" fill="none"/>
+                  <path d="M188 220 Q192 226 194 232 Q195 237 194 242" stroke="#3E2810" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                  <path d="M188 220 Q192 226 194 232 Q195 237 194 242" stroke="#6B4A2A" stroke-width="2" stroke-linecap="round" fill="none"/>
+                  <path d="M178 224 Q180 230 180 236 Q180 241 178 246" stroke="#3E2810" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                  <path d="M178 224 Q180 230 180 236 Q180 241 178 246" stroke="#6B4A2A" stroke-width="2" stroke-linecap="round" fill="none"/>
+                  <!-- Leaf cluster right hand -->
+                  <g class="mb-leaf">
+                    <path d="M198 224 Q192 216 182 220 Q190 228 198 224Z" fill="#88CC44"/>
+                    <path d="M206 228 Q198 218 190 224 Q198 232 206 228Z" fill="#3A7A14"/>
+                    <path d="M202 218 Q194 210 186 216 Q194 224 202 218Z" fill="#4A9A20"/>
+                    <path d="M210 220 Q202 212 194 218 Q200 228 210 220Z" fill="#88CC44"/>
+                  </g>
+                </g>
+
+                <!-- ── TORSO ── -->
+                <!-- Main body oval -->
+                <ellipse cx="110" cy="177" rx="66" ry="55" fill="#1E1208"/>
+                <ellipse cx="110" cy="177" rx="66" ry="55" fill="url(#mbark)"/>
+                <!-- Bark texture lines -->
+                <path d="M58 136 Q60 129 62 122" stroke="#1E120872" stroke-width="1" stroke-linecap="round" fill="none"/>
+                <path d="M50 152 Q52 144 54 136" stroke="#1E120872" stroke-width="1" stroke-linecap="round" fill="none"/>
+                <path d="M162 138 Q160 131 158 124" stroke="#1E120872" stroke-width="1" stroke-linecap="round" fill="none"/>
+                <path d="M170 156 Q168 148 166 140" stroke="#1E120872" stroke-width="1" stroke-linecap="round" fill="none"/>
+
+                <!-- Belly stone plate -->
+                <ellipse cx="110" cy="183" rx="36" ry="31" fill="#1E1208"/>
+                <ellipse cx="110" cy="183" rx="36" ry="31" fill="url(#mbelly)"/>
+                <!-- Belly crack lines -->
+                <path d="M86 164 Q89 161 92 158" stroke="#2E241888" stroke-width="1" stroke-linecap="round" fill="none"/>
+                <path d="M126 170 Q130 167 134 164" stroke="#2E241888" stroke-width="1" stroke-linecap="round" fill="none"/>
+                <path d="M96 190 Q99 194 102 198" stroke="#2E241888" stroke-width="1" stroke-linecap="round" fill="none"/>
+                <path d="M112 188 Q115 192 118 196" stroke="#2E241888" stroke-width="1" stroke-linecap="round" fill="none"/>
+                <path d="M88 174 Q89 180 90 186" stroke="#2E241888" stroke-width="1" stroke-linecap="round" fill="none"/>
+
+                <!-- Orange belly core with glow -->
+                <ellipse cx="126" cy="171" rx="16" ry="15" fill="#FFAA0044" filter="url(#coreglow)" class="mb-core"/>
+                <ellipse cx="126" cy="171" rx="14" ry="13" fill="#1E1208" class="mb-core"/>
+                <ellipse cx="126" cy="171" rx="14" ry="13" fill="url(#mcore)" class="mb-core"/>
+                <ellipse cx="126" cy="171" rx="8" ry="7.5" fill="#FFEE88" opacity=".9" class="mb-core"/>
+                <ellipse cx="126" cy="171" rx="4" ry="3.5" fill="#fff" opacity=".6" class="mb-core"/>
+                <!-- Specular -->
+                <ellipse cx="122" cy="167" rx="4" ry="3" fill="#fff" opacity=".75"/>
+
+                <!-- Body moss patches -->
+                <!-- Left side -->
+                <path d="M54 132 Q66 124 76 127 Q80 132 73 136 Q65 139 54 132Z" fill="#6AAA2A" opacity=".9"/>
+                <path d="M52 150 Q63 142 72 146 Q76 151 69 154 Q62 157 52 150Z" fill="#4A8A1A" opacity=".88"/>
+                <path d="M50 168 Q60 161 68 165 Q72 170 65 173 Q58 176 50 168Z" fill="#3A7012" opacity=".85"/>
+                <path d="M56 184 Q65 177 73 180 Q77 185 70 188 Q63 191 56 184Z" fill="#6AAA2A" opacity=".82"/>
+                <!-- Right side -->
+                <path d="M148 136 Q159 128 168 132 Q172 137 165 140 Q158 143 148 136Z" fill="#6AAA2A" opacity=".9"/>
+                <path d="M150 154 Q161 146 169 150 Q173 155 166 158 Q159 161 150 154Z" fill="#4A8A1A" opacity=".88"/>
+                <path d="M152 172 Q162 165 170 168 Q174 173 167 176 Q160 179 152 172Z" fill="#3A7012" opacity=".85"/>
+                <!-- Top front -->
+                <path d="M80 122 Q92 114 102 118 Q106 123 99 126 Q92 129 80 122Z" fill="#4A9A20" opacity=".92"/>
+                <path d="M118 120 Q132 112 144 116 Q148 121 141 125 Q134 128 118 120Z" fill="#4A9A20" opacity=".92"/>
+                <!-- Bottom fringe -->
+                <path d="M68 198 Q78 191 85 195 Q89 200 82 203 Q75 206 68 198Z" fill="#3A7012" opacity=".85"/>
+                <path d="M90 206 Q101 198 109 202 Q113 207 106 210 Q99 213 90 206Z" fill="#4A8A1A" opacity=".85"/>
+                <path d="M130 208 Q141 200 149 204 Q153 209 146 212 Q139 215 130 208Z" fill="#4A8A1A" opacity=".85"/>
+                <path d="M152 200 Q162 193 169 197 Q173 202 166 205 Q159 208 152 200Z" fill="#3A7012" opacity=".85"/>
+
+                <!-- ── HANGING VINES ── -->
+                <g class="mb-vine1">
+                  <path d="M84 202 Q78 216 82 230 Q76 246 80 260" stroke="#2A5A0A" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+                  <path d="M84 202 Q78 216 82 230 Q76 246 80 260" stroke="#3A7A14" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+                  <path d="M80 232 Q84 228 90 232 Q86 237 80 232Z" fill="#4A8A1A" transform="rotate(-20,80,232)"/>
+                  <path d="M78 256 Q83 252 89 256 Q85 261 78 256Z" fill="#3A7012" transform="rotate(15,78,256)"/>
+                </g>
+                <g class="mb-vine2">
+                  <path d="M110 206 Q106 222 110 238 Q106 252 110 264" stroke="#2A5A0A" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+                  <path d="M108 240 Q113 236 119 240 Q115 245 108 240Z" fill="#4A8A1A" transform="rotate(10,108,240)"/>
+                </g>
+                <g class="mb-vine3">
+                  <path d="M134 202 Q140 216 136 230 Q142 246 138 260" stroke="#2A5A0A" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+                  <path d="M134 202 Q140 216 136 230 Q142 246 138 260" stroke="#3A7A14" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+                  <path d="M138 232 Q144 228 150 232 Q146 237 138 232Z" fill="#4A8A1A" transform="rotate(25,138,232)"/>
+                  <path d="M140 256 Q146 252 152 256 Q148 261 140 256Z" fill="#3A7012" transform="rotate(-12,140,256)"/>
+                </g>
+
+                <!-- ══ HEAD (nods) ══ -->
+                <g class="mb-head">
+
+                  <!-- Head oval base -->
+                  <ellipse cx="110" cy="100" rx="74" ry="66" fill="#1E1208"/>
+                  <ellipse cx="110" cy="100" rx="74" ry="66" fill="url(#mhead)"/>
+                  <!-- Head highlight -->
+                  <ellipse cx="80" cy="67" rx="32" ry="23" fill="#6A4828" opacity=".35"/>
+                  <!-- Bark texture on head -->
+                  <path d="M58 62 Q60 57 62 52" stroke="#1E120866" stroke-width="1" stroke-linecap="round" fill="none"/>
+                  <path d="M52 78 Q54 72 56 66" stroke="#1E120866" stroke-width="1" stroke-linecap="round" fill="none"/>
+                  <path d="M158 64 Q156 58 154 52" stroke="#1E120866" stroke-width="1" stroke-linecap="round" fill="none"/>
+
+                  <!-- Moss top cap -->
+                  <path d="M70 58 Q82 40 102 36 Q118 32 134 38 Q152 44 160 58 Q148 66 130 62 Q110 58 90 60 Q76 62 70 58Z" fill="#6AAA2A" opacity=".88"/>
+                  <!-- Front moss drape -->
+                  <path d="M74 66 Q92 56 110 58 Q130 56 148 66 Q140 76 122 74 Q110 76 96 74 Q80 76 74 66Z" fill="#4A9A20" opacity=".82"/>
+                  <!-- Side moss -->
+                  <path d="M52 68 Q63 61 72 65 Q76 70 69 73 Q62 76 52 68Z" fill="#4A8A1A" opacity=".9"/>
+                  <path d="M48 84 Q58 77 66 81 Q70 86 63 89 Q56 92 48 84Z" fill="#3A7012" opacity=".88"/>
+                  <path d="M158 70 Q169 63 177 67 Q181 72 174 75 Q167 78 158 70Z" fill="#4A8A1A" opacity=".9"/>
+                  <path d="M162 86 Q172 79 180 83 Q184 88 177 91 Q170 94 162 86Z" fill="#3A7012" opacity=".88"/>
+                  <!-- Lower head fringe -->
+                  <path d="M56 108 Q66 101 73 105 Q77 110 70 113 Q63 116 56 108Z" fill="#3A7012" opacity=".85"/>
+                  <path d="M76 116 Q86 109 93 113 Q97 118 90 121 Q83 124 76 116Z" fill="#3A7012" opacity=".85"/>
+                  <path d="M120 118 Q130 111 138 115 Q142 120 135 123 Q128 126 120 118Z" fill="#3A7012" opacity=".85"/>
+                  <path d="M146 110 Q156 103 163 107 Q167 112 160 115 Q153 118 146 110Z" fill="#3A7012" opacity=".85"/>
+
+                  <!-- ── BRANCH LEFT (antler) ── -->
+                  <g class="mb-branchL">
+                    <!-- Main trunk shadow -->
+                    <path d="M88 78 Q78 60 70 44 Q62 28 66 16" stroke="#1E1208" stroke-width="5" stroke-linecap="round" fill="none"/>
+                    <!-- Main trunk -->
+                    <path d="M88 78 Q78 60 70 44 Q62 28 66 16" stroke="#3E2810" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                    <!-- Sub branch 1 -->
+                    <path d="M72 46 Q58 38 48 32" stroke="#1E1208" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                    <path d="M72 46 Q58 38 48 32" stroke="#4A2E10" stroke-width="2" stroke-linecap="round" fill="none"/>
+                    <!-- Sub branch 2 -->
+                    <path d="M68 30 Q56 22 50 14" stroke="#1E1208" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <path d="M68 30 Q56 22 50 14" stroke="#4A2E10" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                    <!-- Leaf clusters -->
+                    <g class="mb-leaf">
+                      <path d="M54 18 Q60 10 70 14 Q64 22 54 18Z" fill="#88CC44"/>
+                      <path d="M46 22 Q54 12 62 18 Q56 26 46 22Z" fill="#3A7A14"/>
+                      <path d="M58 10 Q66 2 74 8 Q68 16 58 10Z" fill="#4A9A20"/>
+                      <path d="M42 14 Q50 6 58 12 Q52 20 42 14Z" fill="#88CC44"/>
+                    </g>
+                    <g class="mb-leaf" style="animation-delay:-.4s">
+                      <path d="M44 32 Q50 25 58 28 Q53 35 44 32Z" fill="#3A6A10"/>
+                      <path d="M38 36 Q46 28 52 34 Q46 40 38 36Z" fill="#88CC44"/>
+                    </g>
+                  </g>
+
+                  <!-- ── BRANCH RIGHT (antler) ── -->
+                  <g class="mb-branchR">
+                    <path d="M134 72 Q150 60 162 48 Q172 38 176 24" stroke="#1E1208" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+                    <path d="M134 72 Q150 60 162 48 Q172 38 176 24" stroke="#3E2810" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <path d="M162 50 Q176 42 186 36" stroke="#1E1208" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <path d="M162 50 Q176 42 186 36" stroke="#4A2E10" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                    <g class="mb-leaf">
+                      <path d="M170 22 Q164 14 154 18 Q160 26 170 22Z" fill="#88CC44"/>
+                      <path d="M178 26 Q170 16 162 22 Q168 30 178 26Z" fill="#3A7A14"/>
+                      <path d="M166 14 Q158 6 150 12 Q156 20 166 14Z" fill="#4A9A20"/>
+                      <path d="M182 18 Q174 10 166 16 Q172 24 182 18Z" fill="#88CC44"/>
+                    </g>
+                    <g class="mb-leaf" style="animation-delay:-.6s">
+                      <path d="M186 36 Q192 28 200 32 Q195 40 186 36Z" fill="#3A7A14"/>
+                      <path d="M192 28 Q200 20 206 26 Q201 34 192 28Z" fill="#88CC44"/>
+                    </g>
+                  </g>
+
+                  <!-- ── EYES ── -->
+                  <!-- Left eye socket -->
+                  <ellipse cx="82" cy="88" rx="16" ry="14.5" fill="#0A1808"/>
+                  <ellipse cx="82" cy="88" rx="13" ry="11.5" fill="#0E2008"/>
+                  <!-- Left eye glow halo -->
+                  <ellipse cx="82" cy="88" rx="11" ry="10" fill="#44FF44" opacity=".25" filter="url(#eyeglow)" class="mb-eye-glow"/>
+                  <!-- Left iris layers -->
+                  <ellipse cx="82" cy="88" rx="10" ry="9" fill="#0A6A0A"/>
+                  <ellipse cx="82" cy="88" rx="8" ry="7" fill="url(#meye)" class="mb-eye-iris"/>
+                  <ellipse cx="82" cy="88" rx="5" ry="4.5" fill="#88FF44" class="mb-eye-iris"/>
+                  <ellipse cx="82" cy="88" rx="2.5" ry="2.2" fill="#AAFFAA" class="mb-eye-iris"/>
+                  <!-- Left pupil slit (vertical) -->
+                  <ellipse cx="82" cy="88" rx="1.4" ry="2.8" fill="#001800"/>
+                  <!-- Left specular -->
+                  <ellipse cx="79" cy="85" rx="2" ry="1.5" fill="#fff" opacity=".85"/>
+
+                  <!-- Right eye socket -->
+                  <ellipse cx="138" cy="88" rx="16" ry="14.5" fill="#0A1808"/>
+                  <ellipse cx="138" cy="88" rx="13" ry="11.5" fill="#0E2008"/>
+                  <ellipse cx="138" cy="88" rx="11" ry="10" fill="#44FF44" opacity=".25" filter="url(#eyeglow)" class="mb-eye-glow"/>
+                  <ellipse cx="138" cy="88" rx="10" ry="9" fill="#0A6A0A"/>
+                  <ellipse cx="138" cy="88" rx="8" ry="7" fill="url(#meye)" class="mb-eye-iris"/>
+                  <ellipse cx="138" cy="88" rx="5" ry="4.5" fill="#88FF44" class="mb-eye-iris"/>
+                  <ellipse cx="138" cy="88" rx="2.5" ry="2.2" fill="#AAFFAA" class="mb-eye-iris"/>
+                  <ellipse cx="138" cy="88" rx="1.4" ry="2.8" fill="#001800"/>
+                  <ellipse cx="135" cy="85" rx="2" ry="1.5" fill="#fff" opacity=".85"/>
+
+                  <!-- ── NOSE (two bark indents, no mouth) ── -->
+                  <ellipse cx="104" cy="110" rx="3.5" ry="2" fill="#1E1208" transform="rotate(-15,104,110)"/>
+                  <ellipse cx="116" cy="110" rx="3.5" ry="2" fill="#1E1208" transform="rotate(15,116,110)"/>
+
+                  <!-- ── SEALED LOWER FACE PLATE (no mouth) ── -->
+                  <path d="M68 116 Q90 124 110 122 Q130 124 152 116 Q150 130 130 134 Q110 136 90 134 Q70 130 68 116Z" fill="#3E2810"/>
+                  <path d="M68 116 Q90 124 110 122 Q130 124 152 116 Q150 130 130 134 Q110 136 90 134 Q70 130 68 116Z" stroke="#1E1208" stroke-width=".8" fill="none"/>
+                  <!-- Moss fringe on lower face -->
+                  <path d="M76 126 Q85 119 92 123 Q96 128 89 131 Q83 134 76 126Z" fill="#3A6A10" opacity=".88"/>
+                  <path d="M118 128 Q127 121 134 125 Q138 130 131 133 Q124 136 118 128Z" fill="#3A6A10" opacity=".88"/>
+
+                </g>
+                <!-- end head group -->
+
+              </g>
+              <!-- end body sway group -->
+
+            </svg>
+          </div>
+          <div class="boss-hp">
+            <div class="boss-hp-label"><span style="font-family:var(--ci);font-size:.75rem;color:#ff8844">Murkbell — The Warden</span><span>67% HP</span></div>
+            <div class="boss-hp-bar"><div class="boss-hp-fill"></div></div>
+          </div>
+          <div style="margin-top:.8rem;font-size:.72rem;color:var(--d);text-align:center">Active raid · 1,204 fighters · 2h 14m remaining</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" style="background:var(--s1);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd)">
+  <div class="wrap">
+    <div class="feat-intro rv">
+      <span class="stag">Platform Features</span>
+      <h2 class="sbb" style="margin-bottom:.75rem">BUILT FOR <span class="hl">COMMUNITY.</span></h2>
+      <p class="sb" style="margin:0 auto;text-align:center">Everything here is designed around one question: does this make you want to show up for your community?</p>
+    </div>
+    <div class="feat-row rv">
+      <div class="fc">
+        <div class="fc-icon">🎖️</div>
+        <span class="fc-tag">Progression</span>
+        <h3>XP + Tiers</h3>
+        <p>Every genuine interaction earns XP. Watch your tier climb from Common to Legendary — reflected on your profile, your posts, and your avatar ring.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🏷️</div>
+        <span class="fc-tag">Identity</span>
+        <h3>Earned Titles</h3>
+        <p>Titles are given by your community — Narrator, Yapper, Building Block, E-List Celeb, Liberty Bringer. You don't assign yourself one. You earn it.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🎒</div>
+        <span class="fc-tag">Rewards</span>
+        <h3>Loot + Inventory</h3>
+        <p>Earn loot from raids and milestones. Items carry rarity tiers, equippable effects, and lore that reflects your journey.</p>
+      </div>
+    </div>
+    <div class="feat-row duo rv2">
+      <div class="fc">
+        <div class="fc-icon">🛡️</div>
+        <span class="fc-tag">Your Circle</span>
+        <h3>Parties</h3>
+        <p>A Party is your inner crew — a named group with a shared XP bar, party chat, and collective identity. You grow together, raid together, and defend each other's reputation. Your party's presence is visible in the feed, on your profile, and in every raid you enter together.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🌿</div>
+        <span class="fc-tag">Mini-Game</span>
+        <h3>Party Grove</h3>
+        <p>A living space that grows from your Party's real activity. The more your crew shows up, the more the grove flourishes. Ambient, beautiful, and tied to what you actually do together.</p>
+      </div>
+    </div>
+    <div class="feat-row duo2 rv3">
+      <div class="fc">
+        <div class="fc-icon">💬</div>
+        <span class="fc-tag">Messaging</span>
+        <h3>DMs + Party Chat</h3>
+        <p>Direct messages with restrict mode, message requests, and block-and-purge. Party chat with role-based permissions and a full member list. Safe and social by default — not as an afterthought.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">👥</div>
+        <span class="fc-tag">Network</span>
+        <h3>The Krowd</h3>
+        <p>Your followers and following, rethought. Filter by relationship, sort by tier, see mutuals, and organize by Party.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">📰</div>
+        <span class="fc-tag">Content</span>
+        <h3>Feed + Threads</h3>
+        <p>Boss tickers, party indicators, boost stamps, and XP-weighted engagement built into every view.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIERS -->
+<section class="tiers-section" id="tiers">
+  <div class="wrap">
+    <div class="rv" style="text-align:center;max-width:600px;margin:0 auto">
+      <span class="stag">Progression</span>
+      <h2 class="sbb">EARN YOUR <span class="hl">TIER.</span></h2>
+      <p class="sb" style="margin:0 auto;text-align:center">Five tiers. One path. Earned through consistency and community — never purchased. Each tier unlocks new cosmetics, prestige, and visibility within your Krowd.</p>
+    </div>
+    <div class="tiers-row rv2">
+      <div class="tier common">
+        <div class="tier-gem">⬜</div>
+        <div class="tier-name">Common</div>
+        <div class="tier-xp">0 – 999 XP</div>
+        <div class="tier-desc">Every legend starts here. Fresh, hungry, ready to show up.</div>
+      </div>
+      <div class="tier uncommon">
+        <div class="tier-gem">🟩</div>
+        <div class="tier-name">Uncommon</div>
+        <div class="tier-xp">1,000 – 4,999 XP</div>
+        <div class="tier-desc">You've shown up enough. Your Krowd starts to notice.</div>
+      </div>
+      <div class="tier rare">
+        <div class="tier-gem">🟦</div>
+        <div class="tier-name">Rare</div>
+        <div class="tier-xp">5,000 – 14,999 XP</div>
+        <div class="tier-desc">Consistent. Known. Raids under your belt.</div>
+      </div>
+      <div class="tier epic">
+        <div class="tier-gem">🟪</div>
+        <div class="tier-name">Epic</div>
+        <div class="tier-xp">15,000 – 49,999 XP</div>
+        <div class="tier-desc">A pillar of the community. Your Party rallies around you.</div>
+      </div>
+      <div class="tier legendary">
+        <div class="tier-gem">🌟</div>
+        <div class="tier-name">Legendary</div>
+        <div class="tier-xp">50,000+ XP</div>
+        <div class="tier-desc">Undeniable. The platform bends toward your presence.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMOTIONAL CLOSE -->
+<section class="close-section" id="close">
+  <div class="close-bg"></div>
+  <div class="close-noise"></div>
+  <div class="wrap">
+    <div class="close-inner rv">
+      <div class="close-rule">
+        <div class="close-rule-line"></div>
+        <div class="close-rule-icon">⚔️</div>
+        <div class="close-rule-line r"></div>
+      </div>
+      <span class="stag">Early Access</span>
+      <h2 class="sci">You Deserve Better<br>Than What You've Had.</h2>
+      <p class="close-manifesto">
+        You've posted into the void. You've scrolled past people you care about because an algorithm decided someone else's content was worth more. You've felt the hollow of a platform that sees you as a user metric, not a person.
+        <br><br>
+        <strong>Krowdli is for the people who remember what social media was supposed to feel like.</strong> The late nights building inside jokes with your crew. The moment a stranger replied and became a friend. The feeling that what you posted actually meant something to someone.
+        <br><br>
+        Come be social. For real this time.
+      </p>
+      <div class="founding-perks">
+        <span class="fp">🌟 Founding Krowd Badge</span>
+        <span class="fp">⚡ XP Head Start</span>
+        <span class="fp">🎒 Exclusive Launch Loot</span>
+        <span class="fp">🏅 Permanent Founder Title</span>
+      </div>
+      <div class="waitlist-form">
+        <input type="email" class="wi" placeholder="your@email.com" id="wi" autocomplete="email">
+        <button class="btn-p" onclick="handleW()" style="border-radius:10px;padding:14px 28px">Claim My Spot</button>
+      </div>
+      <p id="wm"></p>
+      <p class="close-fine">No spam. No ads. No third-party sharing. Just the Krowdli launch drop.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fi">
+    <div>
+      <div class="flogo">KROWDLI</div>
+      <p class="ftag">Come Be Social. No ads. No algorithms. Just your Krowd.</p>
+    </div>
+    <div class="fcols">
+      <div class="fcol">
+        <h4>Explore</h4>
+        <a href="#why">Why Krowdli</a>
+        <a href="#features">Features</a>
+        <a href="#bosses">Bosses</a>
+        <a href="#tiers">Tiers</a>
+      </div>
+      <div class="fcol">
+        <h4>Connect</h4>
+        <a href="mailto:hello@krowdli.com">Contact</a>
+        <a href="#close">Early Access</a>
+      </div>
+    </div>
+  </div>
+  <div class="fb">© 2026 Krowdli. Social media, reforged. Built in Greenville, SC.</div>
+</footer>
+
+<script>
+/* cursor */
+const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px'});
+(function anim(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(anim)})();
+document.querySelectorAll('a,button,.fc,.wc,.bc,.tier,.how-step,.nla').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
+});
+
+/* scroll reveal */
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.rv,.rv2,.rv3').forEach(el=>obs.observe(el));
+
+/* parallax grid */
+window.addEventListener('scroll',()=>{
+  const g=document.querySelector('.hero-grid-bg');
+  if(g)g.style.transform=`translateY(${window.scrollY*.2}px)`;
+},{passive:true});
+
+/* waitlist */
+function handleW(){
+  const i=document.getElementById('wi'),m=document.getElementById('wm');
+  const v=i.value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){m.style.color='#ff4444';m.textContent='⚠ Enter a valid email address.';return}
+  m.style.color='var(--o)';
+  m.textContent='✓ You\'re in. Founding Krowd status locked. See you at launch.';
+  i.value='';i.disabled=true;
+}
+document.getElementById('wi').addEventListener('keydown',e=>{if(e.key==='Enter')handleW()});
+
+/* counter animation on scroll */
+function animCount(el,target,suffix){
+  let start=0;const dur=1800;const step=timestamp=>{
+    if(!start)start=timestamp;
+    const prog=Math.min((timestamp-start)/dur,1);
+    const ease=1-Math.pow(1-prog,3);
+    el.textContent=Math.floor(ease*target).toLocaleString()+(suffix||'');
+    if(prog<1)requestAnimationFrame(step);
+  };requestAnimationFrame(step);
+}
+</script>
+</body>
+</html>
