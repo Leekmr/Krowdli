@@ -242,8 +242,8 @@ section{padding:96px 0;position:relative;z-index:1}
 .boss-hp-bar{height:8px;background:rgba(255,255,255,0.07);border-radius:4px;overflow:hidden}
 .boss-hp-fill{height:100%;width:67%;background:linear-gradient(90deg,#E63946,#ff6a00);border-radius:4px;animation:hpdrain 4s ease-in-out infinite alternate}
 @keyframes hpdrain{from{width:72%}to{width:55%}}
-.boss-challenges{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1.5rem}
-.bc{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:var(--r12);padding:1rem;transition:all .25s;cursor:default}
+.boss-challenges{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:1.5rem}
+.bc{background:rgba(255,106,0,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r12);padding:1.25rem 1rem;transition:all .25s;cursor:default;min-width:0}
 .bc:hover{border-color:var(--ob);background:var(--og);transform:translateY(-2px)}
 .bc-icon{font-size:1.3rem;margin-bottom:.4rem}
 .bc h4{font-size:.82rem;color:var(--t);font-weight:600;font-family:var(--ci);margin-bottom:.25rem}
@@ -304,6 +304,96 @@ section{padding:96px 0;position:relative;z-index:1}
 .fp{font-size:.72rem;background:rgba(255,106,0,0.08);border:1px solid var(--ob);color:#ff8c33;padding:.3rem .8rem;border-radius:8px;font-weight:600}
 .close-fine{font-size:.68rem;color:var(--d);margin-top:.75rem}
 
+/* ─── PARTY GROVE ─── */
+.grove-section{padding:96px 0;background:var(--bg)}
+.grove-wrap{max-width:900px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+.grove-header{text-align:center;margin-bottom:3rem}
+.grove-canvas-wrap{position:relative;border:1px solid rgba(106,170,42,0.2);border-radius:20px;overflow:hidden;background:#0a0f06;box-shadow:0 8px 48px rgba(0,0,0,0.5),inset 0 1px 0 rgba(106,170,42,0.08)}
+.grove-canvas-wrap canvas{display:block;width:100%;height:auto}
+.grove-ui{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:16px 20px;background:rgba(0,0,0,0.4);border-top:1px solid rgba(106,170,42,0.12)}
+.grove-stat{display:flex;align-items:center;gap:8px;font-size:.8rem;color:rgba(255,255,255,0.55)}
+.grove-stat-val{font-family:var(--bb);font-size:1.1rem;color:#6AAA2A;letter-spacing:.04em}
+.grove-btn{background:rgba(106,170,42,0.12);border:1px solid rgba(106,170,42,0.3);color:#88CC44;padding:8px 18px;border-radius:8px;font-family:var(--dm);font-weight:600;font-size:.8rem;cursor:pointer;transition:all .2s;letter-spacing:.04em}
+.grove-btn:hover{background:rgba(106,170,42,0.22);border-color:rgba(106,170,42,0.5)}
+.grove-hint{text-align:center;margin-top:1rem;font-size:.75rem;color:var(--d)}
+
+/* ─── BOSS ROOM ─── */
+.bossroom-section{padding:96px 0;background:var(--s1);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd)}
+.bossroom-wrap{max-width:800px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+.bossroom-header{text-align:center;margin-bottom:2.5rem}
+.bossroom-arena{border:1px solid rgba(255,106,0,0.2);border-radius:20px;overflow:hidden;background:#0a0508;box-shadow:0 8px 48px rgba(0,0,0,0.6)}
+.bossroom-top{background:linear-gradient(180deg,rgba(30,10,5,0.95),rgba(10,5,8,0.98));padding:0;display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden;min-height:280px}
+.bossroom-arena-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 50% 50%,rgba(255,106,0,0.07) 0%,transparent 70%)}
+.bossroom-arena-ring1{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:220px;height:220px;border:1px solid rgba(255,106,0,0.06);border-radius:50%}
+.bossroom-arena-ring2{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;border:1px solid rgba(255,106,0,0.03);border-radius:50%}
+.br-boss-area{display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;padding:24px 24px 12px}
+.br-boss-name{font-family:var(--ci);font-size:.8rem;font-weight:700;color:#ff8844;text-transform:uppercase;letter-spacing:.1em}
+.br-hp-wrap{width:160px}
+.br-hp-label{display:flex;justify-content:space-between;font-size:.68rem;color:var(--m);margin-bottom:.3rem}
+.br-hp-track{height:8px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden}
+.br-hp-fill{height:100%;background:linear-gradient(90deg,#E63946,#ff6a00);border-radius:4px;transition:width .6s ease}
+.br-player-area{display:flex;gap:2rem;align-items:center;justify-content:center;flex-wrap:wrap;width:100%;padding:10px 24px 14px;background:rgba(0,0,0,0.3);border-top:1px solid rgba(255,255,255,0.05);position:relative;z-index:1}
+.br-player-label{font-size:.68rem;color:var(--d);margin-bottom:.3rem}
+.br-xp-val{font-family:var(--bb);font-size:1.6rem;color:var(--o);letter-spacing:.04em}
+.bossroom-content{padding:24px}
+/* screens */
+.br-screen{display:none}
+.br-screen.active{display:block}
+/* intro screen */
+.br-intro{text-align:center;padding:16px 0}
+.br-intro h3{font-family:var(--bb);font-size:2rem;color:var(--t);letter-spacing:.04em;margin-bottom:.5rem}
+.br-intro p{font-size:.9rem;color:var(--m);margin-bottom:1.5rem;line-height:1.7}
+.br-start-btn{background:linear-gradient(135deg,var(--o),var(--o2));color:#fff;border:none;padding:14px 36px;border-radius:12px;font-family:var(--dm);font-weight:700;font-size:.95rem;cursor:pointer;box-shadow:0 4px 22px rgba(255,106,0,0.35);transition:all .2s;text-transform:uppercase;letter-spacing:.06em}
+.br-start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,106,0,0.5)}
+/* question screen */
+.br-q-num{font-size:.7rem;color:var(--d);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.75rem}
+.br-q-text{font-family:var(--ci);font-size:clamp(1rem,2.5vw,1.3rem);color:var(--t);margin-bottom:1.5rem;line-height:1.5;font-weight:600}
+.br-answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.br-ans{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 16px;font-size:.88rem;color:var(--m);cursor:pointer;transition:all .2s;text-align:left;font-family:var(--dm)}
+.br-ans:hover:not(:disabled){border-color:var(--o);background:rgba(255,106,0,0.08);color:var(--t)}
+.br-ans.correct{border-color:#4ade80;background:rgba(74,222,128,0.1);color:#4ade80}
+.br-ans.wrong{border-color:#E63946;background:rgba(230,57,70,0.1);color:#E63946}
+.br-ans:disabled{cursor:default}
+.br-feedback{margin-top:1rem;font-size:.82rem;min-height:1.2em;font-weight:600}
+.br-feedback.good{color:#4ade80}
+.br-feedback.bad{color:#E63946}
+/* result screen */
+.br-result{text-align:center;padding:16px 0}
+.br-result-icon{font-size:3.5rem;margin-bottom:.75rem}
+.br-result h3{font-family:var(--bb);font-size:2.2rem;letter-spacing:.04em;margin-bottom:.5rem}
+.br-result p{font-size:.9rem;color:var(--m);margin-bottom:1.5rem;line-height:1.65}
+.br-result-xp{font-family:var(--bb);font-size:2.8rem;color:var(--o);margin:.5rem 0 1.5rem}
+.br-retry{background:rgba(255,106,0,0.1);border:1px solid var(--ob);color:#ff8c33;padding:10px 28px;border-radius:10px;font-family:var(--dm);font-weight:600;font-size:.88rem;cursor:pointer;transition:all .2s}
+.br-retry:hover{background:rgba(255,106,0,0.2)}
+/* timer bar */
+.br-timer-wrap{margin-bottom:1.25rem}
+.br-timer-track{height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden}
+.br-timer-fill{height:100%;background:var(--o);border-radius:2px;transition:width .1s linear}
+
+/* ─── FOUNDER ─── */
+.founder-section{background:var(--s1);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);padding:96px 0}
+.founder-grid{display:grid;grid-template-columns:1fr 2fr;gap:5rem;align-items:center;margin-top:3.5rem}
+.founder-avatar{position:relative;display:flex;align-items:center;justify-content:center}
+.founder-avatar-ring{width:200px;height:200px;border-radius:50%;background:linear-gradient(135deg,var(--o),var(--p));padding:3px;position:relative}
+.founder-avatar-inner{width:100%;height:100%;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-family:var(--cd);font-size:4rem;font-weight:900;color:var(--o)}
+.founder-avatar-ring::after{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(255,106,0,0.12)}
+.founder-role{display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--o);background:rgba(255,106,0,0.08);border:1px solid var(--ob);padding:.35rem .9rem;border-radius:8px;margin-bottom:1rem}
+.founder-name{font-family:var(--bb);font-size:clamp(2.5rem,5vw,3.8rem);line-height:.92;letter-spacing:.03em;color:var(--t);margin-bottom:.5rem}
+.founder-sub{font-size:.85rem;color:var(--o);font-family:var(--ci);margin-bottom:1.25rem;font-weight:600}
+.founder-bio{font-size:.95rem;color:var(--m);line-height:1.82;margin-bottom:1.5rem}
+.founder-bio strong{color:var(--t);font-weight:500}
+.founder-links{display:flex;gap:.75rem;flex-wrap:wrap}
+.founder-link{display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;font-weight:600;padding:.6rem 1.2rem;border-radius:10px;border:1px solid var(--brd2);color:var(--m);transition:all .2s;letter-spacing:.04em}
+.founder-link:hover{border-color:var(--o);color:var(--o);background:var(--og)}
+.founder-link-icon{font-size:1rem}
+@media(max-width:700px){.founder-grid{grid-template-columns:1fr;text-align:center}.founder-links{justify-content:center}.founder-avatar{margin:0 auto}}
+
+/* ─── MVP BANNER ─── */
+.mvp-banner{background:linear-gradient(135deg,rgba(255,106,0,0.1),rgba(123,47,190,0.08));border:1px solid var(--brd2);border-radius:var(--r12);padding:1rem 1.5rem;margin-top:1.5rem;display:flex;align-items:flex-start;gap:.75rem}
+.mvp-icon{font-size:1.2rem;flex-shrink:0;margin-top:.1rem}
+.mvp-text{font-size:.82rem;color:var(--m);line-height:1.65}
+.mvp-text strong{color:var(--t)}
+
 /* ─── FOOTER ─── */
 footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48px);max-width:1200px;margin:0 auto;position:relative;z-index:1}
 .fi{display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px}
@@ -323,6 +413,7 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
   .hero-btns{justify-content:center}
   .hero-stats{justify-content:center}
   .why-grid{grid-template-columns:1fr;gap:2.5rem}
+  .boss-challenges{grid-template-columns:repeat(4,1fr)}
   .boss-grid{grid-template-columns:1fr}
   .feat-row,.feat-row.duo,.feat-row.duo2{grid-template-columns:1fr 1fr}
   .feat-row.duo2 .fc:last-child{grid-column:span 2}
@@ -355,17 +446,20 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
   <div class="ni">
     <a href="#" class="nl"><img src="logo.png" alt="Krowdli">KROWDLI</a>
     <div class="nls">
-      <a href="#why" class="nla">Why</a>
+      <a href="#why" class="nla">Why I Built This</a>
       <a href="#features" class="nla">Features</a>
       <a href="#bosses" class="nla">Bosses</a>
+      <a href="#grove" class="nla">Grove</a>
+      <a href="#bossroom" class="nla">Try a Raid</a>
       <a href="#tiers" class="nla">Tiers</a>
     </div>
     <a href="#close" class="ncta">Get Early Access</a>
     <label for="mt" class="mb"><span class="mo">☰</span><span class="mc">✕</span></label>
   </div>
   <div class="mm">
-    <a href="#why">Why</a><a href="#features">Features</a>
+    <a href="#why">Why I Built This</a><a href="#features">Features</a>
     <a href="#bosses">Bosses</a><a href="#tiers">Tiers</a>
+    <a href="#founder">Founder</a>
     <a href="#close">Get Early Access</a>
   </div>
 </nav>
@@ -373,7 +467,7 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
 <!-- HERO -->
 <div class="hero">
   <div class="hero-left">
-    <div class="hero-eyebrow"><span class="edot"></span>Social Media, Reforged</div>
+    <div class="hero-eyebrow"><span class="edot"></span>MVP — Social Media, Reforged</div>
     <p class="hero-slogan">Come Be Social</p>
     <h1 class="hero-title">
       <span class="hl">FEEL SOMETHING.</span>
@@ -382,7 +476,7 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
     <p class="hero-sub">Social media forgot why it existed. <strong>Krowdli remembers.</strong> Every post earns XP. Every friendship has stakes. Every raid means something. This is what showing up was always supposed to feel like.</p>
     <div class="hero-btns">
       <a href="#close" class="btn-p">Join the Waitlist</a>
-      <a href="#why" class="btn-g">Why We Built This</a>
+      <a href="#why" class="btn-g">Why I Built This</a>
     </div>
     <div class="hero-stats">
       <div class="hs"><div class="hsv">XP</div><div class="hsl">Every interaction</div></div>
@@ -581,7 +675,7 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
   <div class="wrap">
     <div class="why-grid">
       <div class="rv why-manifesto">
-        <span class="stag">The Problem</span>
+        <span class="stag">Why I Built This</span>
         <h2 class="sbb">SOCIAL MEDIA<br>LOST ITS <span class="hl">SOUL.</span></h2>
         <div class="why-q">
           <p>"It became echo chambers. Misinformation. Confusing for new users. No incentive to actually be social. The platform is about the media — about payouts and watch time — not about how stories get shared or how connections are formed."</p>
@@ -625,10 +719,14 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
         <h2 class="sbb">THE BOSS<br>CHOOSES THE <span class="hl">GAME.</span></h2>
         <p class="sb" style="margin-bottom:1.5rem">Bosses aren't defeated by who posts the most — that's just another engagement farm. Each Boss runs its own challenge. Your community plays together, beats it together, and shares the loot.</p>
         <div class="boss-challenges">
-          <div class="bc"><div class="bc-icon">🧠</div><h4>Trivia Raid</h4><p>Boss drops rapid-fire questions. First party to hit the score threshold wins.</p></div>
-          <div class="bc"><div class="bc-icon">🎨</div><h4>Creative Challenge</h4><p>Boss sets a prompt. Community votes. Best submission wins loot for the whole party.</p></div>
-          <div class="bc"><div class="bc-icon">🎵</div><h4>Rhythm Battle</h4><p>Hit the beats, rack up combos, outlast other parties in a synchronized showdown.</p></div>
-          <div class="bc"><div class="bc-icon">🗳️</div><h4>Vote Wars</h4><p>Boss pits two sides against each other. Your party picks a lane and fights for it.</p></div>
+          <div class="bc"><div class="bc-icon">🤥</div><h4>2 Truths 1 Lie</h4><p>The Boss drops three statements. Your party works together to spot the lie before time runs out.</p></div>
+          <div class="bc"><div class="bc-icon">🧠</div><h4>Boss Quiz</h4><p>Rapid-fire questions from the Boss. First party to hit the score threshold wins the round.</p></div>
+          <div class="bc"><div class="bc-icon">🔤</div><h4>Hangman</h4><p>The Boss picks the word. Your party guesses together — every wrong letter drains your clock.</p></div>
+          <div class="bc"><div class="bc-icon">🛡️</div><h4>Survive</h4><p>Stay in as long as possible. The Boss tests your endurance round after round until only one party is left standing.</p></div>
+          <div class="bc"><div class="bc-icon">✏️</div><h4>Fill in the Blank</h4><p>The Boss leaves gaps. Your party races to complete the phrase before the other crews do.</p></div>
+          <div class="bc"><div class="bc-icon">⚡</div><h4>Match Rush</h4><p>Match pairs faster than every other party. Speed and accuracy both count toward your damage.</p></div>
+          <div class="bc"><div class="bc-icon">✅</div><h4>True / False</h4><p>The Boss fires statements. Split-second calls. Wrong answers cost HP. Right ones deal damage.</p></div>
+          <div class="bc"><div class="bc-icon">🎲</div><h4>More Coming</h4><p>Each boss in Krowdli brings its own game. The roster grows with every new raid season.</p></div>
         </div>
         <div class="boss-mechanic-note">
           <strong>Every boss has its own personality, ruleset, and rewards.</strong> What defeated one won't work on the next. Showing up to raids matters — but knowing how to play the game matters more.
@@ -1019,7 +1117,7 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
         <div class="fc-icon">🏷️</div>
         <span class="fc-tag">Identity</span>
         <h3>Earned Titles</h3>
-        <p>Titles are given by your community — Narrator, Yapper, Building Block, E-List Celeb, Liberty Bringer. You don't assign yourself one. You earn it.</p>
+        <p>Titles are given by your community — Narrator, Yapper, Building Block, E-List Celeb, Liberty Bringer. You don't pick your title. You earn it through how you show up.</p>
       </div>
       <div class="fc">
         <div class="fc-icon">🎒</div>
@@ -1028,18 +1126,24 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
         <p>Earn loot from raids and milestones. Items carry rarity tiers, equippable effects, and lore that reflects your journey.</p>
       </div>
     </div>
-    <div class="feat-row duo rv2">
+    <div class="feat-row rv2">
+      <div class="fc">
+        <div class="fc-icon">📋</div>
+        <span class="fc-tag">Quests</span>
+        <h3>Quest Board</h3>
+        <p>Daily and weekly quests that give your time on Krowdli direction. Complete quests solo or with your Party to earn bonus XP, loot drops, and exclusive rewards. The board refreshes — there's always a reason to come back.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🃏</div>
+        <span class="fc-tag">Collectibles</span>
+        <h3>Social Cards</h3>
+        <p>Mutual follows unlock collectible trading cards — full-bleed, EX-style cards unique to each user. Build your deck, trade with your Krowd, and flex your collection. The rarer your card, the harder it is to get.</p>
+      </div>
       <div class="fc">
         <div class="fc-icon">🛡️</div>
         <span class="fc-tag">Your Circle</span>
         <h3>Parties</h3>
-        <p>A Party is your inner crew — a named group with a shared XP bar, party chat, and collective identity. You grow together, raid together, and defend each other's reputation. Your party's presence is visible in the feed, on your profile, and in every raid you enter together.</p>
-      </div>
-      <div class="fc">
-        <div class="fc-icon">🌿</div>
-        <span class="fc-tag">Mini-Game</span>
-        <h3>Party Grove</h3>
-        <p>A living space that grows from your Party's real activity. The more your crew shows up, the more the grove flourishes. Ambient, beautiful, and tied to what you actually do together.</p>
+        <p>A Party is your inner crew — a named group with a shared XP bar, party chat, and collective identity. You grow together, raid together, and share every win.</p>
       </div>
     </div>
     <div class="feat-row duo2 rv3">
@@ -1065,44 +1169,310 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
   </div>
 </section>
 
+<!-- PARTY GROVE -->
+<section class="grove-section" id="grove">
+  <div class="grove-wrap">
+    <div class="grove-header rv">
+      <span class="stag">Try It — Party Grove</span>
+      <h2 class="sbb">YOUR PARTY'S <span class="hl">LIVING SPACE.</span></h2>
+      <p class="sb" style="margin:0 auto;text-align:center;max-width:520px">The Grove grows from your Party's real activity. Each plot holds a different crop — click a mound to plant a seed, watch it grow through three stages, then tap the flower to harvest XP. This is a real Krowdli feature.</p>
+    </div>
+    <div class="grove-canvas-wrap rv2">
+      <canvas id="groveCanvas" width="860" height="460" style="width:100%;height:auto;display:block"></canvas>
+      <div class="grove-ui">
+        <div class="grove-stat"><span>🌸</span><span class="grove-stat-val" id="groveFlowers">0</span><span>in bloom</span></div>
+        <div class="grove-stat"><span>⚡</span><span class="grove-stat-val" id="groveXp">0</span><span>XP earned</span></div>
+        <div class="grove-stat"><span>🌱</span><span class="grove-stat-val" id="groveSeeds">6</span><span>plots open</span></div>
+        <div class="grove-stat" id="groveLvStat"><span>🏅</span><span class="grove-stat-val" id="groveLv">Lv 1</span><span>Grove</span></div>
+      </div>
+    </div>
+    <p class="grove-hint">Click an empty mound to plant · Watch it grow through 3 stages · Click the flower to harvest XP · Plots unlock as you level up</p>
+  </div>
+</section>
+
+<!-- BOSS ROOM DEMO -->
+<section class="bossroom-section" id="bossroom">
+  <div class="bossroom-wrap">
+    <div class="bossroom-header rv">
+      <span class="stag">Try It — Boss Quiz Raid</span>
+      <h2 class="sbb">FIGHT THE <span class="hl">BOSS.</span></h2>
+      <p class="sb" style="margin:0 auto;text-align:center;max-width:520px">This is how Boss Raids work on Krowdli. Answer questions to deal damage and drain the HP bar. 30 questions about Krowdli — 7 drawn randomly each raid. <strong style="color:var(--r)">Lose and you need to grow a flower in the Grove before raiding again.</strong></p>
+    </div>
+    <div class="bossroom-arena rv2" id="brArena">
+      <div class="bossroom-top">
+        <div class="bossroom-arena-bg"></div>
+        <div class="bossroom-arena-ring1"></div>
+        <div class="bossroom-arena-ring2"></div>
+        <div class="br-boss-area">
+          <div id="brBossSprite" style="width:180px;height:228px;transition:filter .15s">
+            <svg viewBox="0 0 220 280" style="width:180px;height:228px;filter:drop-shadow(0 0 28px rgba(255,106,0,0.35)) drop-shadow(0 0 60px rgba(34,180,34,0.12))">
+              <defs>
+                <radialGradient id="mbark2" cx="35%" cy="30%" r="80%"><stop offset="0%" stop-color="#6B4A2A"/><stop offset="100%" stop-color="#1E1208"/></radialGradient>
+                <radialGradient id="mhead2" cx="30%" cy="28%" r="75%"><stop offset="0%" stop-color="#7A5A38"/><stop offset="100%" stop-color="#22120A"/></radialGradient>
+              </defs>
+              <ellipse cx="110" cy="268" rx="40" ry="6" fill="#00000066"/>
+              <g class="mb-body">
+                <ellipse cx="110" cy="177" rx="66" ry="55" fill="#1E1208"/>
+                <ellipse cx="110" cy="177" rx="66" ry="55" fill="url(#mbark2)"/>
+                <ellipse cx="110" cy="183" rx="36" ry="31" fill="#3E2810"/>
+                <ellipse cx="126" cy="171" rx="16" ry="15" fill="#FFAA0044" class="mb-core"/>
+                <ellipse cx="126" cy="171" rx="14" ry="13" fill="#FFAA00" class="mb-core"/>
+                <ellipse cx="126" cy="171" rx="7" ry="6" fill="#FFEE88" class="mb-core"/>
+                <ellipse cx="122" cy="167" rx="4" ry="3" fill="#fff" opacity=".7"/>
+                <!-- Arms -->
+                <path d="M74 142 Q46 154 32 176 Q18 198 22 216 Q26 228 38 230 Q50 230 56 218 Q62 206 60 188 Q64 168 78 152 Z" fill="#1E1208"/>
+                <path d="M74 142 Q46 154 32 176 Q18 198 22 216 Q26 228 38 230 Q50 230 56 218 Q62 206 60 188 Q64 168 78 152 Z" fill="url(#mbark2)"/>
+                <path d="M146 142 Q174 154 188 176 Q202 198 198 216 Q194 228 182 230 Q170 230 164 218 Q158 206 160 188 Q156 168 142 152 Z" fill="#1E1208"/>
+                <path d="M146 142 Q174 154 188 176 Q202 198 198 216 Q194 228 182 230 Q170 230 164 218 Q158 206 160 188 Q156 168 142 152 Z" fill="url(#mbark2)"/>
+                <!-- Moss on arms -->
+                <path d="M36 166 Q47 159 55 162 Q59 167 52 170 Q45 173 36 166Z" fill="#4A8A1A" opacity=".9"/>
+                <path d="M30 185 Q41 178 49 181 Q53 186 46 189 Q39 192 30 185Z" fill="#3A7012" opacity=".85"/>
+                <path d="M182 166 Q193 159 200 162 Q204 167 197 170 Q190 173 182 166Z" fill="#4A8A1A" opacity=".9"/>
+                <path d="M188 185 Q199 178 206 181 Q210 186 203 189 Q196 192 188 185Z" fill="#3A7012" opacity=".85"/>
+                <!-- Fingers left -->
+                <path d="M24 214 Q18 220 12 226 Q11 231 12 236" stroke="#3E2810" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                <path d="M32 220 Q28 226 26 232 Q25 237 26 242" stroke="#3E2810" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                <path d="M42 224 Q40 230 40 236 Q40 241 42 246" stroke="#3E2810" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                <!-- Fingers right -->
+                <path d="M196 214 Q202 220 208 226 Q209 231 208 236" stroke="#3E2810" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                <path d="M188 220 Q192 226 194 232 Q195 237 194 242" stroke="#3E2810" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                <path d="M178 224 Q180 230 180 236 Q180 241 178 246" stroke="#3E2810" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                <!-- Torso body moss -->
+                <path d="M54 132 Q66 124 76 127 Q80 132 73 136 Q65 139 54 132Z" fill="#6AAA2A" opacity=".9"/>
+                <path d="M52 150 Q63 142 72 146 Q76 151 69 154 Q62 157 52 150Z" fill="#4A8A1A" opacity=".88"/>
+                <path d="M148 136 Q159 128 168 132 Q172 137 165 140 Q158 143 148 136Z" fill="#6AAA2A" opacity=".9"/>
+                <path d="M80 122 Q92 114 102 118 Q106 123 99 126 Q92 129 80 122Z" fill="#4A9A20" opacity=".92"/>
+                <path d="M118 120 Q132 112 144 116 Q148 121 141 125 Q134 128 118 120Z" fill="#4A9A20" opacity=".92"/>
+                <!-- Vines -->
+                <path d="M84 202 Q78 216 82 230 Q76 246 80 260" stroke="#2A5A0A" stroke-width="2.2" stroke-linecap="round" fill="none" class="mb-vine1"/>
+                <path d="M110 206 Q106 222 110 238 Q106 252 110 264" stroke="#2A5A0A" stroke-width="2.2" stroke-linecap="round" fill="none" class="mb-vine2"/>
+                <path d="M134 202 Q140 216 136 230 Q142 246 138 260" stroke="#2A5A0A" stroke-width="2.2" stroke-linecap="round" fill="none" class="mb-vine3"/>
+                <!-- Legs -->
+                <path d="M78 185 Q62 205 58 228 Q54 248 60 258 Q72 266 88 262 Q100 258 98 242 Q96 222 100 198 Z" fill="#1E1208"/>
+                <path d="M78 185 Q62 205 58 228 Q54 248 60 258 Q72 266 88 262 Q100 258 98 242 Q96 222 100 198 Z" fill="url(#mbark2)"/>
+                <path d="M142 185 Q158 205 162 228 Q166 248 160 258 Q148 266 132 262 Q120 258 122 242 Q124 222 120 198 Z" fill="#1E1208"/>
+                <path d="M142 185 Q158 205 162 228 Q166 248 160 258 Q148 266 132 262 Q120 258 122 242 Q124 222 120 198 Z" fill="url(#mbark2)"/>
+                <!-- Feet -->
+                <path d="M56 234 Q48 248 52 258 Q62 266 78 264 Q90 262 94 254 Q96 246 90 240 Z" fill="#3E2810"/>
+                <path d="M164 234 Q172 248 168 258 Q158 266 142 264 Q130 262 126 254 Q124 246 130 240 Z" fill="#3E2810"/>
+                <!-- Head -->
+                <g class="mb-head">
+                  <ellipse cx="110" cy="100" rx="74" ry="66" fill="#1E1208"/>
+                  <ellipse cx="110" cy="100" rx="74" ry="66" fill="url(#mhead2)"/>
+                  <ellipse cx="80" cy="67" rx="32" ry="23" fill="#6A4828" opacity=".35"/>
+                  <!-- Top moss cap -->
+                  <path d="M70 58 Q82 40 102 36 Q118 32 134 38 Q152 44 160 58 Q148 66 130 62 Q110 58 90 60 Q76 62 70 58Z" fill="#6AAA2A" opacity=".88"/>
+                  <path d="M74 66 Q92 56 110 58 Q130 56 148 66 Q140 76 122 74 Q110 76 96 74 Q80 76 74 66Z" fill="#4A9A20" opacity=".82"/>
+                  <!-- Side moss -->
+                  <path d="M52 68 Q63 61 72 65 Q76 70 69 73 Q62 76 52 68Z" fill="#4A8A1A" opacity=".9"/>
+                  <path d="M48 84 Q58 77 66 81 Q70 86 63 89 Q56 92 48 84Z" fill="#3A7012" opacity=".88"/>
+                  <path d="M158 70 Q169 63 177 67 Q181 72 174 75 Q167 78 158 70Z" fill="#4A8A1A" opacity=".9"/>
+                  <path d="M162 86 Q172 79 180 83 Q184 88 177 91 Q170 94 162 86Z" fill="#3A7012" opacity=".88"/>
+                  <!-- Branch antlers -->
+                  <path d="M88 78 Q78 60 70 44 Q62 28 66 16" stroke="#1E1208" stroke-width="5" stroke-linecap="round" fill="none" class="mb-branchL"/>
+                  <path d="M88 78 Q78 60 70 44 Q62 28 66 16" stroke="#3E2810" stroke-width="3.5" stroke-linecap="round" fill="none" class="mb-branchL"/>
+                  <path d="M72 46 Q58 38 48 32" stroke="#4A2E10" stroke-width="2" stroke-linecap="round" fill="none" class="mb-branchL"/>
+                  <!-- Branch leaf clusters -->
+                  <g class="mb-leaf"><path d="M54 18 Q60 10 70 14 Q64 22 54 18Z" fill="#88CC44"/><path d="M46 22 Q54 12 62 18 Q56 26 46 22Z" fill="#3A7A14"/><path d="M42 14 Q50 6 58 12 Q52 20 42 14Z" fill="#4A9A20"/></g>
+                  <path d="M134 72 Q150 60 162 48 Q172 38 176 24" stroke="#1E1208" stroke-width="4.5" stroke-linecap="round" fill="none" class="mb-branchR"/>
+                  <path d="M134 72 Q150 60 162 48 Q172 38 176 24" stroke="#3E2810" stroke-width="3" stroke-linecap="round" fill="none" class="mb-branchR"/>
+                  <path d="M162 50 Q176 42 186 36" stroke="#4A2E10" stroke-width="1.8" stroke-linecap="round" fill="none" class="mb-branchR"/>
+                  <g class="mb-leaf"><path d="M170 22 Q164 14 154 18 Q160 26 170 22Z" fill="#88CC44"/><path d="M178 26 Q170 16 162 22 Q168 30 178 26Z" fill="#3A7A14"/></g>
+                  <!-- Eyes -->
+                  <ellipse cx="82" cy="88" rx="16" ry="14.5" fill="#0A1808"/>
+                  <ellipse cx="82" cy="88" rx="13" ry="11.5" fill="#0E2008"/>
+                  <ellipse cx="82" cy="88" rx="11" ry="10" fill="#44FF44" opacity=".25" style="filter:blur(3px)"/>
+                  <ellipse cx="82" cy="88" rx="10" ry="9" fill="#0A6A0A"/>
+                  <ellipse cx="82" cy="88" rx="8" ry="7" fill="#44FF44" class="mb-eye-iris"/>
+                  <ellipse cx="82" cy="88" rx="5" ry="4.5" fill="#88FF44" class="mb-eye-iris"/>
+                  <ellipse cx="82" cy="88" rx="2.5" ry="2.2" fill="#AAFFAA" class="mb-eye-iris"/>
+                  <ellipse cx="82" cy="88" rx="1.4" ry="2.8" fill="#001800"/>
+                  <ellipse cx="79" cy="85" rx="2" ry="1.5" fill="#fff" opacity=".85"/>
+                  <ellipse cx="138" cy="88" rx="16" ry="14.5" fill="#0A1808"/>
+                  <ellipse cx="138" cy="88" rx="13" ry="11.5" fill="#0E2008"/>
+                  <ellipse cx="138" cy="88" rx="11" ry="10" fill="#44FF44" opacity=".25" style="filter:blur(3px)"/>
+                  <ellipse cx="138" cy="88" rx="10" ry="9" fill="#0A6A0A"/>
+                  <ellipse cx="138" cy="88" rx="8" ry="7" fill="#44FF44" class="mb-eye-iris"/>
+                  <ellipse cx="138" cy="88" rx="5" ry="4.5" fill="#88FF44" class="mb-eye-iris"/>
+                  <ellipse cx="138" cy="88" rx="2.5" ry="2.2" fill="#AAFFAA" class="mb-eye-iris"/>
+                  <ellipse cx="138" cy="88" rx="1.4" ry="2.8" fill="#001800"/>
+                  <ellipse cx="135" cy="85" rx="2" ry="1.5" fill="#fff" opacity=".85"/>
+                  <!-- Nose -->
+                  <ellipse cx="104" cy="110" rx="3.5" ry="2" fill="#1E1208" transform="rotate(-15,104,110)"/>
+                  <ellipse cx="116" cy="110" rx="3.5" ry="2" fill="#1E1208" transform="rotate(15,116,110)"/>
+                  <!-- Sealed lower face -->
+                  <path d="M68 116 Q90 124 110 122 Q130 124 152 116 Q150 130 130 134 Q110 136 90 134 Q70 130 68 116Z" fill="#3E2810"/>
+                  <path d="M76 126 Q85 119 92 123 Q96 128 89 131 Q83 134 76 126Z" fill="#3A6A10" opacity=".88"/>
+                  <path d="M118 128 Q127 121 134 125 Q138 130 131 133 Q124 136 118 128Z" fill="#3A6A10" opacity=".88"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="br-boss-name">Murkbell — The Warden</div>
+          <div class="br-hp-wrap" style="width:200px">
+            <div class="br-hp-label"><span>BOSS HP</span><span id="brHpPct">100%</span></div>
+            <div class="br-hp-track"><div class="br-hp-fill" id="brHpFill" style="width:100%"></div></div>
+          </div>
+          <div style="font-size:.68rem;color:rgba(255,100,0,.8);font-weight:700;min-height:1rem" id="brRageTag"></div>
+        </div>
+        <!-- Player stats bar below boss -->
+        <div class="br-player-area">
+          <div style="text-align:center">
+            <div class="br-player-label">YOUR HP</div>
+            <div style="font-family:var(--bb);font-size:1.2rem;color:#4ade80;letter-spacing:.04em" id="brPlayerHp">100 / 100</div>
+            <div class="br-hp-track" style="width:130px;margin-top:.3rem"><div id="brPlayerHpFill" style="height:100%;width:100%;background:#4ade80;border-radius:4px;transition:width .4s ease"></div></div>
+          </div>
+          <div style="text-align:center">
+            <div class="br-player-label">RAID XP</div>
+            <div class="br-xp-val">+<span id="brXp">0</span></div>
+          </div>
+          <div style="text-align:center">
+            <div class="br-player-label">STREAK</div>
+            <div style="font-family:var(--bb);font-size:1.1rem;color:#4ade80;min-height:1.4rem" id="brStreakTag">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bossroom-content">
+        <!-- INTRO -->
+        <div class="br-screen active" id="brIntro">
+          <div class="br-intro">
+            <h3>BOSS QUIZ RAID</h3>
+            <p>Murkbell has chosen Boss Quiz. You'll get 7 questions drawn from a pool of 30 about Krowdli. Answer correctly to deal damage. Wrong answers let Murkbell strike back.</p>
+            <p style="font-size:.8rem;color:rgba(230,57,70,.85);margin-top:.6rem;font-weight:600;line-height:1.5">⚠ If your HP hits zero, you're KO'd. You'll need to grow and harvest a flower in the Grove before you can raid again.</p>
+            <button class="br-start-btn" onclick="brStart()">⚔️ Enter the Raid</button>
+          </div>
+        </div>
+        <!-- QUESTION -->
+        <div class="br-screen" id="brQuestion">
+          <div class="br-timer-wrap">
+            <div style="display:flex;justify-content:space-between;font-size:.68rem;color:rgba(255,255,255,.32);margin-bottom:.3rem">
+              <span id="brQNum">Question 1 of 7</span><span id="brTimerLabel">20s</span>
+            </div>
+            <div class="br-timer-track"><div class="br-timer-fill" id="brTimer" style="width:100%"></div></div>
+          </div>
+          <div class="br-q-text" id="brQText"></div>
+          <div style="font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--o);margin-bottom:.6rem" id="brQMode"></div>
+          <div class="br-answers" id="brAnswers"></div>
+          <div class="br-feedback" id="brFeedback"></div>
+        </div>
+        <!-- KO / LOSE - must grow flower -->
+        <div class="br-screen" id="brLose">
+          <div class="br-result">
+            <div class="br-result-icon">💀</div>
+            <h3>KO'D BY MURKBELL</h3>
+            <p id="brLoseMsg" style="margin-bottom:1rem"></p>
+            <div style="background:rgba(255,106,0,0.06);border:1px solid rgba(255,106,0,0.18);border-radius:12px;padding:1rem 1.2rem;font-size:.84rem;color:rgba(255,255,255,0.55);line-height:1.7;text-align:left;margin-bottom:1.25rem">
+              <strong style="color:var(--t)">🌿 Grove Challenge to unlock Raid Again:</strong><br>
+              Scroll up to the Party Grove. Click an empty mound to plant a seed. Wait for it to bloom through all 3 stages. Then click the flower to harvest it.<br>
+              <span id="brGroveStatus" style="color:#4ade80;font-weight:700;display:block;margin-top:.4rem;min-height:1.1em"></span>
+            </div>
+            <button class="br-retry" id="brRetryBtn" onclick="brReset()" style="opacity:.3;cursor:not-allowed;pointer-events:none" disabled>⚔️ Raid Again — grow a flower first</button>
+            <br><a href="#grove" style="display:inline-block;margin-top:.6rem;font-size:.82rem;color:#88CC44;border:1px solid rgba(106,170,42,0.3);padding:.5rem 1.2rem;border-radius:8px;background:rgba(106,170,42,0.06)">🌱 Go to the Grove ↑</a>
+          </div>
+        </div>
+        <!-- WIN -->
+        <div class="br-screen" id="brWin">
+          <div class="br-result">
+            <div class="br-result-icon">🏆</div>
+            <h3>BOSS DEFEATED!</h3>
+            <div class="br-result-xp" id="brResultXp">+0 XP</div>
+            <p id="brWinMsg" style="margin-bottom:1rem"></p>
+            <button class="br-retry" onclick="brReset()">⚔️ Raid Again</button>
+          </div>
+        </div>
+      </div>
+      <!-- Live thread -->
+      <div id="brThread" style="max-height:150px;overflow-y:auto;border-top:1px solid rgba(255,255,255,0.05)"></div>
+    </div>
+  </div>
+</section>
 <!-- TIERS -->
 <section class="tiers-section" id="tiers">
   <div class="wrap">
     <div class="rv" style="text-align:center;max-width:600px;margin:0 auto">
       <span class="stag">Progression</span>
       <h2 class="sbb">EARN YOUR <span class="hl">TIER.</span></h2>
-      <p class="sb" style="margin:0 auto;text-align:center">Five tiers. One path. Earned through consistency and community — never purchased. Each tier unlocks new cosmetics, prestige, and visibility within your Krowd.</p>
+      <p class="sb" style="margin:0 auto;text-align:center">Seven tiers. One path. Earned through consistency and community — never purchased. Each tier unlocks new cosmetics, prestige, and visibility within your Krowd.</p>
     </div>
-    <div class="tiers-row rv2">
-      <div class="tier common">
-        <div class="tier-gem">⬜</div>
-        <div class="tier-name">Common</div>
-        <div class="tier-xp">0 – 999 XP</div>
-        <div class="tier-desc">Every legend starts here. Fresh, hungry, ready to show up.</div>
+    <div class="tiers-row rv2" style="flex-wrap:wrap">
+      <div class="tier" style="border-right:1px solid var(--brd)">
+        <div class="tier-gem" style="color:#b87333">◆</div>
+        <div class="tier-name" style="color:#b87333">Copper</div>
+        <div class="tier-xp">Level 1 – 5</div>
+        <div class="tier-desc">Every legend starts here. Raw, unproven, hungry.</div>
       </div>
-      <div class="tier uncommon">
-        <div class="tier-gem">🟩</div>
-        <div class="tier-name">Uncommon</div>
-        <div class="tier-xp">1,000 – 4,999 XP</div>
-        <div class="tier-desc">You've shown up enough. Your Krowd starts to notice.</div>
+      <div class="tier" style="border-right:1px solid var(--brd)">
+        <div class="tier-gem" style="color:#00a86b">◆</div>
+        <div class="tier-name" style="color:#00a86b">Jade</div>
+        <div class="tier-xp">Level 6 – 10</div>
+        <div class="tier-desc">You've shown up. Your Krowd starts to notice.</div>
       </div>
-      <div class="tier rare">
-        <div class="tier-gem">🟦</div>
-        <div class="tier-name">Rare</div>
-        <div class="tier-xp">5,000 – 14,999 XP</div>
-        <div class="tier-desc">Consistent. Known. Raids under your belt.</div>
+      <div class="tier" style="border-right:1px solid var(--brd)">
+        <div class="tier-gem" style="color:#40e0d0">◆</div>
+        <div class="tier-name" style="color:#40e0d0">Turquoise</div>
+        <div class="tier-xp">Level 11 – 15</div>
+        <div class="tier-desc">Consistent presence. Raids under your belt.</div>
       </div>
-      <div class="tier epic">
-        <div class="tier-gem">🟪</div>
-        <div class="tier-name">Epic</div>
-        <div class="tier-xp">15,000 – 49,999 XP</div>
-        <div class="tier-desc">A pillar of the community. Your Party rallies around you.</div>
+      <div class="tier" style="border-right:1px solid var(--brd)">
+        <div class="tier-gem" style="color:#9966cc">◆</div>
+        <div class="tier-name" style="color:#9966cc">Amethyst</div>
+        <div class="tier-xp">Level 16 – 20</div>
+        <div class="tier-desc">Known. Respected. The community recognizes your name.</div>
       </div>
-      <div class="tier legendary">
-        <div class="tier-gem">🌟</div>
-        <div class="tier-name">Legendary</div>
-        <div class="tier-xp">50,000+ XP</div>
-        <div class="tier-desc">Undeniable. The platform bends toward your presence.</div>
+      <div class="tier" style="border-right:1px solid var(--brd)">
+        <div class="tier-gem" style="color:#e0115f">◆</div>
+        <div class="tier-name" style="color:#e0115f">Ruby</div>
+        <div class="tier-xp">Level 21 – 25</div>
+        <div class="tier-desc">A pillar. Your Party rallies around you.</div>
+      </div>
+      <div class="tier" style="border-right:1px solid var(--brd)">
+        <div class="tier-gem" style="color:#b9f2ff">◆</div>
+        <div class="tier-name" style="color:#b9f2ff">Diamond</div>
+        <div class="tier-xp">Level 26 – 30</div>
+        <div class="tier-desc">Elite. The platform sees you differently.</div>
+      </div>
+      <div class="tier">
+        <div class="tier-gem" style="color:#7b2869">◆</div>
+        <div class="tier-name" style="color:#7b2869">Obsidian</div>
+        <div class="tier-xp">Level 31 – 35</div>
+        <div class="tier-desc">Undeniable. The highest tier. The platform bends toward your presence.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="founder-section" id="founder">
+  <div class="wrap">
+    <div class="rv" style="text-align:center;max-width:600px;margin:0 auto">
+      <span class="stag">The Person Behind It</span>
+      <h2 class="sbb">BUILT BY ONE <span class="hl">PERSON.</span></h2>
+    </div>
+    <div class="founder-grid">
+      <div class="founder-avatar rv">
+        <div class="founder-avatar-ring">
+          <div class="founder-avatar-inner">M</div>
+        </div>
+      </div>
+      <div class="rv2">
+        <div class="founder-role">👑 Founder &amp; CEO</div>
+        <div class="founder-name">MOLEK<br>ROBERTSON</div>
+        <div class="founder-sub">Founder · CEO · Building Krowdli solo</div>
+        <p class="founder-bio">
+          I got tired of every social platform feeling like a broadcast tower with no signal back. You post, it disappears, the algorithm moves on. There's no momentum, no community, no reason to actually show up.
+          <br><br>
+          So I built Krowdli. <strong>One person, one vision</strong> — a social platform where your presence actually means something. Where your community grows with you, raids with you, and earns with you. I'm building what I always wanted social media to be.
+        </p>
+        <div class="founder-links">
+          <a href="https://instagram.com/krowdli" target="_blank" rel="noopener" class="founder-link"><span class="founder-link-icon">📸</span> @krowdli on Instagram</a>
+          <a href="https://twitter.com/krowdli" target="_blank" rel="noopener" class="founder-link"><span class="founder-link-icon">𝕏</span> @krowdli on X</a>
+          <a href="mailto:krowdli@gmail.com" class="founder-link"><span class="founder-link-icon">✉️</span> krowdli@gmail.com</a>
+        </div>
+        <div class="mvp-banner">
+          <div class="mvp-icon">🚧</div>
+          <div class="mvp-text"><strong>This is the MVP.</strong> Krowdli is actively in development. What you're seeing is the first version — the foundation. Features will expand, bosses will multiply, and the platform will grow based on what the community needs. Getting in early means helping shape what it becomes.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1129,10 +1499,10 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
         Come be social. For real this time.
       </p>
       <div class="founding-perks">
-        <span class="fp">🌟 Founding Krowd Badge</span>
         <span class="fp">⚡ XP Head Start</span>
         <span class="fp">🎒 Exclusive Launch Loot</span>
-        <span class="fp">🏅 Permanent Founder Title</span>
+        <span class="fp">🃏 Rare Social Card</span>
+        <span class="fp">🏅 Early Supporter Title</span>
       </div>
       <div class="waitlist-form">
         <input type="email" class="wi" placeholder="your@email.com" id="wi" autocomplete="email">
@@ -1150,23 +1520,29 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
     <div>
       <div class="flogo">KROWDLI</div>
       <p class="ftag">Come Be Social. No ads. No algorithms. Just your Krowd.</p>
+      <p style="font-size:.72rem;color:var(--d);margin-top:.5rem">MVP — Built by Molek Robertson</p>
     </div>
     <div class="fcols">
       <div class="fcol">
         <h4>Explore</h4>
-        <a href="#why">Why Krowdli</a>
+        <a href="#why">Why I Built This</a>
         <a href="#features">Features</a>
         <a href="#bosses">Bosses</a>
+        <a href="#grove">Try the Grove</a>
+        <a href="#bossroom">Try a Raid</a>
         <a href="#tiers">Tiers</a>
+        <a href="#founder">Founder</a>
       </div>
       <div class="fcol">
         <h4>Connect</h4>
-        <a href="mailto:hello@krowdli.com">Contact</a>
-        <a href="#close">Early Access</a>
+        <a href="https://instagram.com/krowdli" target="_blank" rel="noopener">Instagram — @krowdli</a>
+        <a href="https://twitter.com/krowdli" target="_blank" rel="noopener">X (Twitter) — @krowdli</a>
+        <a href="mailto:krowdli@gmail.com">krowdli@gmail.com</a>
+        <a href="#close">Join the Waitlist</a>
       </div>
     </div>
   </div>
-  <div class="fb">© 2026 Krowdli. Social media, reforged. Built in Greenville, SC.</div>
+  <div class="fb">© 2026 Krowdli. Come Be Social. MVP — Built by Molek Robertson.</div>
 </footer>
 
 <script>
@@ -1196,11 +1572,789 @@ function handleW(){
   const v=i.value.trim();
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){m.style.color='#ff4444';m.textContent='⚠ Enter a valid email address.';return}
   m.style.color='var(--o)';
-  m.textContent='✓ You\'re in. Founding Krowd status locked. See you at launch.';
+  m.textContent='✓ You\'re in. See you at launch.';
   i.value='';i.disabled=true;
 }
 document.getElementById('wi').addEventListener('keydown',e=>{if(e.key==='Enter')handleW()});
 
+/* ══════════════════════════════════════════
+   PARTY GROVE — full crop-type demo
+   Mirrors: party_grove.dart crop types, mound painter, plant stages
+══════════════════════════════════════════ */
+(function(){
+'use strict';
+const canvas = document.getElementById('groveCanvas');
+if(!canvas) return;
+const ctx = canvas.getContext('2d');
+const W=860, H=460;
+
+/* ── Crop types from kCrops list ── */
+const CROPS = [
+  {id:'mp',name:'Moonpetal',rarity:'common', rarityColor:'#64DC3C', stem:'#4A9E3A',leaf1:'#3A8A28',leaf2:'#5AB040',
+   p1:'#E060A0',p2:'#F090C0',p3:'#FFC0E0',c1:'#FFF5F9',c2:'#FFD0E8',growSec:12,xp:40,petals:6},
+  {id:'ef',name:'Emberfern',rarity:'common', rarityColor:'#64DC3C', stem:'#4A7010',leaf1:'#3A6008',leaf2:'#6AA018',
+   p1:'#E0A020',p2:'#F0C040',p3:'#FFF0A0',c1:'#2A1800',c2:'#604010',growSec:22,xp:70,petals:12},
+  {id:'ss',name:'Shadowspore',rarity:'uncommon',rarityColor:'#3CA0FF', stem:'#404060',leaf1:'#505070',leaf2:'#7070A0',
+   p1:'#8060C0',p2:'#A080E0',p3:'#C0B0F0',c1:'#FFF0FF',c2:'#E0C0F0',growSec:38,xp:120,petals:7},
+  {id:'dr',name:'Dragonroot',rarity:'rare',   rarityColor:'#FFA000', stem:'#6A2010',leaf1:'#7A2A10',leaf2:'#C04020',
+   p1:'#E03020',p2:'#F06030',p3:'#FF9060',c1:'#FFEE00',c2:'#FF8000',growSec:58,xp:200,petals:8},
+  {id:'vb',name:'Voidbloom',rarity:'epic',    rarityColor:'#C83CFF', stem:'#2A2070',leaf1:'#3A30A0',leaf2:'#6050C0',
+   p1:'#C030B0',p2:'#E050D0',p3:'#FF90F0',c1:'#FFF0FF',c2:'#E0A0FF',growSec:90,xp:350,petals:8},
+];
+
+/* ── Plot state — 6 plots, matches kLvMounds progression ── */
+const MAX_PLOTS = 6;
+const MOUND_UNLOCK = [2,3,4,5,5,6]; // unlocked by grove level 0-5
+const LV_XP = [0,80,200,380,600,900];
+let totalXP = 0;
+let groveLevel = 0;
+
+function groveLv(xp){
+  for(let i=LV_XP.length-1;i>=0;i--) if(xp>=LV_XP[i]) return i;
+  return 0;
+}
+function plotsUnlocked(lv){ return MOUND_UNLOCK[Math.min(lv,MOUND_UNLOCK.length-1)]; }
+
+const plots = Array.from({length:MAX_PLOTS},(_,i)=>({
+  id:i, status:'empty', crop:null, plantedAt:null, growSec:0,
+  progress:0, stage:1, wobble:Math.random()*Math.PI*2,
+  wobbleSpeed:0.01+Math.random()*0.015,
+  isGolden: i===0, // first plot starts golden for demo
+}));
+
+// Mound positions — 2 rows of 3, honeycomb offset
+const MOUND_POS = [
+  {x:143,y:310}, {x:290,y:285}, {x:437,y:305},
+  {x:210,y:385}, {x:357,y:365}, {x:504,y:380},
+];
+
+let particles = [];
+let xpFloats = [];
+let frame = 0;
+let clouds = [{x:-80,y:28,w:90,h:20,spd:.18},{x:120,y:14,w:65,h:16,spd:.12},{x:320,y:8,w:110,h:22,spd:.15}];
+let butterflies = Array.from({length:3},(_,i)=>({
+  x:80+i*200, y:80+i*30, vx:.5+i*.2, vy:.2+i*.1,
+  wing:i*1.2, wingSpd:.12+i*.02,
+  ca:['#FFD17A','#AEBFFF','#FF9DDD'][i], cb:['#FFA94F','#74C8FF','#E56BC1'][i]
+}));
+let fireflies = Array.from({length:6},(_,i)=>({
+  x:50+i*130,y:290+i%2*20,vx:.2+i*.05*(i%2?1:-1),vy:.1+i*.03*(i%2?1:-1),phase:i*1.1
+}));
+
+// Picker state
+let pickerOpen = false;
+let pickerPlotId = -1;
+
+/* ── TICK: update plot progress every second ── */
+setInterval(()=>{
+  const now = Date.now();
+  plots.forEach(p=>{
+    if(p.status==='growing' && p.plantedAt){
+      const elapsed = (now - p.plantedAt)/1000;
+      p.progress = Math.min(1, elapsed/p.growSec);
+      p.stage = p.progress<0.32?1:p.progress<0.68?2:3;
+    }
+  });
+  updateStats();
+},500);
+
+/* ── CANVAS CLICK ── */
+canvas.addEventListener('click',e=>{
+  const rect=canvas.getBoundingClientRect();
+  const sx=W/rect.width, sy=H/rect.height;
+  const mx=(e.clientX-rect.left)*sx, my=(e.clientY-rect.top)*sy;
+  const unlocked = plotsUnlocked(groveLevel);
+
+  for(let i=0;i<MAX_PLOTS;i++){
+    const pos=MOUND_POS[i];
+    if(!pos) continue;
+    const dist=Math.hypot(mx-pos.x,my-pos.y);
+    if(dist>46) continue;
+
+    if(i>=unlocked){ showFloat(pos.x,pos.y,'🔒 Locked',`#999`); return; }
+
+    const p=plots[i];
+    if(p.status==='empty'){
+      openPicker(i);
+    } else if(p.status==='growing' && p.progress>=1){
+      harvestPlot(i);
+    } else if(p.status==='growing'){
+      const rem = Math.ceil(p.growSec - (Date.now()-p.plantedAt)/1000);
+      showFloat(pos.x,pos.y-20,`⏳ ${rem}s`,'#aaa');
+    }
+    return;
+  }
+  closePicker();
+});
+
+function openPicker(plotId){
+  pickerOpen=true; pickerPlotId=plotId;
+}
+function closePicker(){ pickerOpen=false; pickerPlotId=-1; }
+
+function plantCrop(plotId, cropIdx){
+  const p=plots[plotId];
+  const crop=CROPS[cropIdx];
+  p.status='growing';
+  p.crop=crop;
+  p.plantedAt=Date.now();
+  p.growSec=crop.growSec;
+  p.progress=0;
+  p.stage=1;
+  closePicker();
+  // Notify boss room if waiting for grove
+  if(typeof window.groveHarvested!=='undefined') window.groveHarvestCount=window.groveHarvestCount||0;
+}
+
+function harvestPlot(plotId){
+  const p=plots[plotId];
+  if(!p.crop) return;
+  const earned = p.isGolden ? p.crop.xp*2 : p.crop.xp;
+  const pos=MOUND_POS[plotId];
+  totalXP+=earned;
+  groveLevel=groveLv(totalXP);
+  spawnBurst(pos.x,pos.y-30,p.crop.p1,p.crop.p2);
+  showFloat(pos.x,pos.y-50,`+${earned} XP  ✦ ${p.crop.name}`,'#A0FF60');
+  // Signal boss room
+  window.groveHarvestCount=(window.groveHarvestCount||0)+1;
+  if(typeof window.onGroveHarvest==='function') window.onGroveHarvest();
+  p.status='empty'; p.crop=null; p.plantedAt=null; p.progress=0; p.isGolden=false;
+  updateStats();
+}
+
+function spawnBurst(x,y,c1,c2){
+  for(let i=0;i<18;i++){
+    const a=Math.random()*Math.PI*2, spd=1.5+Math.random()*3.5;
+    particles.push({x,y,vx:Math.cos(a)*spd,vy:Math.sin(a)*spd-1,life:1,col:i%2?c1:c2,sz:2+Math.random()*3.5});
+  }
+}
+
+function showFloat(x,y,text,color){
+  xpFloats.push({x,y,text,color,life:1,vy:-1.2});
+}
+
+function updateStats(){
+  const bloom=plots.filter(p=>p.status==='growing'&&p.progress>=1).length;
+  const growing=plots.filter(p=>p.status==='growing'&&p.progress<1).length;
+  document.getElementById('groveFlowers').textContent=bloom+(growing?` (${growing} growing)`:'');
+  document.getElementById('groveXp').textContent=totalXP;
+  document.getElementById('groveSeeds').textContent=plots.filter(p=>p.status==='empty').length;
+  document.getElementById('groveLv').textContent=`Lv ${groveLevel+1}`;
+}
+
+/* ── RENDER ── */
+function r(){ frame++;
+  ctx.clearRect(0,0,W,H);
+  drawSky();
+  moveClouds();
+  drawClouds();
+  drawGround();
+  drawGrassTufts();
+  drawPlots();
+  drawButterflies();
+  drawFireflies();
+  drawParticles();
+  drawXPFloats();
+  if(pickerOpen) drawPicker();
+  requestAnimationFrame(r);
+}
+
+function drawSky(){
+  const grd=ctx.createLinearGradient(0,0,0,H-80);
+  grd.addColorStop(0,'#06090e'); grd.addColorStop(1,'#0a120a');
+  ctx.fillStyle=grd; ctx.fillRect(0,0,W,H-80);
+  // stars
+  [[40,30],[120,60],[200,20],[320,50],[450,15],[580,40],[700,25],[820,55],[140,40],[500,30],[660,50]].forEach(([sx,sy])=>{
+    ctx.fillStyle=`rgba(255,255,255,${.1+.1*Math.sin(frame*.003+sx)})`;
+    ctx.beginPath();ctx.arc(sx,sy,.8,0,Math.PI*2);ctx.fill();
+  });
+}
+
+function moveClouds(){
+  clouds.forEach(c=>{c.x+=c.spd;if(c.x>W+120)c.x=-120;});
+}
+function drawClouds(){
+  clouds.forEach(c=>{
+    ctx.fillStyle=`rgba(255,255,255,0.12)`;
+    ctx.beginPath();ctx.ellipse(c.x,c.y,c.w,c.h,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(c.x-c.w*.3,c.y+2,c.w*.5,c.h*.7,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(c.x+c.w*.3,c.y+1,c.w*.45,c.h*.65,0,0,Math.PI*2);ctx.fill();
+  });
+}
+
+function drawGround(){
+  const grd=ctx.createLinearGradient(0,H-80,0,H);
+  grd.addColorStop(0,'#0e1a08');grd.addColorStop(1,'#060e04');
+  ctx.fillStyle=grd;ctx.fillRect(0,H-80,W,80);
+  // honeycomb dots
+  ctx.strokeStyle='rgba(106,170,42,0.05)';ctx.lineWidth=.8;
+  for(let hx=0;hx<W;hx+=24) for(let hy=H-80;hy<H;hy+=14){
+    ctx.beginPath();ctx.arc(hx+(hy%28===0?12:0),hy,5.5,0,Math.PI*2);ctx.stroke();
+  }
+  // moss ground line
+  ctx.fillStyle='#2A5A0A';
+  ctx.beginPath();ctx.ellipse(W/2,H-74,W*.52,10,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#3A7012';
+  ctx.beginPath();ctx.ellipse(W/2,H-78,W*.4,8,0,0,Math.PI*2);ctx.fill();
+}
+
+function drawGrassTufts(){
+  const tufts=[[80,H-78],[160,H-74],[260,H-80],[380,H-76],[510,H-78],[640,H-74],[760,H-80],[820,H-76]];
+  tufts.forEach(([tx,ty])=>{
+    [[0,-11],[-.5,-12],[.5,-10],[-4,-8],[4,-7],[-8,-5],[8,-4]].forEach(([ox,oy])=>{
+      ctx.strokeStyle=oy<-9?'#56B63C':'#2E7D25';
+      ctx.lineWidth=1.1+Math.random()*.4;ctx.lineCap='round';
+      ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(tx+ox,ty+oy);ctx.stroke();
+    });
+  });
+}
+
+function drawPlots(){
+  const unlocked=plotsUnlocked(groveLevel);
+  plots.forEach((p,i)=>{
+    const pos=MOUND_POS[i]; if(!pos) return;
+    drawMound(pos.x,pos.y,p,i<unlocked);
+    if(p.status==='growing') drawPlant(pos.x,pos.y,p);
+    if(i>=unlocked){
+      ctx.fillStyle='rgba(255,255,255,.18)';ctx.font='bold 13px DM Sans,sans-serif';
+      ctx.textAlign='center';ctx.fillText('🔒',pos.x,pos.y-8);
+    } else if(p.status==='empty'){
+      ctx.fillStyle=p.isGolden?'rgba(255,215,0,.5)':'rgba(255,255,255,.22)';
+      ctx.font=`bold ${14+Math.sin(frame*.04+i)*.8}px sans-serif`;ctx.textAlign='center';
+      ctx.fillText(p.isGolden?'✦':'+',pos.x,pos.y-6);
+    }
+    if(p.isGolden&&p.status==='empty'){
+      ctx.fillStyle='rgba(255,215,0,.8)';ctx.font='bold 9px DM Sans,sans-serif';ctx.textAlign='center';
+      ctx.fillText('✦ 2× XP',pos.x,pos.y+24);
+    }
+    if(p.status==='growing'){
+      const lbl=p.progress>=1?`✦ Harvest! ${p.crop.name}`:p.crop.name+` (${Math.floor(p.progress*100)}%)`;
+      ctx.fillStyle=p.progress>=1?'#FFE680':'rgba(255,255,255,.5)';
+      ctx.font='bold 9px DM Sans,sans-serif';ctx.textAlign='center';
+      ctx.fillText(lbl,pos.x,pos.y+22);
+      // rarity dot
+      ctx.fillStyle=p.crop.rarityColor;
+      ctx.beginPath();ctx.arc(pos.x,pos.y+30,3.5,0,Math.PI*2);ctx.fill();
+    }
+  });
+}
+
+function drawMound(cx,cy,plot,unlocked){
+  const wet=false, isReady=plot.status==='growing'&&plot.progress>=1;
+  const shimmer=.5+.5*Math.sin(frame*.04);
+  ctx.save();ctx.globalAlpha=unlocked?1:.4;
+  // shadow
+  ctx.fillStyle='rgba(0,0,0,.28)';
+  ctx.beginPath();ctx.ellipse(cx,cy+2,37,7,0,0,Math.PI*2);ctx.fill();
+  // side
+  ctx.fillStyle=isReady?'#7A3A18':'#5A2E0C';
+  ctx.beginPath();ctx.moveTo(cx-37,cy+2);
+  ctx.quadraticCurveTo(cx-38,cy-30,cx,cy-32);
+  ctx.quadraticCurveTo(cx+38,cy-30,cx+37,cy+2);ctx.closePath();ctx.fill();
+  // top
+  const topGrd=ctx.createRadialGradient(cx-8,cy-20,2,cx,cy-16,30);
+  topGrd.addColorStop(0,isReady?'#B06A30':'#8A5230');
+  topGrd.addColorStop(1,isReady?'#7A3A18':'#5A2E0C');
+  ctx.fillStyle=topGrd;
+  ctx.beginPath();ctx.moveTo(cx-33,cy+2);
+  ctx.quadraticCurveTo(cx-34,cy-28,cx,cy-32);
+  ctx.quadraticCurveTo(cx+34,cy-28,cx+33,cy+2);
+  ctx.quadraticCurveTo(cx+18,cy-10,cx,cy-10);
+  ctx.quadraticCurveTo(cx-18,cy-10,cx-33,cy+2);ctx.closePath();ctx.fill();
+  // rim
+  ctx.strokeStyle=`rgba(255,255,255,.15)`;ctx.lineWidth=1.5;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(cx-33,cy+2);ctx.quadraticCurveTo(cx-34,cy-28,cx,cy-32);ctx.quadraticCurveTo(cx+34,cy-28,cx+33,cy+2);ctx.stroke();
+  // shadows/texture
+  ctx.fillStyle='rgba(0,0,0,.3)';ctx.beginPath();ctx.ellipse(cx-10,cy-14,6.5,2.5,-.2,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='rgba(0,0,0,.25)';ctx.beginPath();ctx.ellipse(cx+10,cy-20,5,2,-.1,0,Math.PI*2);ctx.fill();
+  if(isReady){ctx.fillStyle=`rgba(255,200,50,${.15+shimmer*.12})`;
+    ctx.beginPath();ctx.ellipse(cx,cy-6,28,12,0,0,Math.PI*2);ctx.fill();}
+  if(plot.isGolden){ctx.fillStyle=`rgba(255,215,0,${.08+shimmer*.1})`;
+    ctx.beginPath();ctx.ellipse(cx,cy-8,30,13,0,0,Math.PI*2);ctx.fill();}
+  ctx.restore();
+}
+
+function drawPlant(cx,cy,plot){
+  const c=plot.crop;if(!c)return;
+  const base=cy-32;
+  const wobble=Math.sin(frame*plot.wobbleSpeed+plot.wobble)*3;
+  const s=plot.stage;
+  ctx.save();ctx.translate(cx+wobble*.5,base);
+  // stem
+  ctx.strokeStyle=c.stem;ctx.lineWidth=s===1?2:s===2?2.5:3;ctx.lineCap='round';
+  const stemH=s===1?14:s===2?36:52;
+  ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(wobble,-(stemH*.5),wobble*.7,-stemH);ctx.stroke();
+  if(s>=2){
+    // leaves
+    [[-1,-.55,.4],[1,-.55,-.4],[-.85,-.7,.35],[.85,-.7,-.35]].forEach(([lx,ly,la],li)=>{
+      if(li>=2&&s<3) return;
+      ctx.save();ctx.translate(wobble*.6+lx*6,stemH*ly);ctx.rotate(la+wobble*.035);
+      ctx.fillStyle=li%2===0?c.leaf1:c.leaf2;
+      ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(lx*9,-5,lx*16,0);ctx.quadraticCurveTo(lx*9,5,0,0);ctx.fill();
+      ctx.restore();
+    });
+  }
+  if(s>=3){
+    // full flower
+    const n=c.petals;
+    for(let pi=0;pi<n;pi++){
+      const a=(pi/n)*Math.PI*2-Math.PI/2+frame*plot.wobbleSpeed*.2;
+      const r=c.id==='ef'?13:11;
+      ctx.save();ctx.translate(Math.cos(a)*r+wobble*.7,-stemH);ctx.rotate(a+Math.PI/2);
+      ctx.fillStyle=pi%2===0?c.p2:c.p3;
+      ctx.beginPath();ctx.ellipse(0,0,4,6.5,0,0,Math.PI*2);ctx.fill();ctx.restore();
+    }
+    // inner petals
+    for(let pi=0;pi<5;pi++){
+      const a=(pi/5)*Math.PI*2-Math.PI/2+.3;
+      ctx.save();ctx.translate(Math.cos(a)*6+wobble*.7,-stemH);ctx.rotate(a+Math.PI/2);
+      ctx.fillStyle=c.p1;ctx.beginPath();ctx.ellipse(0,0,3,4.5,0,0,Math.PI*2);ctx.fill();ctx.restore();
+    }
+    // centre
+    ctx.fillStyle=c.c2;ctx.beginPath();ctx.arc(wobble*.7,-stemH,6.5,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=c.c1;ctx.beginPath();ctx.arc(wobble*.7,-stemH,4,0,Math.PI*2);ctx.fill();
+    // specular
+    ctx.fillStyle='rgba(255,255,255,.7)';ctx.beginPath();ctx.ellipse(wobble*.7-2,-stemH-2,2,1.5,0,0,Math.PI*2);ctx.fill();
+    // halo if ready
+    if(plot.progress>=1){
+      ctx.strokeStyle=c.rarityColor;ctx.lineWidth=1.2;ctx.globalAlpha=.4+.3*Math.sin(frame*.06);
+      ctx.beginPath();ctx.arc(wobble*.7,-stemH,11,0,Math.PI*2);ctx.stroke();
+      ctx.globalAlpha=1;
+    }
+  } else if(s===2){
+    // bud
+    ctx.fillStyle=c.p2;ctx.beginPath();ctx.ellipse(wobble*.7,-stemH,7,9,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=c.p1;ctx.beginPath();ctx.ellipse(wobble*.7,-stemH-2,4.5,6,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=c.c1;ctx.beginPath();ctx.arc(wobble*.7,-stemH-4,2.5,0,Math.PI*2);ctx.fill();
+  } else {
+    // seedling
+    ctx.fillStyle=c.leaf1;ctx.beginPath();ctx.ellipse(-4,-stemH,4,2.5,-.6,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=c.leaf2;ctx.beginPath();ctx.ellipse(4,-stemH,4,2.5,.6,0,Math.PI*2);ctx.fill();
+  }
+  ctx.restore();
+}
+
+function drawButterflies(){
+  butterflies.forEach(b=>{
+    b.x+=b.vx;b.y+=b.vy+Math.sin(frame*.018)*.3;b.wing+=b.wingSpd;
+    if(b.x<-20||b.x>W+20)b.vx*=-1;if(b.y<60||b.y>H-100)b.vy*=-1;
+    const ws=Math.abs(Math.sin(b.wing))*10+2;
+    ctx.save();ctx.translate(b.x,b.y);ctx.globalAlpha=.5;
+    ctx.fillStyle=b.ca;ctx.beginPath();ctx.ellipse(-ws*.5,-2,ws*.5,3.5,-.3,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(ws*.5,-2,ws*.5,3.5,.3,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+  });
+}
+
+function drawFireflies(){
+  fireflies.forEach(f=>{
+    f.x+=f.vx;f.y+=f.vy;f.phase+=.04;
+    if(f.x<0||f.x>W)f.vx*=-1;if(f.y<H-220||f.y>H-60)f.vy*=-1;
+    const op=Math.max(0,.2+.25*Math.sin(f.phase))*((frame%300>150)?1:0);
+    if(op<=0) return;
+    ctx.save();ctx.globalAlpha=op;ctx.fillStyle='#FFEE88';
+    ctx.shadowColor='#FFD700';ctx.shadowBlur=7;
+    ctx.beginPath();ctx.arc(f.x,f.y,1.5,0,Math.PI*2);ctx.fill();ctx.restore();
+  });
+}
+
+function drawParticles(){
+  particles=particles.filter(p=>p.life>0);
+  particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.12;p.life-=.04;
+    ctx.save();ctx.globalAlpha=Math.max(0,p.life);ctx.fillStyle=p.col;
+    ctx.beginPath();ctx.arc(p.x,p.y,Math.max(0.01,p.sz*p.life),0,Math.PI*2);ctx.fill();ctx.restore();
+  });
+}
+
+function drawXPFloats(){
+  xpFloats=xpFloats.filter(f=>f.life>0);
+  xpFloats.forEach(f=>{f.y+=f.vy;f.life-=.025;
+    ctx.save();ctx.globalAlpha=Math.max(0,f.life);
+    ctx.fillStyle=f.color;ctx.font='bold 13px DM Sans,sans-serif';ctx.textAlign='center';
+    ctx.shadowColor='rgba(0,0,0,.6)';ctx.shadowBlur=4;
+    ctx.fillText(f.text,f.x,f.y);ctx.restore();
+  });
+}
+
+function drawPicker(){
+  if(pickerPlotId<0) return;
+  const pos=MOUND_POS[pickerPlotId];
+  const pw=560,ph=180,px=Math.min(W-pw-10,Math.max(10,pos.x-pw/2)),py=Math.max(10,pos.y-ph-50);
+  // backdrop
+  ctx.fillStyle='rgba(10,10,18,.94)';
+  roundRect(ctx,px,py,pw,ph,14);ctx.fill();
+  ctx.strokeStyle='rgba(255,106,0,.25)';ctx.lineWidth=1;
+  roundRect(ctx,px,py,pw,ph,14);ctx.stroke();
+  // title
+  ctx.fillStyle='rgba(255,106,0,.9)';ctx.font='bold 11px DM Sans,sans-serif';ctx.textAlign='left';
+  ctx.fillText('CHOOSE A SEED TO PLANT',px+14,py+18);
+  ctx.fillStyle='rgba(255,255,255,.25)';ctx.font='10px DM Sans,sans-serif';
+  ctx.fillText('click a crop below · click outside to cancel',px+14,py+30);
+  // crop cards
+  const cardW=96,cardH=110,gap=8,startX=px+14;
+  CROPS.forEach((c,ci)=>{
+    const cx2=startX+ci*(cardW+gap),cy2=py+38;
+    const hover=false;
+    ctx.fillStyle='rgba(255,255,255,.05)';
+    roundRect(ctx,cx2,cy2,cardW,cardH,10);ctx.fill();
+    ctx.strokeStyle=c.rarityColor+'55';ctx.lineWidth=1;
+    roundRect(ctx,cx2,cy2,cardW,cardH,10);ctx.stroke();
+    // mini plant
+    ctx.save();ctx.translate(cx2+cardW/2,cy2+52);
+    drawMiniCrop(c);ctx.restore();
+    // name
+    ctx.fillStyle='rgba(255,255,255,.85)';ctx.font='bold 9px DM Sans,sans-serif';ctx.textAlign='center';
+    ctx.fillText(c.name,cx2+cardW/2,cy2+cardH-30);
+    // rarity
+    ctx.fillStyle=c.rarityColor;ctx.font='8px DM Sans,sans-serif';
+    ctx.fillText(c.rarity,cx2+cardW/2,cy2+cardH-20);
+    // xp
+    ctx.fillStyle='#6AAA2A';ctx.font='bold 9px DM Sans,sans-serif';
+    ctx.fillText(`+${c.xp} XP`,cx2+cardW/2,cy2+cardH-9);
+    // click zone stored
+    c._btnX=cx2;c._btnY=cy2;c._btnW=cardW;c._btnH=cardH;
+  });
+}
+
+function drawMiniCrop(c){
+  // stage 3 mini
+  const n=Math.min(6,c.petals);
+  for(let pi=0;pi<n;pi++){
+    const a=(pi/n)*Math.PI*2-Math.PI/2;
+    ctx.save();ctx.translate(Math.cos(a)*7,Math.sin(a)*7-20);ctx.rotate(a+Math.PI/2);
+    ctx.fillStyle=pi%2===0?c.p2:c.p3;ctx.beginPath();ctx.ellipse(0,0,3,5,0,0,Math.PI*2);ctx.fill();ctx.restore();
+  }
+  ctx.fillStyle=c.c1;ctx.beginPath();ctx.arc(0,-20,4,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle=c.stem;ctx.lineWidth=2;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,-15);ctx.stroke();
+  ctx.fillStyle=c.leaf1;ctx.beginPath();ctx.ellipse(-5,-10,5,2.5,-.5,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle=c.leaf2;ctx.beginPath();ctx.ellipse(5,-10,5,2.5,.5,0,Math.PI*2);ctx.fill();
+}
+
+// Picker click handling — separate listener
+canvas.addEventListener('click',e=>{
+  if(!pickerOpen) return;
+  const rect=canvas.getBoundingClientRect();
+  const sx=W/rect.width, sy=H/rect.height;
+  const mx=(e.clientX-rect.left)*sx, my=(e.clientY-rect.top)*sy;
+  CROPS.forEach((c,ci)=>{
+    if(c._btnX&&mx>=c._btnX&&mx<=c._btnX+c._btnW&&my>=c._btnY&&my<=c._btnY+c._btnH){
+      plantCrop(pickerPlotId,ci);
+    }
+  });
+},true); // capture phase so it fires before the general handler
+
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.arcTo(x+w,y,x+w,y+r,r);
+  ctx.lineTo(x+w,y+h-r);ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+  ctx.lineTo(x+r,y+h);ctx.arcTo(x,y+h,x,y+h-r,r);
+  ctx.lineTo(x,y+r);ctx.arcTo(x,y,x+r,y,r);ctx.closePath();
+}
+
+updateStats();
+r();
+})();
+
+/* ══════════════════════════════════════════
+   BOSS QUIZ ROOM — 30 questions, grove lock
+══════════════════════════════════════════ */
+const BQ = (function(){
+'use strict';
+
+const ALL_QUESTIONS = [
+  // Social & purpose
+  {q:"What is Krowdli's slogan?",type:'boss_quiz',opts:["Come Be Social","Level Up Your Life","Post and Earn","Be Legendary"],c:0},
+  {q:"What kind of platform is Krowdli?",type:'boss_quiz',opts:["A game","A gamified social media platform","A streaming service","A dating app"],c:1},
+  {q:"Who built Krowdli?",type:'boss_quiz',opts:["A big tech team","An open-source community","Molek Robertson — solo founder","A venture-backed startup"],c:2},
+  {q:"What does Krowdli believe went wrong with social media?",type:'boss_quiz',opts:["Too many users","It became about the media — not the social","The design is outdated","Content quality dropped"],c:1},
+  {q:"Is Krowdli a role-playing game?",type:'true_false',opts:["True","False"],c:1},
+  {q:"Krowdli uses gamification mechanics to make social life feel meaningful — not to replace it with a game.",type:'true_false',opts:["True","False"],c:0},
+  // XP & progression
+  {q:"What do you earn for posting, replying, and interacting on Krowdli?",type:'boss_quiz',opts:["Coins","Gems","XP","Stars"],c:2},
+  {q:"How many tiers does Krowdli's progression system have?",type:'boss_quiz',opts:["3","5","7","10"],c:2},
+  {q:"What is the first (lowest) tier on Krowdli?",type:'boss_quiz',opts:["Bronze","Common","Copper","Starter"],c:2},
+  {q:"What is the highest tier on Krowdli?",type:'boss_quiz',opts:["Diamond","Legendary","Gold","Obsidian"],c:3},
+  {q:"Can you buy tiers on Krowdli?",type:'true_false',opts:["True","False"],c:1},
+  {q:"Krowdli tiers are earned through community activity, never purchased.",type:'true_false',opts:["True","False"],c:0},
+  // Parties
+  {q:"What is a Party on Krowdli?",type:'boss_quiz',opts:["A type of post","A live event","Your inner crew with a shared XP bar","A boss fight mode"],c:2},
+  {q:"What do Party members share?",type:'boss_quiz',opts:["A single profile","A collective XP bar and Party chat","A bank of coins","A leaderboard slot"],c:1},
+  {q:"Can a Party raid a boss together?",type:'true_false',opts:["True","False"],c:0},
+  // Boss Raids
+  {q:"How do you defeat a Boss on Krowdli?",type:'boss_quiz',opts:["By posting the most","By having the most followers","By playing the game the Boss chooses","By spending coins"],c:2},
+  {q:"Which of these is a real Boss game on Krowdli?",type:'boss_quiz',opts:["Rhythm Battle","Vote Wars","Hangman","Creative Challenge"],c:2},
+  {q:"Which is a real Boss game on Krowdli?",type:'boss_quiz',opts:["Music Match","Trivia Rush","2 Truths 1 Lie","Story Mode"],c:2},
+  {q:"True or False: Boss Raids on Krowdli are won by who posts the most.",type:'true_false',opts:["True","False"],c:1},
+  {q:"What drops when a Boss is defeated?",type:'boss_quiz',opts:["Nothing","Loot for everyone who participated","Only the top scorer gets a reward","Coins for the party leader"],c:1},
+  // Features
+  {q:"What is the Quest Board on Krowdli?",type:'boss_quiz',opts:["A leaderboard","Daily and weekly quests that earn XP and loot","A boss schedule","A messaging feature"],c:1},
+  {q:"What are Social Cards on Krowdli?",type:'boss_quiz',opts:["Sponsored posts","Business cards","Collectible trading cards unlocked by mutual follows","Profile templates"],c:2},
+  {q:"What is the Party Grove?",type:'boss_quiz',opts:["A chat room","A shared living space that grows from Party activity","A leaderboard","A store"],c:1},
+  {q:"True or False: The Party Grove grows based on what your crew actually does on Krowdli.",type:'true_false',opts:["True","False"],c:0},
+  {q:"What does Krowdli's Loot Inventory contain?",type:'boss_quiz',opts:["Purchased items only","Items earned from raids and milestones with rarity tiers","Avatar skins","Sponsored deals"],c:1},
+  // Tiers deep
+  {q:"What color represents the Jade tier on Krowdli?",type:'boss_quiz',opts:["Blue","Green (#00a86b)","Purple","Red"],c:1},
+  {q:"What tier sits between Amethyst and Diamond?",type:'boss_quiz',opts:["Gold","Turquoise","Ruby","Obsidian"],c:2},
+  {q:"What is the Turquoise tier level range?",type:'boss_quiz',opts:["1-5","6-10","11-15","16-20"],c:2},
+  // 2 Truths 1 Lie
+  {q:"Which of these is the LIE about Krowdli?",type:'two_truths_one_lie',
+   opts:["You earn XP for every genuine interaction","Krowdli has a Party Grove where crops grow from your activity","Krowdli is an RPG where you play a fantasy character"],c:2},
+  {q:"Which of these is the LIE about Boss Raids?",type:'two_truths_one_lie',
+   opts:["Each Boss sets its own game mode","Raids reward loot to participants who defeat the Boss","You raid by posting as many times as possible"],c:2},
+];
+
+const QUESTIONS_PER_RAID = 7;
+const TIMER_SEC = 20;
+const BOSS_MAX_HP = 100;
+const PLAYER_MAX_HP = 100;
+const BASE_DAMAGE = 14; // damage dealt to boss per correct answer
+const BOSS_DAMAGE = 15; // damage boss deals per wrong answer
+const RAGE_THRESHOLD = 0.5; // boss rages below 50% HP
+
+let state = {
+  active: false,
+  questions: [],
+  cur: 0,
+  bossHp: BOSS_MAX_HP,
+  playerHp: PLAYER_MAX_HP,
+  xp: 0,
+  streak: 0,
+  isRage: false,
+  timerInt: null,
+  timerVal: TIMER_SEC,
+  answered: false,
+  lockedOut: false, // must grow flower first
+};
+
+/* Shuffle helper */
+function shuffle(arr){ return arr.slice().sort(()=>Math.random()-.5); }
+
+function show(id){
+  ['brIntro','brQuestion','brLose','brWin'].forEach(s=>{
+    const el=document.getElementById(s);
+    if(el) el.classList.toggle('active',s===id);
+  });
+}
+
+function updateHpBars(){
+  const bPct=Math.max(0,state.bossHp/BOSS_MAX_HP*100);
+  const pPct=Math.max(0,state.playerHp/PLAYER_MAX_HP*100);
+  const bFill=document.getElementById('brHpFill');
+  const pFill=document.getElementById('brPlayerHpFill');
+  const bPctEl=document.getElementById('brHpPct');
+  const pHpEl=document.getElementById('brPlayerHp');
+  if(bFill) bFill.style.width=bPct+'%';
+  if(bPctEl) bPctEl.textContent=Math.round(bPct)+'%';
+  if(pFill) pFill.style.width=pPct+'%';
+  if(pHpEl) pHpEl.textContent=`${state.playerHp} / ${PLAYER_MAX_HP}`;
+  if(pFill){
+    pFill.style.background=pPct>50?'#4ade80':pPct>25?'#F0A020':'#E63946';
+  }
+  const rageEl=document.getElementById('brRageTag');
+  if(rageEl) rageEl.textContent=state.isRage?'🔥 RAGE ACTIVE — ATTACKS x2':'';
+  const xpEl=document.getElementById('brXp');
+  if(xpEl) xpEl.textContent=state.xp;
+  const stEl=document.getElementById('brStreakTag');
+  if(stEl) stEl.textContent=state.streak>=2?`✓ Streak x${state.streak}`:'';
+}
+
+function addThread(text,type){
+  const t=document.getElementById('brThread');
+  if(!t) return;
+  const row=document.createElement('div');
+  row.style.cssText=`padding:7px 14px;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:8px;align-items:flex-start`;
+  const isBoss=type==='boss';
+  row.innerHTML=`<div style="width:24px;height:24px;border-radius:50%;background:${isBoss?'rgba(255,60,0,.15)':'rgba(123,47,190,.15)'};border:1.5px solid ${isBoss?'rgba(255,60,0,.4)':'rgba(123,47,190,.4)'};display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">${isBoss?'🔥':'⚔️'}</div><div style="flex:1"><div style="font-size:12px;font-weight:700;color:#fff">${isBoss?'Murkbell':'You'}</div><div style="font-size:12px;color:${isBoss?'rgba(255,160,160,0.85)':'rgba(255,255,255,0.75)'};">${text}</div></div>`;
+  t.prepend(row);
+  // keep max 8 entries
+  while(t.children.length>8) t.removeChild(t.lastChild);
+}
+
+function startTimer(){
+  clearInterval(state.timerInt);
+  state.timerVal=TIMER_SEC;
+  const fill=document.getElementById('brTimer');
+  const lbl=document.getElementById('brTimerLabel');
+  if(fill){fill.style.width='100%';fill.style.background='var(--o)';fill.style.transition='none';}
+  state.timerInt=setInterval(()=>{
+    state.timerVal-=.2;
+    const pct=Math.max(0,state.timerVal/TIMER_SEC*100);
+    if(fill){
+      fill.style.width=pct+'%';fill.style.transition='width .2s linear';
+      fill.style.background=pct>50?'var(--o)':pct>25?'#F0A020':'#E63946';
+    }
+    if(lbl) lbl.textContent=Math.max(0,Math.ceil(state.timerVal))+'s';
+    if(state.timerVal<=0){ clearInterval(state.timerInt);if(!state.answered) onTimeout(); }
+  },200);
+}
+
+function renderQuestion(){
+  const q=state.questions[state.cur];
+  document.getElementById('brQNum').textContent=`Question ${state.cur+1} of ${QUESTIONS_PER_RAID}`;
+  document.getElementById('brQText').textContent=q.q;
+  const modeLabels={boss_quiz:'Boss Quiz',true_false:'True / False',two_truths_one_lie:'2 Truths 1 Lie'};
+  document.getElementById('brQMode').textContent=modeLabels[q.type]||q.type;
+  document.getElementById('brFeedback').textContent='';
+  document.getElementById('brFeedback').className='br-feedback';
+  const container=document.getElementById('brAnswers');
+  container.innerHTML='';
+  if(q.type==='true_false'||q.type==='boss_quiz'||q.type==='two_truths_one_lie'){
+    q.opts.forEach((opt,i)=>{
+      const btn=document.createElement('button');
+      btn.className='br-ans';
+      btn.textContent=(q.type==='boss_quiz'||q.type==='two_truths_one_lie')?`${String.fromCharCode(65+i)}. ${opt}`:opt;
+      btn.onclick=()=>onAnswer(i,btn);
+      container.appendChild(btn);
+    });
+  }
+  state.answered=false;
+  startTimer();
+}
+
+function onAnswer(idx, btn){
+  if(state.answered||!state.active) return;
+  state.answered=true;
+  clearInterval(state.timerInt);
+  const q=state.questions[state.cur];
+  const correct=idx===q.c;
+  // mark buttons
+  document.querySelectorAll('.br-ans').forEach(b=>b.disabled=true);
+  document.querySelectorAll('.br-ans')[q.c].classList.add('correct');
+  if(btn&&!correct) btn.classList.add('wrong');
+  const fb=document.getElementById('brFeedback');
+
+  if(correct){
+    const timerBonus=Math.floor(state.timerVal/TIMER_SEC*8);
+    const streakBonus=state.streak>=2?5:0;
+    const earnedDmg=BASE_DAMAGE+timerBonus+streakBonus;
+    const earnedXP=earnedDmg+5;
+    state.bossHp=Math.max(0,state.bossHp-earnedDmg);
+    state.xp+=earnedXP;
+    state.streak++;
+    fb.textContent=`✓ Correct! Dealt ${earnedDmg} dmg${streakBonus>0?` (streak x${state.streak})`:''}. +${earnedXP} XP`;
+    fb.className='br-feedback good';
+    addThread(`Dealt ${earnedDmg} damage to Murkbell! ${state.streak>=2?'⚡ Streak!':''}`,'player');
+  } else {
+    const bossDmg=state.isRage?BOSS_DAMAGE*2:BOSS_DAMAGE;
+    state.playerHp=Math.max(0,state.playerHp-bossDmg);
+    state.streak=0;
+    fb.textContent=`✗ Wrong — Murkbell strikes back for ${bossDmg} HP!`;
+    fb.className='br-feedback bad';
+    // boss rage at 50%
+    if(!state.isRage&&state.bossHp<=BOSS_MAX_HP*RAGE_THRESHOLD){
+      state.isRage=true;
+      addThread('"Halfway? Now this is interesting. My attacks hit twice as hard."','boss');
+    }
+    addThread(`Attacked you for ${bossDmg} HP damage.${state.isRage?' (RAGE x2)':''}`, 'boss');
+  }
+  updateHpBars();
+
+  setTimeout(()=>{
+    state.cur++;
+    if(state.playerHp<=0){ endRaid(false); return; }
+    if(state.bossHp<=0){ endRaid(true); return; }
+    if(state.cur>=QUESTIONS_PER_RAID){ endRaid(state.bossHp<50); return; }
+    renderQuestion();
+  },1500);
+}
+
+function onTimeout(){
+  if(state.answered||!state.active) return;
+  state.answered=true;
+  const bossDmg=state.isRage?BOSS_DAMAGE*2:BOSS_DAMAGE;
+  state.playerHp=Math.max(0,state.playerHp-bossDmg);
+  state.streak=0;
+  const fb=document.getElementById('brFeedback');
+  fb.textContent=`⏰ Time expired — Murkbell attacks for ${bossDmg} HP!`;
+  fb.className='br-feedback bad';
+  document.querySelectorAll('.br-ans').forEach(b=>b.disabled=true);
+  const q=state.questions[state.cur];
+  document.querySelectorAll('.br-ans')[q.c].classList.add('correct');
+  addThread(`You ran out of time. Murkbell hit for ${bossDmg} HP.`,'boss');
+  updateHpBars();
+  setTimeout(()=>{
+    state.cur++;
+    if(state.playerHp<=0){ endRaid(false); return; }
+    if(state.bossHp<=0){ endRaid(true); return; }
+    if(state.cur>=QUESTIONS_PER_RAID){ endRaid(state.bossHp<50); return; }
+    renderQuestion();
+  },1500);
+}
+
+function endRaid(won){
+  clearInterval(state.timerInt);
+  state.active=false;
+  updateHpBars();
+  if(won){
+    document.getElementById('brResultXp').textContent=`+${state.xp} XP`;
+    document.getElementById('brWinMsg').textContent=`You defeated Murkbell with ${state.xp} XP earned. On launch, loot would drop for your whole Party. Raid again for a higher score.`;
+    addThread('"...Impressive. You\'ll need that skill in the real raid."','boss');
+    show('brWin');
+  } else {
+    state.lockedOut=true;
+    document.getElementById('brLoseMsg').textContent=`Murkbell reduced your HP to zero. You earned ${state.xp} XP but the raid is over. Tend the Grove to prove you're ready — grow and harvest one flower, then return.`;
+    addThread('"You\'re not ready. Go tend your grove, rookie."','boss');
+    updateGroveStatus();
+    show('brLose');
+  }
+}
+
+function updateGroveStatus(){
+  const el=document.getElementById('brGroveStatus');
+  const btn=document.getElementById('brRetryBtn');
+  if(!el||!btn) return;
+  const harvested=(window.groveHarvestCount||0)>0;
+  if(harvested){
+    el.textContent='✓ Grove challenge complete! You may raid again.';
+    btn.disabled=false;btn.style.opacity='1';btn.style.cursor='pointer';btn.style.pointerEvents='auto';
+    btn.textContent='⚔️ Raid Again';
+  } else {
+    el.textContent='Waiting for you to harvest a flower in the Grove above...';
+  }
+}
+
+// Called by Grove when a flower is harvested
+window.onGroveHarvest=function(){
+  if(state.lockedOut) updateGroveStatus();
+};
+// Poll every 2s while locked out in case grove harvested
+setInterval(()=>{ if(state.lockedOut) updateGroveStatus(); },2000);
+
+return {
+  start(){
+    state={active:true,questions:shuffle(ALL_QUESTIONS).slice(0,QUESTIONS_PER_RAID),
+      cur:0,bossHp:BOSS_MAX_HP,playerHp:PLAYER_MAX_HP,xp:0,streak:0,
+      isRage:false,timerInt:null,timerVal:TIMER_SEC,answered:false,
+      lockedOut:state.lockedOut&&(window.groveHarvestCount||0)===0};
+    const t=document.getElementById('brThread');if(t)t.innerHTML='';
+    updateHpBars();
+    addThread('"You dare enter my domain? Let\'s see if you know anything about this place."','boss');
+    show('brQuestion');
+    renderQuestion();
+  },
+  reset(){
+    clearInterval(state.timerInt);
+    // If locked out and grove not done, don't allow reset
+    if(state.lockedOut&&(window.groveHarvestCount||0)===0){ updateGroveStatus(); return; }
+    state.lockedOut=false;
+    const t=document.getElementById('brThread');if(t)t.innerHTML='';
+    show('brIntro');
+    document.getElementById('brHpFill').style.width='100%';
+    document.getElementById('brHpPct').textContent='100%';
+    document.getElementById('brXp').textContent='0';
+    document.getElementById('brPlayerHp').textContent='100 / 100';
+    document.getElementById('brPlayerHpFill').style.width='100%';
+    document.getElementById('brPlayerHpFill').style.background='#4ade80';
+    document.getElementById('brRageTag').textContent='';
+    document.getElementById('brStreakTag').textContent='';
+  }
+};
+})();
+
+function brStart(){ BQ.start(); }
+function brReset(){ BQ.reset(); }
+
+/* counter animation on scroll */
 /* counter animation on scroll */
 function animCount(el,target,suffix){
   let start=0;const dur=1800;const step=timestamp=>{
@@ -1211,6 +2365,3 @@ function animCount(el,target,suffix){
     if(prog<1)requestAnimationFrame(step);
   };requestAnimationFrame(step);
 }
-</script>
-</body>
-</html>
