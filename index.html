@@ -370,6 +370,30 @@ section{padding:96px 0;position:relative;z-index:1}
 .br-timer-track{height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden}
 .br-timer-fill{height:100%;background:var(--o);border-radius:2px;transition:width .1s linear}
 
+/* ─── SOCIAL PROOF ─── */
+.social-proof{text-align:center}
+.sp-inner{display:inline-flex;align-items:center;gap:0;border:1px solid var(--brd2);border-radius:var(--r16);overflow:hidden;background:rgba(255,106,0,0.04)}
+.sp-stat{padding:1.25rem 1.75rem;text-align:center}
+.sp-num{font-family:var(--bb);font-size:2.2rem;color:var(--o);letter-spacing:.04em;line-height:1}
+.sp-label{font-size:.65rem;color:var(--d);text-transform:uppercase;letter-spacing:.1em;margin-top:.25rem}
+.sp-div{width:1px;height:48px;background:var(--brd)}
+@media(max-width:600px){.sp-inner{flex-wrap:wrap;border-radius:var(--r12)}.sp-stat{flex:1 1 40%;border-right:1px solid var(--brd);border-bottom:1px solid var(--brd)}.sp-div{display:none}}
+
+/* ─── GROVE MOBILE SHEET ─── */
+.grove-sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;backdrop-filter:blur(4px)}
+.grove-sheet-overlay.open{display:flex;align-items:flex-end;justify-content:center}
+.grove-sheet{background:#0f0f16;border:1px solid var(--brd2);border-radius:20px 20px 0 0;padding:0 0 32px;width:100%;max-width:600px;max-height:85vh;overflow-y:auto}
+.grove-sheet-handle{width:36px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:14px auto 0}
+.grove-sheet-title{font-family:var(--ci);font-size:1rem;font-weight:700;color:var(--t);padding:14px 20px 4px;border-bottom:1px solid var(--brd)}
+.grove-sheet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;padding:14px}
+.grove-sheet-card{background:rgba(255,106,0,0.04);border:1px solid var(--brd);border-radius:var(--r12);padding:14px 12px;cursor:pointer;transition:all .2s;text-align:center}
+.grove-sheet-card:hover,.grove-sheet-card:active{border-color:var(--brd2);background:rgba(255,106,0,0.08)}
+.grove-sheet-card canvas{display:block;margin:0 auto 8px}
+.grove-sheet-name{font-family:var(--ci);font-size:.82rem;font-weight:700;color:var(--t);margin-bottom:2px}
+.grove-sheet-rarity{font-size:.68rem;font-weight:700;margin-bottom:3px}
+.grove-sheet-xp{font-size:.72rem;color:#6AAA2A;font-weight:700}
+.grove-sheet-close{display:block;margin:0 14px;padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:var(--m);font-size:.88rem;font-family:var(--dm);cursor:pointer;width:calc(100% - 28px);text-align:center}
+
 /* ─── FOUNDER ─── */
 .founder-section{background:var(--s1);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);padding:96px 0}
 .founder-grid{display:grid;grid-template-columns:1fr 2fr;gap:5rem;align-items:center;margin-top:3.5rem}
@@ -1190,6 +1214,16 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
   </div>
 </section>
 
+<!-- GROVE MOBILE SHEET -->
+<div class="grove-sheet-overlay" id="groveSheetOverlay" onclick="groveSheetClose(event)">
+  <div class="grove-sheet">
+    <div class="grove-sheet-handle"></div>
+    <div class="grove-sheet-title" id="groveSheetTitle">Choose a seed to plant</div>
+    <div class="grove-sheet-grid" id="groveSheetGrid"></div>
+    <button class="grove-sheet-close" onclick="document.getElementById('groveSheetOverlay').classList.remove('open')">Cancel</button>
+  </div>
+</div>
+
 <!-- BOSS ROOM DEMO -->
 <section class="bossroom-section" id="bossroom">
   <div class="bossroom-wrap">
@@ -1338,7 +1372,7 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
         <div class="br-screen active" id="brIntro">
           <div class="br-intro">
             <h3>BOSS QUIZ RAID</h3>
-            <p>Murkbell has chosen Boss Quiz. You'll get 7 questions drawn from a pool of 30 about Krowdli. Answer correctly to deal damage. Wrong answers let Murkbell strike back.</p>
+            <p>Murkbell has chosen Boss Quiz. Questions keep coming until one of you hits zero HP — there's no question limit, only the HP bars matter. Answer correctly to deal damage and earn XP. Wrong answers and timeouts let Murkbell strike back. The raid only ends when the boss falls or you do.</p>
             <p style="font-size:.8rem;color:rgba(230,57,70,.85);margin-top:.6rem;font-weight:600;line-height:1.5">⚠ If your HP hits zero, you're KO'd. You'll need to grow and harvest a flower in the Grove before you can raid again.</p>
             <button class="br-start-btn" onclick="brStart()">⚔️ Enter the Raid</button>
           </div>
@@ -1465,7 +1499,7 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
           So I built Krowdli. <strong>One person, one vision</strong> — a social platform where your presence actually means something. Where your community grows with you, raids with you, and earns with you. I'm building what I always wanted social media to be.
         </p>
         <div class="founder-links">
-          <a href="https://instagram.com/krowdli" target="_blank" rel="noopener" class="founder-link"><span class="founder-link-icon">📸</span> @krowdli on Instagram</a>
+          <a href="https://instagram.com/mr.krowdli" target="_blank" rel="noopener" class="founder-link"><span class="founder-link-icon">📸</span> @mr.krowdli on Instagram</a>
           <a href="https://twitter.com/krowdli" target="_blank" rel="noopener" class="founder-link"><span class="founder-link-icon">𝕏</span> @krowdli on X</a>
           <a href="mailto:krowdli@gmail.com" class="founder-link"><span class="founder-link-icon">✉️</span> krowdli@gmail.com</a>
         </div>
@@ -1498,6 +1532,31 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
         <br><br>
         Come be social. For real this time.
       </p>
+      <!-- Social proof counter -->
+      <div class="social-proof rv" style="margin-bottom:2rem">
+        <div class="sp-inner">
+          <div class="sp-stat">
+            <div class="sp-num" id="spDays">0</div>
+            <div class="sp-label">Days in development</div>
+          </div>
+          <div class="sp-div"></div>
+          <div class="sp-stat">
+            <div class="sp-num" id="spScreens">0</div>
+            <div class="sp-label">Screens built</div>
+          </div>
+          <div class="sp-div"></div>
+          <div class="sp-stat">
+            <div class="sp-num" id="spBosses">0</div>
+            <div class="sp-label">Boss monsters</div>
+          </div>
+          <div class="sp-div"></div>
+          <div class="sp-stat">
+            <div class="sp-num" id="spWaitlist">0</div>
+            <div class="sp-label">On the waitlist</div>
+          </div>
+        </div>
+        <p style="font-size:.72rem;color:var(--d);margin-top:.75rem">MVP — actively in development. Every signup shapes what Krowdli becomes.</p>
+      </div>
       <div class="founding-perks">
         <span class="fp">⚡ XP Head Start</span>
         <span class="fp">🎒 Exclusive Launch Loot</span>
@@ -1535,7 +1594,7 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
       </div>
       <div class="fcol">
         <h4>Connect</h4>
-        <a href="https://instagram.com/krowdli" target="_blank" rel="noopener">Instagram — @krowdli</a>
+        <a href="https://instagram.com/mr.krowdli" target="_blank" rel="noopener">Instagram — @mr.krowdli</a>
         <a href="https://twitter.com/krowdli" target="_blank" rel="noopener">X (Twitter) — @krowdli</a>
         <a href="mailto:krowdli@gmail.com">krowdli@gmail.com</a>
         <a href="#close">Join the Waitlist</a>
@@ -1688,9 +1747,57 @@ canvas.addEventListener('click',e=>{
 });
 
 function openPicker(plotId){
-  pickerOpen=true; pickerPlotId=plotId;
+  // On mobile (touch device or narrow screen) use the bottom sheet
+  if(window.innerWidth<=700 || ('ontouchstart' in window)){
+    openGroveSheet(plotId);
+  } else {
+    pickerOpen=true; pickerPlotId=plotId;
+  }
 }
 function closePicker(){ pickerOpen=false; pickerPlotId=-1; }
+
+function openGroveSheet(plotId){
+  pickerPlotId=plotId;
+  const overlay=document.getElementById('groveSheetOverlay');
+  const grid=document.getElementById('groveSheetGrid');
+  const title=document.getElementById('groveSheetTitle');
+  if(!overlay||!grid) return;
+  title.textContent=`Plot ${plotId+1} — Choose a seed${plots[plotId].isGolden?' ✦ Golden (2× XP)':''}`;
+  grid.innerHTML='';
+  CROPS.forEach((c,ci)=>{
+    const card=document.createElement('div');
+    card.className='grove-sheet-card';
+    // Mini canvas for crop preview
+    const cv=document.createElement('canvas');
+    cv.width=80;cv.height=80;
+    card.appendChild(cv);
+    const ctx2=cv.getContext('2d');
+    ctx2.save();ctx2.translate(40,72);
+    // draw mini stage-3 plant
+    ctx2.strokeStyle=c.stem;ctx2.lineWidth=2.5;ctx2.lineCap='round';
+    ctx2.beginPath();ctx2.moveTo(0,0);ctx2.lineTo(0,-42);ctx2.stroke();
+    ctx2.fillStyle=c.leaf1;ctx2.beginPath();ctx2.ellipse(-8,-22,8,4,-.5,0,Math.PI*2);ctx2.fill();
+    ctx2.fillStyle=c.leaf2;ctx2.beginPath();ctx2.ellipse(8,-22,8,4,.5,0,Math.PI*2);ctx2.fill();
+    const n=Math.min(6,c.petals);
+    for(let pi=0;pi<n;pi++){
+      const a=(pi/n)*Math.PI*2-Math.PI/2;
+      ctx2.save();ctx2.translate(Math.cos(a)*9,-42+Math.sin(a)*9);ctx2.rotate(a+Math.PI/2);
+      ctx2.fillStyle=pi%2===0?c.p2:c.p3;ctx2.beginPath();ctx2.ellipse(0,0,3.5,5.5,0,0,Math.PI*2);ctx2.fill();ctx2.restore();
+    }
+    ctx2.fillStyle=c.c1;ctx2.beginPath();ctx2.arc(0,-42,5,0,Math.PI*2);ctx2.fill();
+    ctx2.restore();
+    const name=document.createElement('div');name.className='grove-sheet-name';name.textContent=c.name;
+    const rar=document.createElement('div');rar.className='grove-sheet-rarity';rar.style.color=c.rarityColor;rar.textContent=c.rarity;
+    const xpEl=document.createElement('div');xpEl.className='grove-sheet-xp';xpEl.textContent=`+${c.xp} XP`;
+    card.append(name,rar,xpEl);
+    card.onclick=()=>{ plantCrop(plotId,ci); document.getElementById('groveSheetOverlay').classList.remove('open'); };
+    grid.appendChild(card);
+  });
+  overlay.classList.add('open');
+}
+window.groveSheetClose=function(e){
+  if(e.target.id==='groveSheetOverlay') document.getElementById('groveSheetOverlay').classList.remove('open');
+};
 
 function plantCrop(plotId, cropIdx){
   const p=plots[plotId];
@@ -2103,7 +2210,7 @@ const ALL_QUESTIONS = [
    opts:["Each Boss sets its own game mode","Raids reward loot to participants who defeat the Boss","You raid by posting as many times as possible"],c:2},
 ];
 
-const QUESTIONS_PER_RAID = 7;
+const QUESTIONS_PER_RAID = 30;
 const TIMER_SEC = 20;
 const BOSS_MAX_HP = 100;
 const PLAYER_MAX_HP = 100;
@@ -2190,7 +2297,7 @@ function startTimer(){
 
 function renderQuestion(){
   const q=state.questions[state.cur];
-  document.getElementById('brQNum').textContent=`Question ${state.cur+1} of ${QUESTIONS_PER_RAID}`;
+  document.getElementById('brQNum').textContent=`Question ${state.cur+1} · Boss HP: ${Math.round(state.bossHp/BOSS_MAX_HP*100)}%`;
   document.getElementById('brQText').textContent=q.q;
   const modeLabels={boss_quiz:'Boss Quiz',true_false:'True / False',two_truths_one_lie:'2 Truths 1 Lie'};
   document.getElementById('brQMode').textContent=modeLabels[q.type]||q.type;
@@ -2253,7 +2360,7 @@ function onAnswer(idx, btn){
     state.cur++;
     if(state.playerHp<=0){ endRaid(false); return; }
     if(state.bossHp<=0){ endRaid(true); return; }
-    if(state.cur>=QUESTIONS_PER_RAID){ endRaid(state.bossHp<50); return; }
+    if(state.cur>=state.questions.length){ state.questions=[...state.questions,...shuffle(ALL_QUESTIONS).slice(0,10)]; }
     renderQuestion();
   },1500);
 }
@@ -2276,7 +2383,7 @@ function onTimeout(){
     state.cur++;
     if(state.playerHp<=0){ endRaid(false); return; }
     if(state.bossHp<=0){ endRaid(true); return; }
-    if(state.cur>=QUESTIONS_PER_RAID){ endRaid(state.bossHp<50); return; }
+    if(state.cur>=state.questions.length){ state.questions=[...state.questions,...shuffle(ALL_QUESTIONS).slice(0,10)]; }
     renderQuestion();
   },1500);
 }
@@ -2355,16 +2462,35 @@ function brStart(){ BQ.start(); }
 function brReset(){ BQ.reset(); }
 
 /* counter animation on scroll */
-/* counter animation on scroll */
-function animCount(el,target,suffix){
-  let start=0;const dur=1800;const step=timestamp=>{
-    if(!start)start=timestamp;
-    const prog=Math.min((timestamp-start)/dur,1);
+function animCount(el,target,dur){
+  if(!el) return;
+  let start=null;
+  function step(ts){
+    if(!start) start=ts;
+    const prog=Math.min((ts-start)/(dur||1800),1);
     const ease=1-Math.pow(1-prog,3);
-    el.textContent=Math.floor(ease*target).toLocaleString()+(suffix||'');
-    if(prog<1)requestAnimationFrame(step);
-  };requestAnimationFrame(step);
+    el.textContent=Math.floor(ease*target).toLocaleString();
+    if(prog<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
 }
+// Social proof counters fire once when section scrolls into view
+const spObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      animCount(document.getElementById('spDays'),540,1800);
+      animCount(document.getElementById('spScreens'),30,1600);
+      animCount(document.getElementById('spBosses'),8,1400);
+      animCount(document.getElementById('spWaitlist'),1,1000);
+      spObs.disconnect();
+    }
+  });
+},{threshold:.3});
+const spEl=document.querySelector('.social-proof');
+if(spEl) spObs.observe(spEl);
+</script>
+</body>
+</html>
 </script>
 </body>
 </html>
