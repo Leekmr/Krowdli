@@ -505,7 +505,7 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
     <div class="hero-stats">
       <div class="hs"><div class="hsv">XP</div><div class="hsl">Every interaction</div></div>
       <div class="hsd"></div>
-      <div class="hs"><div class="hsv">5</div><div class="hsl">Tiers to earn</div></div>
+      <div class="hs"><div class="hsv">7</div><div class="hsl">Tiers to earn</div></div>
       <div class="hsd"></div>
       <div class="hs"><div class="hsv">RAIDS</div><div class="hsl">Boss challenges</div></div>
       <div class="hsd"></div>
@@ -1228,7 +1228,7 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
       <p class="sb" style="margin:0 auto;text-align:center;max-width:520px">The Grove grows from your Party's real activity. Each plot holds a different crop — click a mound to plant a seed, watch it grow through three stages, then tap the flower to harvest XP. This is a real Krowdli feature.</p>
     </div>
     <div class="grove-canvas-wrap rv2">
-      <canvas id="groveCanvas" width="860" height="460" style="width:100%;height:auto;display:block"></canvas>
+      <canvas id="groveCanvas" width="860" height="500" style="width:100%;height:auto;display:block"></canvas>
       <div class="grove-ui">
         <div class="grove-stat"><span>🌸</span><span class="grove-stat-val" id="groveFlowers">0</span><span>in bloom</span></div>
         <div class="grove-stat"><span>⚡</span><span class="grove-stat-val" id="groveXp">0</span><span>XP earned</span></div>
@@ -1661,7 +1661,7 @@ window.addEventListener('scroll',()=>{
 const canvas = document.getElementById('groveCanvas');
 if(!canvas) return;
 const ctx = canvas.getContext('2d');
-const W=860, H=460;
+const W=860, H=500;
 
 /* ── Crop types from kCrops list ── */
 const CROPS = [
@@ -1699,8 +1699,8 @@ const plots = Array.from({length:MAX_PLOTS},(_,i)=>({
 
 // Mound positions — 2 rows of 3, honeycomb offset
 const MOUND_POS = [
-  {x:143,y:310}, {x:290,y:285}, {x:437,y:305},
-  {x:210,y:385}, {x:357,y:365}, {x:504,y:380},
+  {x:120,y:360}, {x:300,y:345}, {x:480,y:358}, {x:660,y:348},
+  {x:210,y:400}, {x:570,y:395},
 ];
 
 let particles = [];
@@ -1963,37 +1963,54 @@ function drawPlots(){
 }
 
 function drawMound(cx,cy,plot,unlocked){
-  const wet=false, isReady=plot.status==='growing'&&plot.progress>=1;
+  const isReady=plot.status==='growing'&&plot.progress>=1;
   const shimmer=.5+.5*Math.sin(frame*.04);
+  // cy is the top-of-mound point — base sits below ground line
+  const moundTop = cy;
+  const moundBase = cy + 28; // extends into the ground
   ctx.save();ctx.globalAlpha=unlocked?1:.4;
-  // shadow
-  ctx.fillStyle='rgba(0,0,0,.28)';
-  ctx.beginPath();ctx.ellipse(cx,cy+2,37,7,0,0,Math.PI*2);ctx.fill();
-  // side
+  // shadow under mound
+  ctx.fillStyle='rgba(0,0,0,.35)';
+  ctx.beginPath();ctx.ellipse(cx,moundBase-4,40,9,0,0,Math.PI*2);ctx.fill();
+  // side (darker)
   ctx.fillStyle=isReady?'#7A3A18':'#5A2E0C';
-  ctx.beginPath();ctx.moveTo(cx-37,cy+2);
-  ctx.quadraticCurveTo(cx-38,cy-30,cx,cy-32);
-  ctx.quadraticCurveTo(cx+38,cy-30,cx+37,cy+2);ctx.closePath();ctx.fill();
-  // top
-  const topGrd=ctx.createRadialGradient(cx-8,cy-20,2,cx,cy-16,30);
+  ctx.beginPath();
+  ctx.moveTo(cx-38,moundBase);
+  ctx.quadraticCurveTo(cx-39,moundTop-10,cx,moundTop-14);
+  ctx.quadraticCurveTo(cx+39,moundTop-10,cx+38,moundBase);
+  ctx.closePath();ctx.fill();
+  // top surface
+  const topGrd=ctx.createRadialGradient(cx-8,moundTop,2,cx,moundTop+4,32);
   topGrd.addColorStop(0,isReady?'#B06A30':'#8A5230');
   topGrd.addColorStop(1,isReady?'#7A3A18':'#5A2E0C');
   ctx.fillStyle=topGrd;
-  ctx.beginPath();ctx.moveTo(cx-33,cy+2);
-  ctx.quadraticCurveTo(cx-34,cy-28,cx,cy-32);
-  ctx.quadraticCurveTo(cx+34,cy-28,cx+33,cy+2);
-  ctx.quadraticCurveTo(cx+18,cy-10,cx,cy-10);
-  ctx.quadraticCurveTo(cx-18,cy-10,cx-33,cy+2);ctx.closePath();ctx.fill();
-  // rim
-  ctx.strokeStyle=`rgba(255,255,255,.15)`;ctx.lineWidth=1.5;ctx.lineCap='round';
-  ctx.beginPath();ctx.moveTo(cx-33,cy+2);ctx.quadraticCurveTo(cx-34,cy-28,cx,cy-32);ctx.quadraticCurveTo(cx+34,cy-28,cx+33,cy+2);ctx.stroke();
-  // shadows/texture
-  ctx.fillStyle='rgba(0,0,0,.3)';ctx.beginPath();ctx.ellipse(cx-10,cy-14,6.5,2.5,-.2,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle='rgba(0,0,0,.25)';ctx.beginPath();ctx.ellipse(cx+10,cy-20,5,2,-.1,0,Math.PI*2);ctx.fill();
-  if(isReady){ctx.fillStyle=`rgba(255,200,50,${.15+shimmer*.12})`;
-    ctx.beginPath();ctx.ellipse(cx,cy-6,28,12,0,0,Math.PI*2);ctx.fill();}
-  if(plot.isGolden){ctx.fillStyle=`rgba(255,215,0,${.08+shimmer*.1})`;
-    ctx.beginPath();ctx.ellipse(cx,cy-8,30,13,0,0,Math.PI*2);ctx.fill();}
+  ctx.beginPath();
+  ctx.moveTo(cx-34,moundBase);
+  ctx.quadraticCurveTo(cx-35,moundTop-8,cx,moundTop-14);
+  ctx.quadraticCurveTo(cx+35,moundTop-8,cx+34,moundBase);
+  ctx.quadraticCurveTo(cx+20,moundBase-8,cx,moundBase-8);
+  ctx.quadraticCurveTo(cx-20,moundBase-8,cx-34,moundBase);
+  ctx.closePath();ctx.fill();
+  // rim highlight
+  ctx.strokeStyle='rgba(255,255,255,.14)';ctx.lineWidth=1.5;ctx.lineCap='round';
+  ctx.beginPath();
+  ctx.moveTo(cx-34,moundBase);
+  ctx.quadraticCurveTo(cx-35,moundTop-8,cx,moundTop-14);
+  ctx.quadraticCurveTo(cx+35,moundTop-8,cx+34,moundBase);
+  ctx.stroke();
+  // texture dents
+  ctx.fillStyle='rgba(0,0,0,.28)';ctx.beginPath();ctx.ellipse(cx-11,moundTop+2,7,2.5,-.2,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='rgba(0,0,0,.22)';ctx.beginPath();ctx.ellipse(cx+12,moundTop-2,5.5,2,-.1,0,Math.PI*2);ctx.fill();
+  // ready glow
+  if(isReady){
+    ctx.fillStyle=`rgba(255,200,50,${.15+shimmer*.12})`;
+    ctx.beginPath();ctx.ellipse(cx,moundTop-4,30,14,0,0,Math.PI*2);ctx.fill();
+  }
+  // golden shimmer
+  if(plot.isGolden){
+    ctx.fillStyle=`rgba(255,215,0,${.08+shimmer*.1})`;
+    ctx.beginPath();ctx.ellipse(cx,moundTop-2,32,15,0,0,Math.PI*2);ctx.fill();
+  }
   ctx.restore();
 }
 
