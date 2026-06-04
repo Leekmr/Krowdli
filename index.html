@@ -729,6 +729,11 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
           <h3>No Reason to Show Up</h3>
           <p>What do you get for posting every day? Maybe a few likes. Krowdli gives you XP, titles, loot, and a community that actually grows with you.</p>
         </div>
+        <div class="wc" style="grid-column:span 2">
+          <div class="wci">📢</div>
+          <h3>Ads That Disrespect You</h3>
+          <p>Every other platform sells your attention to the highest bidder. Random ads interrupting your feed, your stories, your conversations — for products you never asked about. Krowdli does advertising differently. <strong style="color:var(--t)">When ads show up on Krowdli, we think you'll actually want them there.</strong> We're not ready to explain exactly how yet — but it's built around the same philosophy as everything else on this platform: your experience comes first.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1190,6 +1195,27 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
         <p>Boss tickers, party indicators, boost stamps, and XP-weighted engagement built into every view.</p>
       </div>
     </div>
+    <!-- Ads / Philosophy row -->
+    <div class="feat-row rv3" style="margin-top:1.2rem">
+      <div class="fc" style="border-color:rgba(255,106,0,0.22);background:rgba(255,106,0,0.04)">
+        <div class="fc-icon">📢</div>
+        <span class="fc-tag" style="color:#ff8c33">Our Approach</span>
+        <h3>Ads — But Not Like That</h3>
+        <p>Krowdli will have advertising. We're not going to pretend otherwise. But we built a way for ads to exist here that actually fits how Krowdli works — not banners, not interruptions, not creepy targeting. <strong style="color:var(--t)">When you see it, you'll understand why we kept it quiet.</strong></p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🔒</div>
+        <span class="fc-tag">Privacy</span>
+        <h3>Your Data Stays Yours</h3>
+        <p>Krowdli doesn't sell your data to third parties. No advertiser profiles built behind your back. No attention harvested and auctioned off. What happens in your Krowd stays in your Krowd.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">⚡</div>
+        <span class="fc-tag">Philosophy</span>
+        <h3>An Algorithm That Works for You</h3>
+        <p>Yes, Krowdli has an algorithm. But ours isn't optimizing for watch time or ad revenue — it's built around community activity, XP, and what your Krowd actually cares about. The feed surfaces what matters to you, not what's most profitable for us.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1563,12 +1589,13 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
         <span class="fp">🃏 Rare Social Card</span>
         <span class="fp">🏅 Early Supporter Title</span>
       </div>
-      <form name="waitlist" method="POST" data-netlify="true" class="waitlist-form" style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem">
+      <form name="waitlist" id="waitlistForm" method="POST" data-netlify="true" class="waitlist-form" style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem">
         <input type="hidden" name="form-name" value="waitlist">
-        <input type="email" name="email" class="wi" placeholder="your@email.com" required>
-        <button type="submit" class="btn-p" style="border-radius:10px;padding:14px 28px">Claim My Spot</button>
+        <input type="email" name="email" id="waitlistEmail" class="wi" placeholder="your@email.com" required autocomplete="email">
+        <button type="submit" class="btn-p" style="border-radius:10px;padding:14px 28px" id="waitlistBtn">Claim My Spot</button>
       </form>
-      <p class="close-fine">No spam. No ads. No third-party sharing. Just the Krowdli launch drop.</p>
+      <p id="waitlistMsg" style="font-size:.85rem;min-height:1.2em;color:var(--o);margin-bottom:.5rem"></p>
+      <p class="close-fine">No spam. No traditional ads. No third-party data selling. Just the Krowdli launch drop.</p>
     </div>
   </div>
 </section>
@@ -1578,7 +1605,7 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
   <div class="fi">
     <div>
       <div class="flogo">KROWDLI</div>
-      <p class="ftag">Come Be Social. No ads. No algorithms. Just your Krowd.</p>
+      <p class="ftag">Come Be Social. No traditional ads. An algorithm that works for you. Just your Krowd.</p>
       <p style="font-size:.72rem;color:var(--d);margin-top:.5rem">MVP — Built by Molek Robertson</p>
     </div>
     <div class="fcols">
@@ -2449,6 +2476,79 @@ return {
 
 function brStart(){ BQ.start(); }
 function brReset(){ BQ.reset(); }
+
+/* ── WAITLIST FORM — intercept submit, increment counter, send to Netlify ── */
+(function(){
+  const form = document.getElementById('waitlistForm');
+  const btn = document.getElementById('waitlistBtn');
+  const emailInput = document.getElementById('waitlistEmail');
+  const msg = document.getElementById('waitlistMsg');
+  const counterEl = document.getElementById('spWaitlist');
+  if(!form) return;
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault(); // stop full page reload
+
+    const email = emailInput.value.trim();
+    if(!email) return;
+
+    // Disable form while submitting
+    btn.disabled = true;
+    btn.textContent = 'Joining...';
+    btn.style.opacity = '.6';
+
+    // Submit to Netlify in background
+    fetch('/', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: new URLSearchParams({
+        'form-name': 'waitlist',
+        'email': email
+      }).toString()
+    })
+    .then(() => {
+      // Success — increment counter
+      if(counterEl){
+        const current = parseInt(counterEl.textContent.replace(/,/g,'')) || 1;
+        const next = current + 1;
+        // Animate from current to next
+        let start = null;
+        function tick(ts){
+          if(!start) start = ts;
+          const prog = Math.min((ts - start) / 600, 1);
+          const ease = 1 - Math.pow(1 - prog, 3);
+          counterEl.textContent = Math.floor(current + ease * (next - current)).toLocaleString();
+          if(prog < 1) requestAnimationFrame(tick);
+          else counterEl.textContent = next.toLocaleString();
+        }
+        requestAnimationFrame(tick);
+      }
+      // Show success message
+      msg.style.color = 'var(--o)';
+      msg.textContent = '✓ You\'re in. See you at launch.';
+      emailInput.value = '';
+      emailInput.disabled = true;
+      btn.textContent = '✓ Claimed';
+      btn.style.opacity = '1';
+      btn.style.background = 'rgba(255,106,0,0.2)';
+      btn.style.color = 'var(--o)';
+      btn.style.boxShadow = 'none';
+    })
+    .catch(() => {
+      // Network error — still increment optimistically, show message
+      if(counterEl){
+        const current = parseInt(counterEl.textContent.replace(/,/g,'')) || 1;
+        counterEl.textContent = (current + 1).toLocaleString();
+      }
+      msg.style.color = 'var(--o)';
+      msg.textContent = '✓ You\'re on the list. See you at launch.';
+      emailInput.value = '';
+      emailInput.disabled = true;
+      btn.textContent = '✓ Claimed';
+      btn.style.opacity = '1';
+    });
+  });
+})();
 
 /* counter animation on scroll */
 function animCount(el,target,dur){
