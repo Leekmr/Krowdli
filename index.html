@@ -436,22 +436,77 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
   .hero-sub{text-align:center}
   .hero-btns{justify-content:center}
   .hero-stats{justify-content:center}
-  .why-grid{grid-template-columns:1fr;gap:2.5rem}
-  .boss-challenges{grid-template-columns:repeat(4,1fr)}
+  .why-grid{grid-template-columns:1fr;gap:2rem}
+  .why-manifesto{padding-left:1rem}
+  .why-manifesto::before{display:none}
+  .boss-challenges{grid-template-columns:repeat(2,1fr)}
   .boss-grid{grid-template-columns:1fr}
   .feat-row,.feat-row.duo,.feat-row.duo2{grid-template-columns:1fr 1fr}
   .feat-row.duo2 .fc:last-child{grid-column:span 2}
   .nls,.ncta{display:none}.mb{display:block}
   .phone-wrap{max-width:280px;margin:0 auto}
+  .founder-grid{grid-template-columns:1fr;text-align:center;gap:2rem}
+  .founder-links{justify-content:center}
+  .founder-avatar{margin:0 auto}
 }
 @media(max-width:600px){
-  .feat-row,.feat-row.duo,.feat-row.duo2{grid-template-columns:1fr}
-  .why-cards{grid-template-columns:1fr}
+  /* Global */
+  section{padding:52px 0}
+  .wrap{padding:0 16px}
+  .sbb{font-size:clamp(1.9rem,8vw,3rem)!important}
+  .sci{font-size:clamp(1.2rem,5vw,2rem)!important}
+  .sb{font-size:.88rem}
+  /* Why section */
+  .why-section{padding:52px 0}
+  .why-grid{margin-top:1.5rem;gap:1.25rem}
+  .why-manifesto{padding-left:0}
+  .why-manifesto::before{display:none}
+  .why-q{padding-left:.9rem;margin:1.2rem 0}
+  .why-q p{font-size:.9rem;line-height:1.6}
+  .why-cards{grid-template-columns:1fr;gap:9px}
+  .wc{padding:1rem;border-radius:12px}
+  .wc h3{font-size:.88rem;margin-bottom:.3rem}
+  .wc p{font-size:.8rem;line-height:1.55}
+  .wc[style*="span 2"]{grid-column:span 1!important}
+  .wci{font-size:1.4rem;margin-bottom:.5rem}
+  /* Features section */
+  .feat-intro{margin-bottom:1.5rem}
+  .feat-row,.feat-row.duo,.feat-row.duo2{grid-template-columns:1fr;gap:9px}
+  .feat-row.duo2 .fc:last-child{grid-column:span 1!important}
+  .fc{padding:1rem;border-radius:12px}
+  .fc-icon{width:36px;height:36px;border-radius:9px;font-size:1rem;margin-bottom:.75rem}
+  .fc h3{font-size:.88rem;margin-bottom:.35rem}
+  .fc p{font-size:.8rem;line-height:1.55}
+  /* Boss challenges */
+  .boss-challenges{grid-template-columns:1fr 1fr;gap:8px}
+  .bc{padding:.85rem .75rem}
+  .bc h4{font-size:.78rem;margin-bottom:.2rem}
+  .bc p{font-size:.73rem;line-height:1.45}
+  /* How steps */
+  .how-steps{flex-direction:column}
+  .how-step{border-right:none;border-bottom:1px solid var(--brd)}
+  .how-step:last-child{border-bottom:none}
+  /* Tiers */
   .tiers-row{flex-wrap:wrap}
   .tier{flex:1 1 45%;border-right:1px solid var(--brd)}
-  .boss-challenges{grid-template-columns:1fr 1fr}
+  /* Phone */
   .phone-wrap,.phone-frame{width:100%;max-width:260px}
   .hero-right{width:100%}
+  /* Founder */
+  .founder-grid{grid-template-columns:1fr;text-align:center;gap:1.5rem}
+  .founder-links{justify-content:center;flex-direction:column;align-items:center}
+  .founder-avatar{margin:0 auto}
+  .founder-avatar-ring{width:130px;height:130px}
+  .founder-name{font-size:2.2rem}
+  .founder-bio{font-size:.88rem}
+  .mvp-banner{flex-direction:column;gap:.5rem}
+  /* Close section */
+  .close-manifesto{font-size:.88rem}
+  .founding-perks{gap:.4rem}
+  .fp{font-size:.68rem;padding:.25rem .6rem}
+  /* Social proof */
+  .sp-stat{padding:.9rem 1rem}
+  .sp-num{font-size:1.7rem}
 }
 @media(min-width:961px){.mm{display:none!important}}
 </style>
@@ -1699,8 +1754,8 @@ const plots = Array.from({length:MAX_PLOTS},(_,i)=>({
 
 // Mound positions — 2 rows of 3, honeycomb offset
 const MOUND_POS = [
-  {x:120,y:360}, {x:300,y:345}, {x:480,y:358}, {x:660,y:348},
-  {x:210,y:400}, {x:570,y:395},
+  {x:100,y:418}, {x:270,y:422}, {x:440,y:416},
+  {x:600,y:420}, {x:185,y:430}, {x:520,y:428},
 ];
 
 let particles = [];
@@ -1940,86 +1995,93 @@ function drawPlots(){
     if(p.status==='growing') drawPlant(pos.x,pos.y,p);
     if(i>=unlocked){
       ctx.fillStyle='rgba(255,255,255,.18)';ctx.font='bold 13px DM Sans,sans-serif';
-      ctx.textAlign='center';ctx.fillText('🔒',pos.x,pos.y-8);
+      ctx.textAlign='center';ctx.fillText('🔒',pos.x,pos.y-20);
     } else if(p.status==='empty'){
-      ctx.fillStyle=p.isGolden?'rgba(255,215,0,.5)':'rgba(255,255,255,.22)';
+      ctx.fillStyle=p.isGolden?'rgba(255,215,0,.55)':'rgba(255,255,255,.25)';
       ctx.font=`bold ${14+Math.sin(frame*.04+i)*.8}px sans-serif`;ctx.textAlign='center';
-      ctx.fillText(p.isGolden?'✦':'+',pos.x,pos.y-6);
+      ctx.fillText(p.isGolden?'✦':'+',pos.x,pos.y-20);
     }
     if(p.isGolden&&p.status==='empty'){
-      ctx.fillStyle='rgba(255,215,0,.8)';ctx.font='bold 9px DM Sans,sans-serif';ctx.textAlign='center';
-      ctx.fillText('✦ 2× XP',pos.x,pos.y+24);
+      ctx.fillStyle='rgba(255,215,0,.8)';ctx.font='bold 8px DM Sans,sans-serif';ctx.textAlign='center';
+      ctx.fillText('✦ 2× XP',pos.x,pos.y+14);
     }
     if(p.status==='growing'){
-      const lbl=p.progress>=1?`✦ Harvest! ${p.crop.name}`:p.crop.name+` (${Math.floor(p.progress*100)}%)`;
-      ctx.fillStyle=p.progress>=1?'#FFE680':'rgba(255,255,255,.5)';
-      ctx.font='bold 9px DM Sans,sans-serif';ctx.textAlign='center';
-      ctx.fillText(lbl,pos.x,pos.y+22);
-      // rarity dot
+      const lbl=p.progress>=1?`✦ Tap to harvest!`:p.crop.name+` ${Math.floor(p.progress*100)}%`;
+      ctx.fillStyle=p.progress>=1?'#FFE680':'rgba(255,255,255,.45)';
+      ctx.font='bold 8px DM Sans,sans-serif';ctx.textAlign='center';
+      ctx.fillText(lbl,pos.x,pos.y+14);
       ctx.fillStyle=p.crop.rarityColor;
-      ctx.beginPath();ctx.arc(pos.x,pos.y+30,3.5,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(pos.x,pos.y+22,3,0,Math.PI*2);ctx.fill();
     }
   });
 }
 
 function drawMound(cx,cy,plot,unlocked){
+  // cy = ground surface level
+  // mound dome rises UP from cy, base extends slightly below
   const isReady=plot.status==='growing'&&plot.progress>=1;
   const shimmer=.5+.5*Math.sin(frame*.04);
-  // cy is the top-of-mound point — base sits below ground line
-  const moundTop = cy;
-  const moundBase = cy + 28; // extends into the ground
+  const domeH = 32; // how tall the mound rises above ground
+  const top = cy - domeH; // top of dome
   ctx.save();ctx.globalAlpha=unlocked?1:.4;
-  // shadow under mound
+  // shadow on ground
   ctx.fillStyle='rgba(0,0,0,.35)';
-  ctx.beginPath();ctx.ellipse(cx,moundBase-4,40,9,0,0,Math.PI*2);ctx.fill();
-  // side (darker)
+  ctx.beginPath();ctx.ellipse(cx,cy+2,42,8,0,0,Math.PI*2);ctx.fill();
+  // clip: only draw mound above ground so it looks embedded
+  ctx.save();
+  ctx.beginPath();ctx.rect(0,0,W,cy+6);ctx.clip();
+  // side (darker back face)
   ctx.fillStyle=isReady?'#7A3A18':'#5A2E0C';
   ctx.beginPath();
-  ctx.moveTo(cx-38,moundBase);
-  ctx.quadraticCurveTo(cx-39,moundTop-10,cx,moundTop-14);
-  ctx.quadraticCurveTo(cx+39,moundTop-10,cx+38,moundBase);
+  ctx.moveTo(cx-40,cy+4);
+  ctx.quadraticCurveTo(cx-40,top+4,cx,top);
+  ctx.quadraticCurveTo(cx+40,top+4,cx+40,cy+4);
   ctx.closePath();ctx.fill();
   // top surface
-  const topGrd=ctx.createRadialGradient(cx-8,moundTop,2,cx,moundTop+4,32);
-  topGrd.addColorStop(0,isReady?'#B06A30':'#8A5230');
+  const topGrd=ctx.createRadialGradient(cx-10,top+6,2,cx,top+12,34);
+  topGrd.addColorStop(0,isReady?'#C07040':'#9A6040');
+  topGrd.addColorStop(0.6,isReady?'#A05030':'#7A4020');
   topGrd.addColorStop(1,isReady?'#7A3A18':'#5A2E0C');
   ctx.fillStyle=topGrd;
   ctx.beginPath();
-  ctx.moveTo(cx-34,moundBase);
-  ctx.quadraticCurveTo(cx-35,moundTop-8,cx,moundTop-14);
-  ctx.quadraticCurveTo(cx+35,moundTop-8,cx+34,moundBase);
-  ctx.quadraticCurveTo(cx+20,moundBase-8,cx,moundBase-8);
-  ctx.quadraticCurveTo(cx-20,moundBase-8,cx-34,moundBase);
+  ctx.moveTo(cx-36,cy+4);
+  ctx.quadraticCurveTo(cx-36,top+6,cx,top);
+  ctx.quadraticCurveTo(cx+36,top+6,cx+36,cy+4);
+  ctx.quadraticCurveTo(cx+20,cy-4,cx,cy-4);
+  ctx.quadraticCurveTo(cx-20,cy-4,cx-36,cy+4);
   ctx.closePath();ctx.fill();
   // rim highlight
-  ctx.strokeStyle='rgba(255,255,255,.14)';ctx.lineWidth=1.5;ctx.lineCap='round';
+  ctx.strokeStyle='rgba(255,255,255,.16)';ctx.lineWidth=1.5;ctx.lineCap='round';
   ctx.beginPath();
-  ctx.moveTo(cx-34,moundBase);
-  ctx.quadraticCurveTo(cx-35,moundTop-8,cx,moundTop-14);
-  ctx.quadraticCurveTo(cx+35,moundTop-8,cx+34,moundBase);
+  ctx.moveTo(cx-36,cy+4);
+  ctx.quadraticCurveTo(cx-36,top+6,cx,top);
+  ctx.quadraticCurveTo(cx+36,top+6,cx+36,cy+4);
   ctx.stroke();
   // texture dents
-  ctx.fillStyle='rgba(0,0,0,.28)';ctx.beginPath();ctx.ellipse(cx-11,moundTop+2,7,2.5,-.2,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle='rgba(0,0,0,.22)';ctx.beginPath();ctx.ellipse(cx+12,moundTop-2,5.5,2,-.1,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='rgba(0,0,0,.25)';
+  ctx.beginPath();ctx.ellipse(cx-12,top+14,7,2.5,-.15,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx+14,top+18,5.5,2,-.1,0,Math.PI*2);ctx.fill();
   // ready glow
   if(isReady){
-    ctx.fillStyle=`rgba(255,200,50,${.15+shimmer*.12})`;
-    ctx.beginPath();ctx.ellipse(cx,moundTop-4,30,14,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=`rgba(255,200,50,${.12+shimmer*.1})`;
+    ctx.beginPath();ctx.ellipse(cx,top+8,32,16,0,0,Math.PI*2);ctx.fill();
   }
   // golden shimmer
   if(plot.isGolden){
-    ctx.fillStyle=`rgba(255,215,0,${.08+shimmer*.1})`;
-    ctx.beginPath();ctx.ellipse(cx,moundTop-2,32,15,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=`rgba(255,215,0,${.06+shimmer*.08})`;
+    ctx.beginPath();ctx.ellipse(cx,top+8,34,18,0,0,Math.PI*2);ctx.fill();
   }
+  ctx.restore(); // end clip
   ctx.restore();
 }
 
 function drawPlant(cx,cy,plot){
   const c=plot.crop;if(!c)return;
-  const base=cy-32;
+  // Plant stem starts from top of mound dome (32px above ground)
+  const groundY = cy - 32;
   const wobble=Math.sin(frame*plot.wobbleSpeed+plot.wobble)*3;
   const s=plot.stage;
-  ctx.save();ctx.translate(cx+wobble*.5,base);
+  ctx.save();ctx.translate(cx+wobble*.5,groundY);
   // stem
   ctx.strokeStyle=c.stem;ctx.lineWidth=s===1?2:s===2?2.5:3;ctx.lineCap='round';
   const stemH=s===1?14:s===2?36:52;
@@ -2587,7 +2649,7 @@ const spObs=new IntersectionObserver(entries=>{
       animCount(document.getElementById('spDays'),540,1800);
       animCount(document.getElementById('spScreens'),30,1600);
       animCount(document.getElementById('spBosses'),8,1400);
-      animCount(document.getElementById('spWaitlist'),2,1000);
+      animCount(document.getElementById('spWaitlist'),1,1000);
       spObs.disconnect();
     }
   });
