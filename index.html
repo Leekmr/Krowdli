@@ -1563,11 +1563,11 @@ footer{border-top:1px solid rgba(255,106,0,0.08);padding:56px clamp(20px,4vw,48p
         <span class="fp">🃏 Rare Social Card</span>
         <span class="fp">🏅 Early Supporter Title</span>
       </div>
-      <div class="waitlist-form">
-        <input type="email" class="wi" placeholder="your@email.com" id="wi" autocomplete="email">
-        <button class="btn-p" onclick="handleW()" style="border-radius:10px;padding:14px 28px">Claim My Spot</button>
-      </div>
-      <p id="wm"></p>
+      <form name="waitlist" method="POST" data-netlify="true" class="waitlist-form" style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem">
+        <input type="hidden" name="form-name" value="waitlist">
+        <input type="email" name="email" class="wi" placeholder="your@email.com" required>
+        <button type="submit" class="btn-p" style="border-radius:10px;padding:14px 28px">Claim My Spot</button>
+      </form>
       <p class="close-fine">No spam. No ads. No third-party sharing. Just the Krowdli launch drop.</p>
     </div>
   </div>
@@ -1624,17 +1624,6 @@ window.addEventListener('scroll',()=>{
   const g=document.querySelector('.hero-grid-bg');
   if(g)g.style.transform=`translateY(${window.scrollY*.2}px)`;
 },{passive:true});
-
-/* waitlist */
-function handleW(){
-  const i=document.getElementById('wi'),m=document.getElementById('wm');
-  const v=i.value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){m.style.color='#ff4444';m.textContent='⚠ Enter a valid email address.';return}
-  m.style.color='var(--o)';
-  m.textContent='✓ You\'re in. See you at launch.';
-  i.value='';i.disabled=true;
-}
-document.getElementById('wi').addEventListener('keydown',e=>{if(e.key==='Enter')handleW()});
 
 /* ══════════════════════════════════════════
    PARTY GROVE — full crop-type demo
@@ -2488,9 +2477,6 @@ const spObs=new IntersectionObserver(entries=>{
 },{threshold:.3});
 const spEl=document.querySelector('.social-proof');
 if(spEl) spObs.observe(spEl);
-</script>
-</body>
-</html>
 </script>
 </body>
 </html>
