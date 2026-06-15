@@ -1230,9 +1230,16 @@ const barObs=new IntersectionObserver(es=>{es.forEach(e=>{if(!e.isIntersecting)r
   barObs.unobserve(el);})},{threshold:.3});
 ['partyXp','userXp'].forEach(id=>{const el=document.getElementById(id);if(el)barObs.observe(el);});
 
-/* ════ SOCIAL PROOF ════ */
+/* ════ SOCIAL PROOF — EDIT YOUR NUMBERS HERE ════ */
+/* "Days building" auto-counts from this start date. Change the date if needed. */
+const BUILD_START = new Date('2025-1-16');           // ← Krowdli build start date
+const STAT_SCREENS  = 30;                              // ← Screens built
+const STAT_BOSSES   = 8;                               // ← Boss monsters
+const STAT_WAITLIST = 6;                               // ← On waitlist (base number)
+/* ───────────────────────────────────────────── */
+const STAT_DAYS = Math.max(1, Math.floor((Date.now() - BUILD_START.getTime()) / 86400000));
 function aC(id,tgt,dur){const el=document.getElementById(id);if(!el)return;let st=null;const tick=ts=>{if(!st)st=ts;const p=Math.min((ts-st)/dur,1);el.textContent=Math.floor((1-Math.pow(1-p,3))*tgt).toLocaleString();if(p<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);}
-const spObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){aC('spD',540,1800);aC('spS',30,1600);aC('spB',8,1400);aC('spW',1,1000);spObs.disconnect();}});},{threshold:.3});
+const spObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){aC('spD',STAT_DAYS,1800);aC('spS',STAT_SCREENS,1600);aC('spB',STAT_BOSSES,1400);aC('spW',STAT_WAITLIST,1000);spObs.disconnect();}});},{threshold:.3});
 const spEl=document.getElementById('sproof');if(spEl)spObs.observe(spEl);
 
 /* ════ CTA FORM + CELEBRATION ════ */
